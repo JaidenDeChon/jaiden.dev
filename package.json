@@ -13,6 +13,8 @@
   "dependencies": {
     "@internationalized/date": "^3.5.5",
     "@nuxt/eslint": "^0.5.7",
+    "@nuxt/icon": "^1.5.6",
+    "@nuxt/image": "^1.8.1",
     "@nuxt/test-utils": "^3.14.2",
     "@nuxtjs/color-mode": "^3.4.4",
     "@pinia/nuxt": "^0.5.4",
@@ -29,9 +31,12 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@iconify-json/gravity-ui": "^1.2.2",
+    "@iconify-json/mdi": "^1.2.1",
     "@nuxt/eslint-config": "^0.5.7",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "eslint": "^9.10.0",
     "typescript": "^5.6.2"
-  }
+  },
+  "packageManager": "pnpm@9.12.2+sha512.22721b3a11f81661ae1ec68ce1a7b879425a1ca5b991c975b074ac220b187ce56c708fe5db69f4c962c989452eee76c82877f4ee80f474cebd61ee13461b6228"
 }

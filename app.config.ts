@@ -1,3 +1,3 @@
 export default defineAppConfig({
-    title: 'NatureJab Dashboard',
+    title: 'jaiden.dev',
 });
