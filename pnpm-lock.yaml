@@ -63,6 +63,12 @@ importers:
         specifier: latest
         version: 4.4.5(vue@3.5.12(typescript@5.6.3))
     devDependencies:
+      '@iconify-json/akar-icons':
+        specifier: ^1.2.1
+        version: 1.2.1
+      '@iconify-json/devicon-plain':
+        specifier: ^1.2.4
+        version: 1.2.4
       '@iconify-json/gravity-ui':
         specifier: ^1.2.2
         version: 1.2.2
@@ -918,6 +924,12 @@ packages:
   '@humanwhocodes/retry@0.3.1':
     resolution: {integrity: sha512-JBxkERygn7Bv/GbN5Rv8Ul6LVknS+5Bp6RgDC/O8gEBU/yeH5Ui5C/OlWrTb6qct7LjjfT6Re2NxB0ln0yYybA==}
     engines: {node: '>=18.18'}
+
+  '@iconify-json/akar-icons@1.2.1':
+    resolution: {integrity: sha512-b2qj2P2LxVUSl7vP+/1FDeF5+DL6IpKw5yon+Qszb8rWejKr/uQn6dV9yGE+pGaKkFaxGhPNF75EsCNLmrbm0Q==}
+
+  '@iconify-json/devicon-plain@1.2.4':
+    resolution: {integrity: sha512-zJEj6CFhRytWWEFU58cb4qccVXpGDKxhlyaIRspJuRh2nlu2oz75lZgw6C9u8yGOT0X8DTO/RbXN1rnYmonogg==}
 
   '@iconify-json/gravity-ui@1.2.2':
     resolution: {integrity: sha512-9PNVp7jbDW/cYTLCP2p6e57T/O4KiWZDhtsi9tHmthZVsNXIdxA9kh5VBT/VUwBqG9rPictI5cb6Fkf6U3yz/Q==}
@@ -5360,6 +5372,14 @@ snapshots:
   '@humanwhocodes/module-importer@1.0.1': {}
 
   '@humanwhocodes/retry@0.3.1': {}
+
+  '@iconify-json/akar-icons@1.2.1':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/devicon-plain@1.2.4':
+    dependencies:
+      '@iconify/types': 2.0.0
 
   '@iconify-json/gravity-ui@1.2.2':
     dependencies:
