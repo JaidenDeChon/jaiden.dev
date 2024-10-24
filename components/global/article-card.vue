@@ -10,7 +10,7 @@ defineProps<{
 <template>
     <nuxt-link
         :to="$props.to"
-        class="p-4 flex flex-col gap-3 rounded-md transition-colors border-2 dark:transition-none dark:hover:shadow-none group"
+        class="p-4 flex flex-col gap-3 rounded-md bg-background transition-colors border-2 dark:transition-none dark:hover:shadow-none group"
     >
         <!-- Image. -->
         <div class="w-full bg-accent h-56 flex items-center justify-center rounded-md overflow-hidden">
@@ -39,7 +39,7 @@ defineProps<{
         </div>
 
         <!-- Description. -->
-        <p class="fancy-text-decoration">
+        <p class="fancy-text-decoration text-muted-foreground">
             {{ $props.articleData.description }}
         </p>
     </nuxt-link>

@@ -43,7 +43,7 @@ const projects: ArticleCardProps[] = [
 </script>
 
 <template>
-    <div class="my-projects-parent bg-background p-9">
+    <div class="my-projects-parent bg-muted p-9">
         <div class="size-for-all-screens">
             <h2 class="text-3xl">
                 My projects
