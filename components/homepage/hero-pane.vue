@@ -11,7 +11,6 @@
             <div class="flex flex-col gap-12 md:gap-9">
                 <h1 class="text-4xl font-medium">
                     👋 Hello! I'm Jaiden.
-                    <!-- <span class="bg-brand-yellow px-2 text-brand-yellow-foreground">Jaiden</span>. -->
                 </h1>
 
                 <p class="w-full text-2xl font-medium leading-10">
