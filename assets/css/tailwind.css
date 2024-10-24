@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    .fancy-text-decoration {
+      text-decoration: underline 0.09rem rgba(0, 0, 0, 0);
+      text-underline-offset: 0.12em;
+      transition: text-decoration-color 300ms, text-underline-offset 300ms;
+    }
+  
+    .fancy-text-decoration:hover,
+    .group:hover .fancy-text-decoration {
+      text-decoration-color: var(--brand-blue);
+      text-underline-offset: 0.2em;
+    }
+  }
+
 @layer components {
     .size-for-all-screens {
         @apply max-w-7xl mx-auto;

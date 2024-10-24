@@ -1,38 +1,46 @@
 <script setup lang="ts">
-// import { Badge } from '../ui/badge';
 import type { ArticleCardProps } from '~/lib/models/article-card-props';
 
-defineProps<{ articleData: ArticleCardProps }>();
+defineProps<{
+    articleData: ArticleCardProps;
+    to: string;
+}>();
 </script>
 
 <template>
-    <div class="article-card flex flex-col gap-3">
+    <nuxt-link
+        :to="$props.to"
+        class="p-4 flex flex-col gap-3 rounded-md transition-colors border-2 dark:transition-none dark:hover:shadow-none group"
+    >
         <!-- Image. -->
-        <div class="w-full bg-accent h-56 overflow-hidden rounded-md">
+        <div class="w-full bg-accent h-56 flex items-center justify-center rounded-md overflow-hidden">
             <nuxt-img
                 :src="$props.articleData.image"
                 :alt="`Image for ${$props.articleData.title}`"
-                class="w-full max-h-56 object-cover transition-shadow"
+                class="w-full h-full max-w-full max-h-full object-cover transition-all duration-700 group-hover:scale-105"
             />
         </div>
 
         <!-- Title. -->
-        <p class="text-2xl">
+        <p class="text-2xl fancy-text-decoration">
             {{ $props.articleData.title }}
         </p>
 
         <!-- Tags. -->
-        <div class="flex gap-2 flex-wrap">
+        <div class="flex gap-2 flex-wrap mb-3">
             <Badge
                 v-for="tag in $props.articleData.tags"
                 :key="tag"
                 variant="secondary"
+                class="bg-brand-yellow hover:bg-brand-yellow text-brand-yellow-foreground dark:bg-brand-yellow dark:hover:bg-brand-yellow dark:text-brand-yellow-foreground"
             >
                 {{ tag }}
             </Badge>
         </div>
 
         <!-- Description. -->
-        <p>{{ $props.articleData.description }}</p>
-    </div>
+        <p class="fancy-text-decoration">
+            {{ $props.articleData.description }}
+        </p>
+    </nuxt-link>
 </template>

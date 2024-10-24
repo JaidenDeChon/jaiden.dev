@@ -30,13 +30,13 @@ const projects: ArticleCardProps[] = [
     {
         title: 'cake',
         description: 'Easy-to-use website builder powered by a rich text editor.',
-        image: '/img/osrs-ge-skiller.png',
+        image: '/img/cake.png',
         tags: ['VueJS', 'NestJS', 'MongoDB', 'AWS', 'TypeScript', 'Tailwind'],
     },
     {
         title: 'self-aware-grid',
         description: 'Open-source NPM package for enhancing functionality of CSS grids.',
-        image: '/img/osrs-ge-skiller.png',
+        image: '/img/self-aware-grid.png',
         tags: ['VueJS', 'NestJS', 'MongoDB', 'AWS', 'TypeScript', 'Tailwind'],
     },
 ];
@@ -50,15 +50,13 @@ const projects: ArticleCardProps[] = [
             </h2>
 
             <div class="mt-6">
-                <div class="grid grid-cols-1 gap-9 md:grid-cols-2 lg:grid-cols-3">
-                    <nuxt-link
+                <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+                    <article-card
                         v-for="project in projects"
                         :key="project.title"
-                    >
-                        <article-card
-                            :article-data="project"
-                        />
-                    </nuxt-link>
+                        :article-data="project"
+                        :to="project.title"
+                    />
                 </div>
             </div>
         </div>
