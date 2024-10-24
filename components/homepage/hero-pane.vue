@@ -27,7 +27,7 @@
                 </p>
 
                 <div class="flex gap-6">
-                    <Button class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker hover:shadow-lg dark:bg-brand-blue dark:text-brand-blue-foreground">
+                    <Button class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker hover:shadow-lg dark:bg-brand-blue dark:text-brand-blue-foreground relative backlight">
                         Get in touch
                     </Button>
                     <Button
@@ -44,7 +44,7 @@
 
 <style scoped>
     * {
-        font-family: "Afacad Flux", sans-serif;
+        @apply afacad;
     }
 
     .hero-parent {
