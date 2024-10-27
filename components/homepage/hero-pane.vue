@@ -2,7 +2,7 @@
 import Globe from 'globe.gl';
 
 const colorMode = useColorMode();
-const currentColorMode = computed(() => colorMode.value);
+const isLightMode = computed(() => colorMode.value === 'light');
 
 const globeBermudaTriangleSideColor = computed(() => {
     switch (colorMode.value) {
@@ -31,26 +31,6 @@ const globeAccentColor = computed(() => {
         case 'light':
         default:
             return '0, 123, 255';
-    }
-});
-
-const globeImageUrl = computed(() => {
-    switch (colorMode.value) {
-        case 'dark':
-            return 'img/earth/earth-dark.jpg';
-        case 'light':
-        default:
-            return 'img/earth/earth-light.jpg';
-    }
-});
-
-const globeBackgroundColor = computed(() => {
-    switch (colorMode.value) {
-        case 'dark':
-            return 'rgb(9, 9, 11)';
-        case 'light':
-        default:
-            return 'rgb(255, 255, 255)';
     }
 });
 
@@ -123,9 +103,9 @@ function setUpGlobe() {
 
     world(worldContainer.value)
         // Set up world imagery.
-        .globeImageUrl(globeImageUrl.value)
+        .globeImageUrl('img/earth/earth-dark.jpg')
         .bumpImageUrl('img/earth/earth-topology.png')
-        .backgroundColor(globeBackgroundColor.value)
+        .backgroundColor('rgba(0, 0, 0, 0)')
 
         // Make initial rotation land on North America.
         .pointOfView({ lat: 25.7617, lng: -80.1918, altitude: 2 }, 0)
@@ -150,10 +130,8 @@ function setUpGlobe() {
 
 watch(worldLoaded, () => setUpGlobe());
 
-watch(currentColorMode, () => {
+watch(isLightMode, () => {
     world
-        .globeImageUrl(globeImageUrl.value)
-        .backgroundColor(globeBackgroundColor.value)
         .ringColor(() => colorInterpolator)
         .polygonCapColor(() => globeBermudaTriangleBackgroundColor.value)
         .polygonSideColor(() => globeBermudaTriangleSideColor.value);
@@ -161,9 +139,15 @@ watch(currentColorMode, () => {
 </script>
 
 <template>
-    <div class="hero-parent h-screen">
+    <div
+        class="h-screen"
+    >
         <div class="size-for-all-screens overflow-x-hidden">
-            <div ref="worldContainer" />
+            <div
+                ref="worldContainer"
+                class="hero-parent__world-container"
+                :class="{ inverted: isLightMode }"
+            />
         </div>
         <div class="size-for-all-screens flex flex-col justify-between items-center gap-12 p-9 absolute h-full top-0 md:flex-row-reverse xl:px-0">
             <div class="flex flex-col justify-center gap-12 h-full md:gap-9">
@@ -207,8 +191,17 @@ watch(currentColorMode, () => {
     </div>
 </template>
 
-<style scoped>
+<style>
     * {
         @apply afacad;
+    }
+
+    .hero-parent__world-container canvas {
+        transition: filter 1.8s ease;
+    }
+
+    .hero-parent__world-container.inverted canvas {
+        transition: filter 1.8s ease;
+        filter: invert(100%) hue-rotate(180deg);
     }
 </style>
