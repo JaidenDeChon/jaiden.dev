@@ -197,11 +197,11 @@ watch(isLightMode, () => {
     }
 
     .hero-parent__world-container canvas {
-        transition: filter 1.8s ease;
+        transition: filter 0.5s ease;
     }
 
     .hero-parent__world-container.inverted canvas {
-        transition: filter 1.8s ease;
+        transition: filter 0.5s ease;
         filter: invert(100%) hue-rotate(180deg);
     }
 </style>
