@@ -10,14 +10,14 @@ defineProps<{
 <template>
     <nuxt-link
         :to="$props.to"
-        class="p-4 flex flex-col gap-3 rounded-md bg-background transition-colors border-2 dark:transition-none dark:hover:shadow-none group"
+        class="p-4 flex flex-col gap-3 rounded-md bg-background transition-all border-2 hover:shadow-xl hover:border-background group"
     >
         <!-- Image. -->
         <div class="w-full bg-accent h-56 flex items-center justify-center rounded-md overflow-hidden">
             <nuxt-img
                 :src="$props.articleData.image"
                 :alt="`Image for ${$props.articleData.title}`"
-                class="w-full h-full max-w-full max-h-full object-cover transition-all duration-700 group-hover:scale-105"
+                class="w-full h-full max-w-full max-h-full object-cover transition-all duration-200 group-hover:scale-105"
             />
         </div>
 

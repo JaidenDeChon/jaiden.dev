@@ -8,18 +8,18 @@
     }
 
     .fancy-text-decoration {
-      text-decoration: underline 0.09rem rgba(0, 0, 0, 0);
-      text-underline-offset: 0.12em;
-      transition: text-decoration-color 300ms, text-underline-offset 300ms;
-    }
-  
-    .fancy-text-decoration:hover,
-    .group:hover .fancy-text-decoration {
-      text-decoration-color: var(--brand-blue);
-      text-underline-offset: 0.2em;
+        text-decoration: underline 0.09rem rgba(0, 0, 0, 0);
+        text-underline-offset: 0.12em;
+        transition: text-decoration-color 300ms, text-underline-offset 300ms;
     }
 
-    .backlight::after {
+    .fancy-text-decoration:hover,
+    .group:hover .fancy-text-decoration {
+        text-decoration-color: var(--brand-blue);
+        text-underline-offset: 0.2em;
+    }
+
+    .backlight::before {
         content: '';
         width: 100%;
         height: 100%;
@@ -29,7 +29,7 @@
         filter: blur(1.2em);
         z-index: -1;
     }
-  }
+}
 
 @layer components {
     .size-for-all-screens {

@@ -8,8 +8,12 @@ import MyProjects from '~/components/homepage/my-projects.vue';
     <div>
         <app-header />
 
-        <main class="pt-16">
-            <hero-pane />
+        <main>
+            <div class="h-screen">
+                <client-only>
+                    <hero-pane />
+                </client-only>
+            </div>
             <technologies-list />
             <my-projects />
         </main>
