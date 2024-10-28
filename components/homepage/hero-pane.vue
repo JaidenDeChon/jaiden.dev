@@ -129,6 +129,7 @@ function setUpGlobe() {
 
     // Set up auto-rotate and disable manual control if mobile resolution.
     if (currentViewportWidth.value < maxWorldContainerWidth) world.controls().enabled = false;
+    world.controls().enableZoom = false;
     world.controls().autoRotateSpeed = -0.6;
     setTimeout(() => {
         world.controls().autoRotate = true;
@@ -161,7 +162,7 @@ watch(isLightMode, () => {
             :class="{ inverted: isLightMode }"
         />
         <div class="absolute h-full w-full max-w-7xl pointer-events-none lg:left-1/2 lg:transform lg:-translate-x-1/2">
-            <hero-text class="h-full mr-auto max-w-lg" />
+            <hero-text class="h-full mr-auto p-9 max-w-lg 2xl:p-0" />
         </div>
     </div>
 </template>
