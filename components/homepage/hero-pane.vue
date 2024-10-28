@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Globe from 'globe.gl';
+import HeroText from './hero-text.vue';
 
 const colorMode = useColorMode();
 const isLightMode = computed(() => colorMode.value === 'light');
@@ -33,11 +34,6 @@ const globeAccentColor = computed(() => {
             return '0, 123, 255';
     }
 });
-
-const animateHeading = ref('opacity-0 translate-y-4');
-const animateParagraph1 = ref('opacity-0 translate-y-4');
-const animateParagraph2 = ref('opacity-0 translate-y-4');
-const animateButtonGroup = ref('opacity-0 translate-y-4');
 
 const world = Globe();
 const worldContainer: Ref<HTMLElement | null> = ref(null);
@@ -85,14 +81,25 @@ const bermudaTriangleGeoJSON = {
     ],
 };
 
-onMounted(() => {
-    // Trigger staggered fade-in and move-up animations for each element
-    setTimeout(() => animateHeading.value = '', 100);
-    setTimeout(() => animateParagraph1.value = '', 200);
-    setTimeout(() => animateParagraph2.value = '', 400);
-    setTimeout(() => animateButtonGroup.value = '', 600);
+const maxWorldContainerWidth = 1024;
+const currentViewportWidth = ref(0);
+watch(currentViewportWidth, () => {
+    sizeWorldContainerToViewport();
+});
 
+onMounted(() => {
+    // Initial value setting for viewportWidth tracking variable.
+    currentViewportWidth.value = window.innerWidth;
+
+    // Load globe.
     worldLoaded.value = true;
+
+    // Set up globe resize on window size change.
+    window.addEventListener('resize', () => currentViewportWidth.value = window.innerWidth);
+});
+
+onBeforeUnmount(() => {
+    window.removeEventListener('rezie', () => currentViewportWidth.value = window.innerWidth);
 });
 
 // Interpolates color using the brand blue.
@@ -108,7 +115,7 @@ function setUpGlobe() {
         .backgroundColor('rgba(0, 0, 0, 0)')
 
         // Make initial rotation land on North America.
-        .pointOfView({ lat: 25.7617, lng: -80.1918, altitude: 2 }, 0)
+        .pointOfView({ lng: -80.1918 }, 0)
 
         // Set up rings.
         .ringsData(ancientSitesWithRings)
@@ -120,12 +127,20 @@ function setUpGlobe() {
         .polygonSideColor(() => globeBermudaTriangleSideColor.value) // Slightly transparent green for sides
         .polygonsData(bermudaTriangleGeoJSON.features); // Apply the GeoJSON data;
 
-    // Set up auto-rotate and disable manual control.
-    world.controls().enabled = false;
+    // Set up auto-rotate and disable manual control if mobile resolution.
+    if (currentViewportWidth.value < maxWorldContainerWidth) world.controls().enabled = false;
     world.controls().autoRotateSpeed = -0.6;
     setTimeout(() => {
         world.controls().autoRotate = true;
     }, 1000);
+}
+
+function sizeWorldContainerToViewport() {
+    const innerWidth = window.innerWidth;
+    const innerHeight = window.innerHeight;
+
+    world.height(innerHeight);
+    world.width(innerWidth > maxWorldContainerWidth ? maxWorldContainerWidth : innerWidth);
 }
 
 watch(worldLoaded, () => setUpGlobe());
@@ -139,54 +154,14 @@ watch(isLightMode, () => {
 </script>
 
 <template>
-    <div
-        class="h-screen"
-    >
-        <div class="size-for-all-screens overflow-x-hidden">
-            <div
-                ref="worldContainer"
-                class="hero-parent__world-container"
-                :class="{ inverted: isLightMode }"
-            />
-        </div>
-        <div class="size-for-all-screens flex flex-col justify-between items-center gap-12 p-9 absolute h-full top-0 md:flex-row-reverse xl:px-0">
-            <div class="flex flex-col justify-center gap-12 h-full md:gap-9">
-                <h1 :class="`text-4xl font-medium transition-all duration-700 ease-in-out ${animateHeading}`">
-                    👋 Hello! I'm Jaiden.
-                </h1>
-
-                <p :class="`w-full text-2xl font-medium leading-10 transition-all duration-700 ease-in-out ${animateParagraph1}`">
-                    I create
-                    <span class="bg-brand-yellow px-2 text-brand-yellow-foreground rounded-sm">
-                        beautiful web-apps
-                    </span>
-                    with an intense focus on
-                    <span class="bg-brand-yellow px-2 text-brand-yellow-foreground rounded-sm">
-                        performance
-                    </span>
-                    and
-                    <span class="bg-brand-yellow px-2 text-brand-yellow-foreground rounded-sm">
-                        accessibility
-                    </span>
-                    .
-                </p>
-
-                <p :class="`w-full text-2xl font-medium leading-10 transition-all duration-700 ease-in-out ${animateParagraph2}`">
-                    When I'm not coding, I love learning about ancient history, spirituality, and consciousness.
-                </p>
-
-                <div :class="`flex gap-6 transition-all duration-700 ease-in-out ${animateButtonGroup}`">
-                    <Button class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker hover:shadow-lg dark:bg-brand-blue-darker dark:text-brand-blue-foreground dark:hover:bg-brand-blue">
-                        Get in touch
-                    </Button>
-                    <Button
-                        class="text-lg"
-                        variant="secondary"
-                    >
-                        My projects
-                    </Button>
-                </div>
-            </div>
+    <div class="overflow-x-hidden relative flex">
+        <div
+            ref="worldContainer"
+            class="hero-parent__world-container lg:ml-auto"
+            :class="{ inverted: isLightMode }"
+        />
+        <div class="absolute h-full w-full max-w-7xl pointer-events-none lg:left-1/2 lg:transform lg:-translate-x-1/2">
+            <hero-text class="h-full mr-auto max-w-lg" />
         </div>
     </div>
 </template>
