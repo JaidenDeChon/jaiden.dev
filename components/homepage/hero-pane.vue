@@ -221,7 +221,8 @@ function setUpGlobe() {
 
     // Hold onto default lights since we remove one of them in light mode and restore it in dark.
     defaultLights.push(...world.lights());
-    if (isLightMode.value) world.lights(defaultLights[0] as never);
+    world.lights(isLightMode.value ? [defaultLights[0]] : defaultLights);
+    // if (isLightMode.value) world.lights(defaultLights[0] as never);
 
     // Set up auto-rotate and disable manual control if mobile resolution.
     if (currentViewportWidth.value < maxWorldContainerWidth) world.controls().enabled = false;
@@ -242,20 +243,23 @@ function sizeWorldContainerToViewport() {
 
 watch(worldLoaded, () => setUpGlobe());
 
-watch(isLightMode, (newValue: boolean) => {
-    world
-        .lights(newValue ? [defaultLights[0]] : defaultLights)
-        .ringColor(() => colorInterpolator)
-        .polygonCapColor(() => globeBermudaTriangleBackgroundColor.value)
-        .polygonSideColor(() => globeBermudaTriangleSideColor.value);
-});
+watch(
+    isLightMode,
+    (newValue: boolean) => {
+        world
+            .lights(newValue ? [defaultLights[0]] : defaultLights)
+            .ringColor(() => colorInterpolator)
+            .polygonCapColor(() => globeBermudaTriangleBackgroundColor.value)
+            .polygonSideColor(() => globeBermudaTriangleSideColor.value);
+    },
+);
 </script>
 
 <template>
     <div class="overflow-x-hidden relative flex">
         <div
             ref="worldContainer"
-            class="hero-parent__world-container md:ml-auto xl:mr-16 2xl:mr-24"
+            class="hero-parent__world-container lg:ml-auto xl:mr-16 2xl:mr-24 3xl:mr-32 4xl:mr-"
             :class="{ inverted: isLightMode }"
         />
         <div class="absolute h-full w-full max-w-7xl pointer-events-none lg:left-1/2 lg:transform lg:-translate-x-1/2">
