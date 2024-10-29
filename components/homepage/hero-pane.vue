@@ -5,26 +5,6 @@ import HeroText from './hero-text.vue';
 const colorMode = useColorMode();
 const isLightMode = computed(() => colorMode.value === 'light');
 
-const globeBermudaTriangleSideColor = computed(() => {
-    switch (colorMode.value) {
-        case 'dark':
-            return 'rgba(0, 0, 0, 0.12)';
-        case 'light':
-        default:
-            return 'rgba(255, 255, 255, 0.12)';
-    }
-});
-
-const globeBermudaTriangleBackgroundColor = computed(() => {
-    switch (colorMode.value) {
-        case 'dark':
-            return 'rgba(200, 0, 0, 0.12)';
-        case 'light':
-        default:
-            return 'rgba(200, 0, 0, 0.06)';
-    }
-});
-
 const globeAccentColor = computed(() => {
     switch (colorMode.value) {
         case 'dark':
@@ -216,8 +196,8 @@ function setUpGlobe() {
         .ringMaxRadius(() => 3.9)
 
         // Set up bermuda triangle polygon.
-        .polygonCapColor(() => globeBermudaTriangleBackgroundColor.value)
-        .polygonSideColor(() => globeBermudaTriangleSideColor.value)
+        .polygonCapColor(() => 'rgba(255, 0, 0, 0.12)')
+        .polygonSideColor(() => 'rgba(0, 0, 0, 0)')
         .polygonsData(bermudaTriangleGeoJSON.features);
 
     // Hold onto default lights since we remove one of them in light mode and restore it in dark.
@@ -248,9 +228,7 @@ watch(
     (newValue: boolean) => {
         world
             .lights(newValue ? [defaultLights[0]] : defaultLights)
-            .ringColor(() => colorInterpolator)
-            .polygonCapColor(() => globeBermudaTriangleBackgroundColor.value)
-            .polygonSideColor(() => globeBermudaTriangleSideColor.value);
+            .ringColor(() => colorInterpolator);
     },
 );
 </script>
