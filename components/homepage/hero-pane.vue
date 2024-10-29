@@ -203,6 +203,7 @@ function setUpGlobe() {
         .globeImageUrl('img/earth/earth-dark.jpg')
         .bumpImageUrl('img/earth/earth-topology.png')
         .backgroundColor('rgba(0, 0, 0, 0)')
+        .atmosphereAltitude(0.24)
 
         // Make initial rotation land on North and South America.
         .pointOfView({
@@ -222,7 +223,6 @@ function setUpGlobe() {
     // Hold onto default lights since we remove one of them in light mode and restore it in dark.
     defaultLights.push(...world.lights());
     world.lights(isLightMode.value ? [defaultLights[0]] : defaultLights);
-    // if (isLightMode.value) world.lights(defaultLights[0] as never);
 
     // Set up auto-rotate and disable manual control if mobile resolution.
     if (currentViewportWidth.value < maxWorldContainerWidth) world.controls().enabled = false;
