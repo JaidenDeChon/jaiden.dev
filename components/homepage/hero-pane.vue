@@ -38,24 +38,111 @@ const globeAccentColor = computed(() => {
 const world = Globe();
 const worldContainer: Ref<HTMLElement | null> = ref(null);
 const worldLoaded = ref(false);
+const defaultLights: unknown[] = [];
 
 interface GlobeLocation {
+    name: string;
     lat: number;
+
     lng: number;
 }
 
 const ancientSitesWithRings: GlobeLocation[] = [
-    { lat: 51.1789, lng: -1.8262 },
-    { lat: 29.9792, lng: 31.1342 },
-    { lat: 37.2233, lng: 38.9218 },
-    { lat: -13.1632, lng: -72.5453 },
-    { lat: -27.1127, lng: -109.3497 },
-    { lat: 20.6843, lng: -88.5678 },
-    { lat: 41.3099, lng: -122.3106 },
-    { lat: -14.7390, lng: -75.1300 },
-    { lat: -16.5542, lng: -68.6782 },
-    { lat: 38.4801, lng: 22.4941 },
-    { lat: 29.71778, lng: 110.68694 },
+    {
+        name: 'Stonehenge',
+        lat: 51.178889,
+        lng: -1.826111,
+    },
+    {
+        name: 'Great Pyramid of Giza',
+        lat: 29.987,
+        lng: 31.2118,
+    },
+    {
+        name: 'Gobekli Tepe',
+        lat: 37.223611,
+        lng: 38.921667,
+    },
+    {
+        name: 'Easter island',
+        lat: -27.116667,
+        lng: -109.366667,
+    },
+    {
+        name: 'Chichen Itza',
+        lat: 20.683056,
+        lng: -88.568611,
+    },
+    {
+        name: 'Mount Shasta',
+        lat: 41.409196,
+        lng: -122.194888,
+    },
+    {
+        name: 'Nazca Lines',
+        lat: -14.6975,
+        lng: -75.135,
+    },
+    {
+        name: 'Tiahuanaco / Tiwanaku',
+        lat: -16.554722,
+        lng: -68.673333,
+    },
+    {
+        name: 'Delphi',
+        lat: 38.4823,
+        lng: 22.5013,
+    },
+    {
+        name: 'Mount Hayes',
+        lat: 63.620833,
+        lng: -146.715278,
+    },
+    {
+        name: 'Barabar Caves',
+        lat: 25.005,
+        lng: 85.063,
+    },
+    {
+        name: 'Skinwalker Ranch',
+        lat: 40.258158,
+        lng: -109.888392,
+    },
+    {
+        name: 'Monte Perdido',
+        lat: 42.666667,
+        lng: 0.033333,
+    },
+    {
+        name: 'Mount Zeil',
+        lat: -23.4018,
+        lng: 132.3958,
+    },
+    {
+        name: 'Mount Nyangani',
+        lat: -18.3,
+        lng: 32.841667,
+    },
+    {
+        name: 'Mount Ararat',
+        lat: 39.7019,
+        lng: 44.2983,
+    },
+    {
+        name: '???',
+        lat: 29.7178,
+        lng: -110.6869,
+    },
+    {
+        name: 'Secret Mountain',
+        lat: 34.9536,
+        lng: -111.8845,
+    },
+    {
+        name: 'Richat Structure',
+        lat: 21.31081,
+        lng: -11.42491,
+    },
 ];
 
 const bermudaTriangleGeoJSON = {
@@ -65,23 +152,26 @@ const bermudaTriangleGeoJSON = {
             type: 'Feature',
             properties: {
                 name: 'Bermuda Triangle',
+
             },
             geometry: {
                 type: 'Polygon',
                 coordinates: [
                     [
-                        [-80.1918, 25.7617], // Miami
-                        [-64.7505, 32.3078], // Bermuda
-                        [-66.0594, 18.4153], // Puerto Rico
-                        [-80.1918, 25.7617], // Closing the polygon by repeating the first point
+                        [-80.1918, 25.7617],
+                        [-64.7505, 32.3078],
+                        [-66.0594, 18.4153],
+                        [-80.1918, 25.7617],
                     ],
                 ],
+
             },
+
         },
     ],
 };
 
-const maxWorldContainerWidth = 1024;
+const maxWorldContainerWidth = 768;
 const currentViewportWidth = ref(0);
 watch(currentViewportWidth, () => {
     sizeWorldContainerToViewport();
@@ -114,8 +204,10 @@ function setUpGlobe() {
         .bumpImageUrl('img/earth/earth-topology.png')
         .backgroundColor('rgba(0, 0, 0, 0)')
 
-        // Make initial rotation land on North America.
-        .pointOfView({ lng: -80.1918 }, 0)
+        // Make initial rotation land on North and South America.
+        .pointOfView({
+            lng: -80.1918,
+        }, 0)
 
         // Set up rings.
         .ringsData(ancientSitesWithRings)
@@ -123,9 +215,13 @@ function setUpGlobe() {
         .ringMaxRadius(() => 3.9)
 
         // Set up bermuda triangle polygon.
-        .polygonCapColor(() => globeBermudaTriangleBackgroundColor.value) // Semi-transparent red for the polygon
-        .polygonSideColor(() => globeBermudaTriangleSideColor.value) // Slightly transparent green for sides
-        .polygonsData(bermudaTriangleGeoJSON.features); // Apply the GeoJSON data;
+        .polygonCapColor(() => globeBermudaTriangleBackgroundColor.value)
+        .polygonSideColor(() => globeBermudaTriangleSideColor.value)
+        .polygonsData(bermudaTriangleGeoJSON.features);
+
+    // Hold onto default lights since we remove one of them in light mode and restore it in dark.
+    defaultLights.push(...world.lights());
+    if (isLightMode.value) world.lights(defaultLights[0] as never);
 
     // Set up auto-rotate and disable manual control if mobile resolution.
     if (currentViewportWidth.value < maxWorldContainerWidth) world.controls().enabled = false;
@@ -146,8 +242,9 @@ function sizeWorldContainerToViewport() {
 
 watch(worldLoaded, () => setUpGlobe());
 
-watch(isLightMode, () => {
+watch(isLightMode, (newValue: boolean) => {
     world
+        .lights(newValue ? [defaultLights[0]] : defaultLights)
         .ringColor(() => colorInterpolator)
         .polygonCapColor(() => globeBermudaTriangleBackgroundColor.value)
         .polygonSideColor(() => globeBermudaTriangleSideColor.value);
@@ -158,11 +255,11 @@ watch(isLightMode, () => {
     <div class="overflow-x-hidden relative flex">
         <div
             ref="worldContainer"
-            class="hero-parent__world-container lg:ml-auto"
+            class="hero-parent__world-container md:ml-auto xl:mr-16 2xl:mr-24"
             :class="{ inverted: isLightMode }"
         />
         <div class="absolute h-full w-full max-w-7xl pointer-events-none lg:left-1/2 lg:transform lg:-translate-x-1/2">
-            <hero-text class="h-full mr-auto p-9 max-w-lg 2xl:p-0" />
+            <hero-text class="h-full p-9 max-w-lg 2xl:p-0 mx-auto text-center md:mx-0 md:text-left" />
         </div>
     </div>
 </template>

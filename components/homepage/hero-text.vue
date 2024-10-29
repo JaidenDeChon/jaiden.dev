@@ -39,8 +39,8 @@ onMounted(() => {
                 When I'm not coding, I love learning about ancient history, spirituality, and consciousness.
             </p>
 
-            <div :class="`flex gap-6 transition-all duration-700 ease-in-out ${animateButtonGroup}`">
-                <Button class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker hover:shadow-lg dark:bg-brand-blue-darker dark:text-brand-blue-foreground dark:hover:bg-brand-blue lg:relative lg:backlight">
+            <div :class="`flex gap-6 justify-center transition-all duration-700 ease-in-out ${animateButtonGroup} md:justify-start`">
+                <Button class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker hover:shadow-lg dark:bg-brand-blue-darker dark:text-brand-blue-foreground dark:hover:bg-brand-blue md:relative md:backlight">
                     Get in touch
                 </Button>
                 <Button

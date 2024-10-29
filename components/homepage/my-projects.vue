@@ -5,7 +5,7 @@ import type { ArticleCardProps } from '~/lib/models/article-card-props';
 const projects: ArticleCardProps[] = [
     {
         title: 'jaiden.dev',
-        description: 'The site you\'re browing now.',
+        description: 'The site you\'re browsing now.',
         image: '/img/jaiden-dev.png',
         tags: ['Nuxt', 'Vue', 'TypeScript', 'Tailwind'],
     },
