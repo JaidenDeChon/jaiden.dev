@@ -176,41 +176,82 @@ onBeforeUnmount(() => {
 const colorInterpolator = (t: number) => `rgba(${globeAccentColor.value},${Math.sqrt(1 - t)})`;
 
 function setUpGlobe() {
+    // Check if the world container is null and return early if it is.
     if (worldContainer.value === null) return;
 
-    world(worldContainer.value)
-        // Set up world imagery.
+    const globe = world(worldContainer.value)
+        // Set up world imagery with texture and bump map for better visual representation.
         .globeImageUrl('img/earth/earth-dark.jpg')
         .bumpImageUrl('img/earth/earth-topology.png')
         .backgroundColor('rgba(0, 0, 0, 0)')
         .atmosphereAltitude(0.24)
 
-        // Make initial rotation land on North and South America.
+        // Set initial rotation to focus on the Americas.
         .pointOfView({
             lng: -80.1918,
         }, 0)
 
-        // Set up rings.
+        // Set up ring data for visualization.
         .ringsData(ancientSitesWithRings)
         .ringColor(() => colorInterpolator)
-        .ringMaxRadius(() => 3.9)
+        .ringMaxRadius(() => 4.2)
+        .ringRepeatPeriod(1800)
 
-        // Set up bermuda triangle polygon.
-        .polygonCapColor(() => 'rgba(255, 0, 0, 0.12)')
+        // Set up Bermuda Triangle polygon visualization.
+        .polygonCapColor(() => 'rgba(255, 0, 0, 0.06)')
         .polygonSideColor(() => 'rgba(0, 0, 0, 0)')
-        .polygonsData(bermudaTriangleGeoJSON.features);
+        .polygonsData(bermudaTriangleGeoJSON.features)
 
-    // Hold onto default lights since we remove one of them in light mode and restore it in dark.
-    defaultLights.push(...world.lights());
-    world.lights(isLightMode.value ? [defaultLights[0]] : defaultLights);
+        // Configure arcs for globe interactions.
+        .arcColor(() => 'white')
+        .arcAltitudeAutoScale(0.3)
+        .arcDashLength(0.006)
+        .arcDashGap(2)
+        .arcDashInitialGap(1)
+        .arcDashAnimateTime(1000)
+        .arcStroke(1)
+        .arcsTransitionDuration(0);
 
-    // Set up auto-rotate and disable manual control if mobile resolution.
-    if (currentViewportWidth.value < maxWorldContainerWidth) world.controls().enabled = false;
-    world.controls().enableZoom = false;
-    world.controls().autoRotateSpeed = -0.6;
+    // Hold onto default lights for use in light/dark mode switching.
+    defaultLights.push(...globe.lights());
+    globe.lights(isLightMode.value ? [defaultLights[0]] : defaultLights);
+
+    // Set up auto-rotate and control settings based on viewport size.
+    if (currentViewportWidth.value < maxWorldContainerWidth) globe.controls().enabled = false;
+    globe.controls().enableZoom = false;
+    globe.controls().autoRotateSpeed = -0.6;
+    globe.controls().autoRotate = true;
     setTimeout(() => {
-        world.controls().autoRotate = true;
+        globe.controls().autoRotate = true;
     }, 1000);
+
+    // Function to emit a random arc between two established points.
+    function emitRandomArc() {
+        // Select a random start point from the list of established points.
+        const pointA = ancientSitesWithRings[Math.floor(Math.random() * ancientSitesWithRings.length)];
+        let pointB = ancientSitesWithRings[Math.floor(Math.random() * ancientSitesWithRings.length)];
+
+        // Ensure the start and end points are not the same.
+        while (pointA === pointB) {
+            pointB = ancientSitesWithRings[Math.floor(Math.random() * ancientSitesWithRings.length)];
+        }
+
+        // Create the arc data object with start and end coordinates.
+        const arc = { startLat: pointA.lat, startLng: pointA.lng, endLat: pointB.lat, endLng: pointB.lng };
+
+        // Add the new arc to the globe's arcs data.
+        globe.arcsData([...globe.arcsData(), arc]);
+
+        // Remove the arc after it has been displayed for a certain duration.
+        setTimeout(() => {
+            globe.arcsData(globe.arcsData().filter(d => d !== arc));
+        }, 2000); // Duration for how long the arc remains visible (2 seconds).
+    }
+
+    // Emit arcs at regular intervals to create a dynamic effect.
+    setInterval(() => {
+        emitRandomArc(); // Emit a new random arc every 1.5 seconds.
+    }, 300); // Adjust this value to control how frequently arcs are emitted.
 }
 
 function sizeWorldContainerToViewport() {
@@ -234,7 +275,7 @@ watch(
 </script>
 
 <template>
-    <div class="overflow-x-hidden relative flex">
+    <div class="overflow-x-hidden relative flex bg-muted dark:bg-background">
         <div
             ref="worldContainer"
             class="hero-parent__world-container lg:ml-auto xl:mr-16 2xl:mr-24 3xl:mr-32 4xl:mr-"
