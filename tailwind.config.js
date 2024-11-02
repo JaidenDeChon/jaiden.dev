@@ -96,6 +96,14 @@ module.exports = {
                 'collapsible-down': 'collapsible-down 0.2s ease-in-out',
                 'collapsible-up': 'collapsible-up 0.2s ease-in-out',
             },
+            screens: {
+                // Extending Tailwind's default breakpoints
+                '3xl': '1792px',
+                '4xl': '2048px',
+                '5xl': '2560px',
+                '6xl': '3072px',
+                '7xl': '3840px',
+            },
         },
         transitionDuration: {
             DEFAULT: '420ms',

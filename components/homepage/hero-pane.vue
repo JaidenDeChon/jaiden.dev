@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import * as THREE from 'three';
 import Globe from 'globe.gl';
 import HeroText from './hero-text.vue';
 
@@ -151,25 +152,27 @@ const bermudaTriangleGeoJSON = {
     ],
 };
 
-const maxWorldContainerWidth = 768;
 const currentViewportWidth = ref(0);
+const tailwindXlBreakpoint = 1500;
+let scrollbarWidth = 0;
 watch(currentViewportWidth, () => {
     sizeWorldContainerToViewport();
 });
 
 onMounted(() => {
     // Initial value setting for viewportWidth tracking variable.
-    currentViewportWidth.value = window.innerWidth;
+    determineScrollbarWidth();
+    setViewportWidthVariable();
 
     // Load globe.
     worldLoaded.value = true;
 
     // Set up globe resize on window size change.
-    window.addEventListener('resize', () => currentViewportWidth.value = window.innerWidth);
+    window.addEventListener('resize', setViewportWidthVariable);
 });
 
 onBeforeUnmount(() => {
-    window.removeEventListener('rezie', () => currentViewportWidth.value = window.innerWidth);
+    window.removeEventListener('rezie', setViewportWidthVariable);
 });
 
 // Interpolates color using the brand blue.
@@ -210,14 +213,37 @@ function setUpGlobe() {
         .arcDashInitialGap(1)
         .arcDashAnimateTime(1000)
         .arcStroke(0.6)
-        .arcsTransitionDuration(0);
+        .arcsTransitionDuration(0)
+
+        // Set up space shit.
+        .customLayerData([...Array(500).keys()].map(() => ({
+            lat: (Math.random() - 1) * 360,
+            lng: (Math.random() - 1) * 360,
+            altitude: Math.random() * 2,
+            size: Math.random() * 1,
+            color: '#9999cc',
+        })))
+        .customThreeObject((data) => {
+            const { size, color } = data;
+            return new THREE.Mesh(
+                new THREE.SphereGeometry(size),
+                new THREE.MeshBasicMaterial({ color }),
+            );
+        })
+        .customThreeObjectUpdate((obj, data) => {
+            const { lat, lng, altitude } = data;
+            return Object.assign(obj.position, world.getCoords(lat, lng, altitude));
+        });
+
+    // Set up globe container size.
+    sizeWorldContainerToViewport();
 
     // Hold onto default lights for use in light/dark mode switching.
     defaultLights.push(...globe.lights());
     globe.lights(isLightMode.value ? [defaultLights[0]] : defaultLights);
 
     // Set up auto-rotate and control settings based on viewport size.
-    if (currentViewportWidth.value < maxWorldContainerWidth) globe.controls().enabled = false;
+    if (currentViewportWidth.value < tailwindXlBreakpoint) globe.controls().enabled = false;
     globe.controls().enableZoom = false;
     globe.controls().autoRotateSpeed = -0.6;
     globe.controls().autoRotate = true;
@@ -254,12 +280,30 @@ function setUpGlobe() {
     }, 300); // Adjust this value to control how frequently arcs are emitted.
 }
 
-function sizeWorldContainerToViewport() {
-    const innerWidth = document.body.clientWidth;
-    const innerHeight = document.body.clientHeight;
+function determineScrollbarWidth() {
+    const scrollDiv = document.createElement('div');
+    scrollDiv.style.width = '100px';
+    scrollDiv.style.height = '100px';
+    scrollDiv.style.overflow = 'scroll';
+    scrollDiv.style.position = 'absolute';
+    scrollDiv.style.top = '-9999px';
 
-    world.height(innerHeight);
-    world.width(innerWidth > maxWorldContainerWidth ? maxWorldContainerWidth : innerWidth);
+    document.body.appendChild(scrollDiv);
+    scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+    document.body.removeChild(scrollDiv);
+}
+
+function setViewportWidthVariable() {
+    currentViewportWidth.value = document.body.clientWidth - scrollbarWidth;
+}
+
+function sizeWorldContainerToViewport() {
+    const width = currentViewportWidth.value > tailwindXlBreakpoint
+        ? currentViewportWidth.value * 1.5
+        : currentViewportWidth.value;
+
+    world.width(width);
+    world.height(document.body.clientHeight);
 }
 
 watch(worldLoaded, () => setUpGlobe());
@@ -279,7 +323,7 @@ watch(
     <div class="size-for-all-screens relative flex justify-center 2xl:justify-end">
         <div
             ref="worldContainer"
-            class="hero-parent__world-container 2xl:-mr-24"
+            class="hero-parent__world-container 2xl:transform 2xl:translate-x-1/3 2xl:-mr-40 3xl:-mr-64 4xl:-mr-72 5xl:-mr-80 6xl:-mr-96"
             :class="{ 'hero-parent__world-container--inverted': isLightMode }"
         />
         <div class="absolute h-full w-full max-w-72xl pointer-events-none lg:left-1/2 lg:transform lg:-translate-x-1/2">

@@ -28,6 +28,7 @@
     "shadcn-nuxt": "^0.10.4",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "three": "^0.170.0",
     "vue": "latest",
     "vue-router": "latest"
   },
@@ -38,6 +39,7 @@
     "@iconify-json/mdi": "^1.2.1",
     "@nuxt/eslint-config": "^0.5.7",
     "@nuxtjs/tailwindcss": "^6.12.1",
+    "@types/three": "^0.169.0",
     "eslint": "^9.10.0",
     "typescript": "^5.6.2"
   },
