@@ -173,7 +173,7 @@ onBeforeUnmount(() => {
 });
 
 // Interpolates color using the brand blue.
-const colorInterpolator = (t: number) => `rgba(${globeAccentColor.value},${Math.sqrt(1 - t)})`;
+const colorInterpolator = (t: number): string => `rgba(${globeAccentColor.value},${Math.sqrt(1 - t)})`;
 
 function setUpGlobe() {
     // Check if the world container is null and return early if it is.
@@ -203,13 +203,13 @@ function setUpGlobe() {
         .polygonsData(bermudaTriangleGeoJSON.features)
 
         // Configure arcs for globe interactions.
-        .arcColor(() => 'white')
+        .arcColor(() => `rgb(${globeAccentColor.value})`)
         .arcAltitudeAutoScale(0.3)
-        .arcDashLength(0.006)
+        .arcDashLength(0.06)
         .arcDashGap(2)
         .arcDashInitialGap(1)
         .arcDashAnimateTime(1000)
-        .arcStroke(1)
+        .arcStroke(0.6)
         .arcsTransitionDuration(0);
 
     // Hold onto default lights for use in light/dark mode switching.
@@ -255,8 +255,8 @@ function setUpGlobe() {
 }
 
 function sizeWorldContainerToViewport() {
-    const innerWidth = window.innerWidth;
-    const innerHeight = window.innerHeight;
+    const innerWidth = document.body.clientWidth;
+    const innerHeight = document.body.clientHeight;
 
     world.height(innerHeight);
     world.width(innerWidth > maxWorldContainerWidth ? maxWorldContainerWidth : innerWidth);
@@ -269,20 +269,21 @@ watch(
     (newValue: boolean) => {
         world
             .lights(newValue ? [defaultLights[0]] : defaultLights)
-            .ringColor(() => colorInterpolator);
+            .ringColor(() => colorInterpolator)
+            .arcColor(() => `rgb(${globeAccentColor.value})`);
     },
 );
 </script>
 
 <template>
-    <div class="overflow-x-hidden relative flex bg-muted dark:bg-background">
+    <div class="size-for-all-screens relative flex justify-center 2xl:justify-end">
         <div
             ref="worldContainer"
-            class="hero-parent__world-container lg:ml-auto xl:mr-16 2xl:mr-24 3xl:mr-32 4xl:mr-"
-            :class="{ inverted: isLightMode }"
+            class="hero-parent__world-container 2xl:-mr-24"
+            :class="{ 'hero-parent__world-container--inverted': isLightMode }"
         />
-        <div class="absolute h-full w-full max-w-7xl pointer-events-none lg:left-1/2 lg:transform lg:-translate-x-1/2">
-            <hero-text class="h-full p-9 max-w-lg 2xl:p-0 mx-auto text-center md:mx-0 md:text-left" />
+        <div class="absolute h-full w-full max-w-72xl pointer-events-none lg:left-1/2 lg:transform lg:-translate-x-1/2">
+            <hero-text class="h-full px-9 max-w-lg 22xl:p-0 mx-auto text-center 2xl:px-0 2xl:mx-0 2xl:text-left" />
         </div>
     </div>
 </template>
@@ -292,12 +293,24 @@ watch(
         @apply afacad;
     }
 
-    .hero-parent__world-container canvas {
+    .hero-parent__world-container {
+        & canvas {
+            width: 100vw;
+            transition: filter 0.420s ease;
+        }
+
+        &.hero-parent__world-container--inverted canvas {
+            transition: filter 0.420s ease;
+            filter: invert(100%) hue-rotate(180deg);
+        }
+    }
+
+    /* .hero-parent__world-container canvas {
         transition: filter 0.5s ease;
     }
 
-    .hero-parent__world-container.inverted canvas {
+    .hero-parent__world-container.hero-parent__world-container--inverted canvas {
         transition: filter 0.5s ease;
         filter: invert(100%) hue-rotate(180deg);
-    }
+    } */
 </style>

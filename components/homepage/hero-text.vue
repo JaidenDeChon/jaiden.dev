@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { smoothScrollIntoView } from '~/lib/helpers/smoth-scroll-into-view';
+
 const animateHeading = ref('opacity-0 translate-y-4');
 const animateParagraph1 = ref('opacity-0 translate-y-4');
 const animateParagraph2 = ref('opacity-0 translate-y-4');
@@ -11,10 +13,17 @@ onMounted(() => {
     setTimeout(() => animateParagraph2.value = '', 400);
     setTimeout(() => animateButtonGroup.value = '', 600);
 });
+
+function scrollToProjects(): void {
+    const myProjectsParent = document.getElementById('my-projects-parent');
+    if (!myProjectsParent) return;
+
+    smoothScrollIntoView(myProjectsParent);
+}
 </script>
 
 <template>
-    <div class="hero-text-container flex flex-col justify-between items-center gap-12 pointer-events-auto">
+    <div class="afacad flex flex-col justify-between items-center gap-12 pointer-events-auto">
         <div class="flex flex-col justify-center gap-12 h-full">
             <h1 :class="`text-4xl font-medium transition-all duration-700 ease-in-out ${animateHeading}`">
                 👋 Hello! I'm Jaiden.
@@ -39,13 +48,14 @@ onMounted(() => {
                 When I'm not coding, I love learning about ancient history, spirituality, and consciousness.
             </p>
 
-            <div :class="`flex gap-6 justify-center transition-all duration-700 ease-in-out ${animateButtonGroup} md:justify-start`">
-                <Button class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker hover:shadow-lg dark:bg-brand-blue-darker dark:text-brand-blue-foreground dark:hover:bg-brand-blue md:relative md:backlight">
+            <div :class="`flex gap-6 justify-center transition-all duration-700 ease-in-out ${animateButtonGroup} 2xl:justify-start`">
+                <Button class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker hover:shadow-lg dark:bg-brand-blue-darker dark:text-brand-blue-foreground dark:hover:bg-brand-blue relative backlight">
                     Get in touch
                 </Button>
                 <Button
                     class="text-lg"
                     variant="secondary"
+                    @click="scrollToProjects"
                 >
                     My projects
                 </Button>
@@ -53,9 +63,3 @@ onMounted(() => {
         </div>
     </div>
 </template>
-
-<style scoped>
-    .hero-text-container {
-        @apply afacad;
-    }
-</style>

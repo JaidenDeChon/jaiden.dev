@@ -43,7 +43,10 @@ const projects: ArticleCardProps[] = [
 </script>
 
 <template>
-    <div class="my-projects-parent bg-muted p-9">
+    <div
+        id="my-projects-parent"
+        class="bg-muted p-9"
+    >
         <div class="size-for-all-screens">
             <h2 class="text-3xl">
                 My projects
@@ -66,10 +69,5 @@ const projects: ArticleCardProps[] = [
 <style scoped>
     * {
         font-family: "Afacad Flux", sans-serif;
-    }
-
-    .my-projects-parent {
-        z-index: 2;
-        opacity: 1;
     }
 </style>
