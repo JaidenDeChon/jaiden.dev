@@ -289,10 +289,6 @@ watch(
 </template>
 
 <style>
-    * {
-        @apply afacad;
-    }
-
     .hero-parent__world-container {
         & canvas {
             width: 100vw;
@@ -304,13 +300,4 @@ watch(
             filter: invert(100%) hue-rotate(180deg);
         }
     }
-
-    /* .hero-parent__world-container canvas {
-        transition: filter 0.5s ease;
-    }
-
-    .hero-parent__world-container.hero-parent__world-container--inverted canvas {
-        transition: filter 0.5s ease;
-        filter: invert(100%) hue-rotate(180deg);
-    } */
 </style>
