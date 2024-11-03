@@ -29,6 +29,7 @@ onBeforeUnmount(() => {
 
 const defaultLights: THREE.Light[] = [];
 const tailwindXlBreakpoint = 1500;
+const arcTiming = 1000;
 
 /**
  * ====================================================================================================================
@@ -95,84 +96,33 @@ watch(worldLoaded, renderGlobe);
 function renderGlobe() {
     if (!worldContainer.value) return;
 
-    world(worldContainer.value);
-    renderGlobeMainFeatures();
-    renderGlobeRings();
-    renderBermudaTriangle();
-    renderArcs();
-    renderOrbitDebris();
-}
-
-function renderGlobeMainFeatures() {
-    // Size the world to the viewport.
-    sizeWorldContainerToViewport();
-
-    // Set up and save world lights for an easier time recycling them. This effectively disables the spotlight in light
-    // mode since the color modification inverts the world colors, turning the spotlight into a... spotdark?
-    if (defaultLights.length === 0) defaultLights.push(...world.lights());
-    world.lights(isLightMode.value ? [defaultLights[0]] : defaultLights);
-
-    world
+    world(worldContainer.value)
         // Set up world texture and bump map.
         .globeImageUrl('img/earth/earth-dark.jpg')
         .bumpImageUrl('img/earth/earth-topology.png')
         .backgroundColor('rgba(0, 0, 0, 0)')
         .atmosphereAltitude(0.24)
-
-        // Set initial rotation to focus on the Americas.
-        .pointOfView({ lng: -80.1918 }, 0);
-
-    // Set up globe controls.
-    if (currentViewportWidth.value < tailwindXlBreakpoint) world.controls().enabled = false;
-    world.controls().enableZoom = false;
-    world.controls().autoRotateSpeed = -0.6;
-    world.controls().autoRotate = true;
-
-    setTimeout(() => {
-        world.controls().autoRotate = true;
-    }, 1000);
-}
-
-function configureRingColor() {
-    world.ringColor(() => primaryAccentColorInterpolator);
-}
-
-function renderGlobeRings() {
-    configureRingColor();
-    world
+        // Start rotation on the Americas.
+        .pointOfView({ lng: -80.1918 }, 0)
+        // Render coordinate pings.
         .ringsData(COORDINATES)
         .ringMaxRadius(() => 6.6)
-        .ringRepeatPeriod(1800);
-}
-
-function renderBermudaTriangle() {
-    world
+        .ringRepeatPeriod(1800)
+        .ringColor(() => primaryAccentColorInterpolator)
+        // Render bermuda triangle.
         .polygonCapColor(() => 'rgba(255, 0, 0, 0.06)')
         .polygonSideColor(() => 'rgba(0, 0, 0, 0)')
-        .polygonsData(BERMUDA_TRIANGLE_GEO_JSON.features);
-}
-
-function configureArcColor() {
-    world.arcColor(() => secondaryAccentColorInterpolator);
-}
-
-function renderArcs() {
-    configureArcColor();
-    world
+        .polygonsData(BERMUDA_TRIANGLE_GEO_JSON.features)
+        // Configure arcs for when rendering begins.
         .arcAltitudeAutoScale(0.3)
         .arcDashLength(0.3)
         .arcDashGap(2)
         .arcDashInitialGap(1)
-        .arcDashAnimateTime(1000)
+        .arcDashAnimateTime(arcTiming)
         .arcStroke(0.6)
-        .arcsTransitionDuration(0);
-
-    // Begin emitting arcs.
-    setInterval(emitRandomArc, 300);
-}
-
-function renderOrbitDebris() {
-    world
+        .arcsTransitionDuration(0)
+        .arcColor(() => secondaryAccentColorInterpolator)
+        // Render orbit effects (a few hundred random points around the globe).
         .customLayerData([...Array(333).keys()].map(() => ({
             lat: (Math.random() - 1) * 360,
             lng: (Math.random() - 1) * 360,
@@ -191,22 +141,55 @@ function renderOrbitDebris() {
             Object.assign(obj.position, world.getCoords(lat, lng, altitude));
             obj.lookAt(world.camera().position);
         });
+
+    // Size the world to the viewport.
+    sizeWorldContainerToViewport();
+
+    // Set up and save world lights for an easier time recycling them. This effectively disables the spotlight in light
+    // mode since the color modification inverts the world colors, turning the spotlight into a... spotdark?
+    if (defaultLights.length === 0) defaultLights.push(...world.lights());
+    world.lights(isLightMode.value ? [defaultLights[0]] : defaultLights);
+
+    // Set up globe controls.
+    if (currentViewportWidth.value < tailwindXlBreakpoint) world.controls().enabled = false;
+    world.controls().enableZoom = false;
+    world.controls().autoRotateSpeed = -0.6;
+    world.controls().autoRotate = true;
+
+    // Begin emitting arcs randomly from coord to coord every so often.
+    setInterval(emitRandomArc, 333);
+
+    // Begin rotating after one second.
+    setTimeout(() => {
+        world.controls().autoRotate = true;
+    }, 1000);
+}
+
+function configureRingColor() {
+    world.ringColor(() => primaryAccentColorInterpolator);
+}
+
+function configureArcColor() {
+    world.arcColor(() => secondaryAccentColorInterpolator);
 }
 
 function emitRandomArc() {
     const pointA = COORDINATES[Math.floor(Math.random() * COORDINATES.length)];
     let pointB = COORDINATES[Math.floor(Math.random() * COORDINATES.length)];
 
+    // Avoid emitting an arc to and from the same point.
     while (pointA === pointB) {
         pointB = COORDINATES[Math.floor(Math.random() * COORDINATES.length)];
     }
 
+    // Assemble the arc data and add it to the world's arc data.
     const arc = { startLat: pointA.lat, startLng: pointA.lng, endLat: pointB.lat, endLng: pointB.lng };
     world.arcsData([...world.arcsData(), arc]);
 
+    // Remove the arc fromt he world data after a couple seconds.
     setTimeout(() => {
         world.arcsData(world.arcsData().filter(d => d !== arc));
-    }, 2000);
+    }, arcTiming * 2);
 }
 </script>
 
