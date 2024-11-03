@@ -7,7 +7,7 @@ const animateParagraph2 = ref('opacity-0 translate-y-4');
 const animateButtonGroup = ref('opacity-0 translate-y-4');
 
 onMounted(() => {
-    // Trigger staggered fade-in and move-up animations for each element
+    // Trigger staggered fade-in and move-up animations for each element.
     setTimeout(() => animateHeading.value = '', 0);
     setTimeout(() => animateParagraph1.value = '', 200);
     setTimeout(() => animateParagraph2.value = '', 400);
