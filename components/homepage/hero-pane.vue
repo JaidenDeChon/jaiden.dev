@@ -16,10 +16,20 @@ const globeAccentColor = computed(() => {
     }
 });
 
+const secondaryGlobeAccentColor = computed(() => {
+    switch (colorMode.value) {
+        case 'dark':
+            return '255, 217, 0';
+        case 'light':
+        default:
+            return '204, 173, 0';
+    }
+});
+
 const world = Globe();
 const worldContainer: Ref<HTMLElement | null> = ref(null);
 const worldLoaded = ref(false);
-const defaultLights: unknown[] = [];
+const defaultLights: THREE.Light[] = [];
 
 interface GlobeLocation {
     name: string;
@@ -197,7 +207,7 @@ function setUpGlobe() {
         // Set up ring data for visualization.
         .ringsData(ancientSitesWithRings)
         .ringColor(() => colorInterpolator)
-        .ringMaxRadius(() => 4.2)
+        .ringMaxRadius(() => 6.6)
         .ringRepeatPeriod(1800)
 
         // Set up Bermuda Triangle polygon visualization.
@@ -206,9 +216,9 @@ function setUpGlobe() {
         .polygonsData(bermudaTriangleGeoJSON.features)
 
         // Configure arcs for globe interactions.
-        .arcColor(() => `rgb(${globeAccentColor.value})`)
+        .arcColor(() => `rgba(${secondaryGlobeAccentColor.value}, 0.6)`)
         .arcAltitudeAutoScale(0.3)
-        .arcDashLength(0.06)
+        .arcDashLength(0.3)
         .arcDashGap(2)
         .arcDashInitialGap(1)
         .arcDashAnimateTime(1000)
@@ -216,23 +226,24 @@ function setUpGlobe() {
         .arcsTransitionDuration(0)
 
         // Set up space shit.
-        .customLayerData([...Array(500).keys()].map(() => ({
+        .customLayerData([...Array(333).keys()].map(() => ({
             lat: (Math.random() - 1) * 360,
             lng: (Math.random() - 1) * 360,
             altitude: Math.random() * 2,
-            size: Math.random() * 1,
-            color: '#9999cc',
+            size: Math.random() * 0.6,
+            color: `rgb(${globeAccentColor.value})`,
         })))
         .customThreeObject((data) => {
-            const { size, color } = data;
-            return new THREE.Mesh(
-                new THREE.SphereGeometry(size),
-                new THREE.MeshBasicMaterial({ color }),
-            );
+            const { size, color } = data as { size: number; color: THREE.ColorRepresentation };
+            const circleGeometry = new THREE.CircleGeometry(size, 16);
+            const material = new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide });
+            const circleMesh = new THREE.Mesh(circleGeometry, material);
+            return circleMesh;
         })
         .customThreeObjectUpdate((obj, data) => {
-            const { lat, lng, altitude } = data;
-            return Object.assign(obj.position, world.getCoords(lat, lng, altitude));
+            const { lat, lng, altitude } = data as { lat: number; lng: number; altitude: number };
+            Object.assign(obj.position, world.getCoords(lat, lng, altitude));
+            obj.lookAt(world.camera().position);
         });
 
     // Set up globe container size.
@@ -314,7 +325,14 @@ watch(
         world
             .lights(newValue ? [defaultLights[0]] : defaultLights)
             .ringColor(() => colorInterpolator)
-            .arcColor(() => `rgb(${globeAccentColor.value})`);
+            .arcColor(() => `rgb(${secondaryGlobeAccentColor.value})`);
+
+        // Retrieve existing layer data and modify its color.
+        const existingLayerData = world.customLayerData() as { color: string }[];
+        existingLayerData.forEach((layerObject) => {
+            layerObject.color = `rgb(${globeAccentColor.value})`;
+        });
+        world.customLayerData(existingLayerData);
     },
 );
 </script>
