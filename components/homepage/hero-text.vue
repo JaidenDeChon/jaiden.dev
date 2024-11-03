@@ -8,10 +8,10 @@ const animateButtonGroup = ref('opacity-0 translate-y-4');
 
 onMounted(() => {
     // Trigger staggered fade-in and move-up animations for each element
-    setTimeout(() => animateHeading.value = '', 100);
-    setTimeout(() => animateParagraph1.value = '', 200);
-    setTimeout(() => animateParagraph2.value = '', 400);
-    setTimeout(() => animateButtonGroup.value = '', 600);
+    setTimeout(() => animateHeading.value = '', 300);
+    setTimeout(() => animateParagraph1.value = '', 360);
+    setTimeout(() => animateParagraph2.value = '', 420);
+    setTimeout(() => animateButtonGroup.value = '', 480);
 });
 
 function scrollToProjects(): void {
@@ -25,11 +25,11 @@ function scrollToProjects(): void {
 <template>
     <div class="afacad flex flex-col justify-between items-center gap-12 pointer-events-auto">
         <div class="flex flex-col justify-center gap-12 h-full">
-            <h1 :class="`text-4xl font-medium transition-all duration-700 ease-in-out ${animateHeading}`">
+            <h1 :class="`text-4xl font-medium transition ease-in-out ${animateHeading}`">
                 👋 Hello! I'm Jaiden.
             </h1>
 
-            <p :class="`w-full text-2xl font-medium leading-10 transition-colors duration-700 ease-in-out ${animateParagraph1}`">
+            <p :class="`w-full text-2xl font-medium leading-10 transition ease-in-out ${animateParagraph1}`">
                 I create
                 <span class="bg-brand-yellow mx-1 px-2 text-brand-yellow-foreground rounded-sm inline-block">
                     beautiful web-apps
@@ -44,12 +44,12 @@ function scrollToProjects(): void {
                 </span>
             </p>
 
-            <p :class="`w-full text-2xl font-medium leading-10 transition-all duration-700 ease-in-out ${animateParagraph2}`">
+            <p :class="`w-full text-2xl font-medium leading-10 transition ease-in-out ${animateParagraph2}`">
                 When I'm not coding, I love learning about ancient history, spirituality, and consciousness.
             </p>
 
-            <div :class="`flex gap-6 justify-center transition-all duration-700 ease-in-out ${animateButtonGroup} 2xl:justify-start`">
-                <Button class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker hover:shadow-lg dark:bg-brand-blue-darker dark:text-brand-blue-foreground dark:hover:bg-brand-blue relative backlight">
+            <div :class="`flex gap-6 justify-center transition ease-in-out ${animateButtonGroup} 2xl:justify-start`">
+                <Button class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker hover:shadow-lg dark:bg-brand-blue-darker dark:text-brand-blue-foreground dark:hover:bg-brand-blue md:relative md:backlight">
                     Get in touch
                 </Button>
                 <Button
