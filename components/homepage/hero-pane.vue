@@ -104,8 +104,7 @@ function renderGlobe() {
         .atmosphereAltitude(0.24)
         // Start rotation on the Americas.
         .pointOfView({ lng: -80.1918 }, 0)
-        // Render coordinate pings.
-        .ringsData(COORDINATES)
+        // Configure coordinate pings for when rendering begins.
         .ringMaxRadius(() => 6.6)
         .ringRepeatPeriod(1800)
         .ringColor(() => primaryAccentColorInterpolator)
@@ -156,17 +155,28 @@ function renderGlobe() {
     world.controls().autoRotateSpeed = -0.6;
     world.controls().autoRotate = true;
 
-    // Begin emitting arcs randomly from coord to coord every so often.
-    setInterval(emitRandomArc, 333);
-
-    // Begin rotating after one second.
-    setTimeout(() => {
-        world.controls().autoRotate = true;
-    }, 1000);
+    // Add the rings to the globe from the north to the south.
+    addRingsIncrementally();
 }
 
 function configureRingColor() {
     world.ringColor(() => primaryAccentColorInterpolator);
+}
+
+function addRingsIncrementally() {
+    let index = 0;
+    // Add a ring to the globe every few ms.
+    const addPointToGlobe = setInterval(() => {
+        if (index >= COORDINATES.length) {
+            clearInterval(addPointToGlobe);
+            // Begin emitting arcs randomly from coord to coord every so often now that all rings have been added.
+            setInterval(emitRandomArc, 333);
+            return;
+        }
+        const currentCoordinate = COORDINATES[index];
+        world.ringsData([...world.ringsData(), currentCoordinate]);
+        index += 1;
+    }, 12);
 }
 
 function configureArcColor() {
@@ -186,7 +196,7 @@ function emitRandomArc() {
     const arc = { startLat: pointA.lat, startLng: pointA.lng, endLat: pointB.lat, endLng: pointB.lng };
     world.arcsData([...world.arcsData(), arc]);
 
-    // Remove the arc fromt he world data after a couple seconds.
+    // Remove the arc from the world data after a couple seconds.
     setTimeout(() => {
         world.arcsData(world.arcsData().filter(d => d !== arc));
     }, arcTiming * 2);
