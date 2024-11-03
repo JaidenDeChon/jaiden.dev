@@ -2,76 +2,14 @@
 import * as THREE from 'three';
 import Globe from 'globe.gl';
 import HeroText from './hero-text.vue';
+import { COORDINATES } from '~/lib/constants/coordinates';
+import { BERMUDA_TRIANGLE_GEO_JSON } from '~/lib/constants/bermuda-triangle-geo-json';
 
-const colorMode = useColorMode();
-const isLightMode = computed(() => colorMode.value === 'light');
-
-const globeAccentColor = computed(() => {
-    return colorMode.value === 'dark' ? '0, 99, 204' : '0, 123, 255';
-});
-
-const secondaryGlobeAccentColor = computed(() => {
-    return colorMode.value === 'dark' ? '255, 217, 0' : '204, 173, 0';
-});
-
-const world = Globe();
-const worldContainer: Ref<HTMLElement | null> = ref(null);
-const worldLoaded = ref(false);
-const defaultLights: THREE.Light[] = [];
-
-interface GlobeLocation {
-    name: string;
-    lat: number;
-    lng: number;
-}
-
-const ancientSitesWithRings: GlobeLocation[] = [
-    { name: 'Stonehenge', lat: 51.178889, lng: -1.826111 },
-    { name: 'Great Pyramid of Giza', lat: 29.987, lng: 31.2118 },
-    { name: 'Gobekli Tepe', lat: 37.223611, lng: 38.921667 },
-    { name: 'Easter island', lat: -27.116667, lng: -109.366667 },
-    { name: 'Chichen Itza', lat: 20.683056, lng: -88.568611 },
-    { name: 'Mount Shasta', lat: 41.409196, lng: -122.194888 },
-    { name: 'Nazca Lines', lat: -14.6975, lng: -75.135 },
-    { name: 'Tiahuanaco / Tiwanaku', lat: -16.554722, lng: -68.673333 },
-    { name: 'Delphi', lat: 38.4823, lng: 22.5013 },
-    { name: 'Mount Hayes', lat: 63.620833, lng: -146.715278 },
-    { name: 'Barabar Caves', lat: 25.005, lng: 85.063 },
-    { name: 'Skinwalker Ranch', lat: 40.258158, lng: -109.888392 },
-    { name: 'Monte Perdido', lat: 42.666667, lng: 0.033333 },
-    { name: 'Mount Zeil', lat: -23.4018, lng: 132.3958 },
-    { name: 'Mount Nyangani', lat: -18.3, lng: 32.841667 },
-    { name: 'Mount Ararat', lat: 39.7019, lng: 44.2983 },
-    { name: '???', lat: 29.7178, lng: -110.6869 },
-    { name: 'Secret Mountain', lat: 34.9536, lng: -111.8845 },
-    { name: 'Richat Structure', lat: 21.31081, lng: -11.42491 },
-];
-
-const bermudaTriangleGeoJSON = {
-    type: 'FeatureCollection',
-    features: [
-        {
-            type: 'Feature',
-            properties: { name: 'Bermuda Triangle' },
-            geometry: {
-                type: 'Polygon',
-                coordinates: [
-                    [
-                        [-80.1918, 25.7617],
-                        [-64.7505, 32.3078],
-                        [-66.0594, 18.4153],
-                        [-80.1918, 25.7617],
-                    ],
-                ],
-            },
-        },
-    ],
-};
-
-const currentViewportWidth = ref(0);
-const tailwindXlBreakpoint = 1500;
-
-watch(currentViewportWidth, sizeWorldContainerToViewport);
+/**
+ * ====================================================================================================================
+ * Lifecycle hooks.
+ * ====================================================================================================================
+ */
 
 onMounted(() => {
     setViewportWidthVariable();
@@ -83,50 +21,164 @@ onBeforeUnmount(() => {
     window.removeEventListener('resize', setViewportWidthVariable);
 });
 
-const colorInterpolator = (t: number): string => `rgba(${globeAccentColor.value},${Math.sqrt(1 - t)})`;
-const secondaryColorInterpolator = (t: number): string => `rgba(${secondaryGlobeAccentColor.value},${Math.sqrt(1 - t)})`;
+/**
+ * ====================================================================================================================
+ * Miscl helpful variables.
+ * ====================================================================================================================
+ */
 
-function setUpGlobe() {
+const defaultLights: THREE.Light[] = [];
+const tailwindXlBreakpoint = 1500;
+
+/**
+ * ====================================================================================================================
+ * Viewport and container width management.
+ * ====================================================================================================================
+ */
+
+const currentViewportWidth = ref(0);
+watch(currentViewportWidth, sizeWorldContainerToViewport);
+
+function setViewportWidthVariable() {
+    currentViewportWidth.value = document.body.clientWidth;
+}
+
+function sizeWorldContainerToViewport() {
+    if (!worldLoaded.value) return;
+
+    const width = currentViewportWidth.value > tailwindXlBreakpoint
+        ? currentViewportWidth.value * 1.5
+        : currentViewportWidth.value;
+
+    world.width(width);
+    world.height(document.body.clientHeight);
+}
+
+/**
+ * ====================================================================================================================
+ * Light/dark mode and color management.
+ * ====================================================================================================================
+ */
+
+const colorMode = useColorMode();
+
+const isLightMode = computed(() => colorMode.value === 'light');
+
+watch(isLightMode, () => {
+    if (!worldLoaded.value) return;
+    configureRingColor();
+    configureArcColor();
+});
+
+const primaryAccentColorInterpolator = (t: number): string => `rgba(${primaryAccentColor.value},${Math.sqrt(1 - t)})`;
+const primaryAccentColor = computed(() => {
+    return colorMode.value === 'dark' ? '0, 99, 204' : '0, 123, 255';
+});
+
+const secondaryAccentColorInterpolator = (t: number): string => `rgba(${secondaryAccentColor.value},${Math.sqrt(1 - t)})`;
+const secondaryAccentColor = computed(() => {
+    return colorMode.value === 'dark' ? '255, 217, 0' : '204, 173, 0';
+});
+
+/**
+ * ====================================================================================================================
+ * Globe rendering.
+ * ====================================================================================================================
+ */
+
+const world = Globe();
+const worldContainer: Ref<HTMLElement | null> = ref(null);
+
+const worldLoaded = ref(false);
+watch(worldLoaded, renderGlobe);
+
+function renderGlobe() {
     if (!worldContainer.value) return;
 
-    const globe = world(worldContainer.value)
-        // Set up world imagery with texture and bump map.
+    world(worldContainer.value);
+    renderGlobeMainFeatures();
+    renderGlobeRings();
+    renderBermudaTriangle();
+    renderArcs();
+    renderOrbitDebris();
+}
+
+function renderGlobeMainFeatures() {
+    // Size the world to the viewport.
+    sizeWorldContainerToViewport();
+
+    // Set up and save world lights for an easier time recycling them. This effectively disables the spotlight in light
+    // mode since the color modification inverts the world colors, turning the spotlight into a... spotdark?
+    if (defaultLights.length === 0) defaultLights.push(...world.lights());
+    world.lights(isLightMode.value ? [defaultLights[0]] : defaultLights);
+
+    world
+        // Set up world texture and bump map.
         .globeImageUrl('img/earth/earth-dark.jpg')
         .bumpImageUrl('img/earth/earth-topology.png')
         .backgroundColor('rgba(0, 0, 0, 0)')
         .atmosphereAltitude(0.24)
 
         // Set initial rotation to focus on the Americas.
-        .pointOfView({ lng: -80.1918 }, 0)
+        .pointOfView({ lng: -80.1918 }, 0);
 
-        // Set up ring data.
-        .ringsData(ancientSitesWithRings)
-        .ringColor(() => colorInterpolator)
+    // Set up globe controls.
+    if (currentViewportWidth.value < tailwindXlBreakpoint) world.controls().enabled = false;
+    world.controls().enableZoom = false;
+    world.controls().autoRotateSpeed = -0.6;
+    world.controls().autoRotate = true;
+
+    setTimeout(() => {
+        world.controls().autoRotate = true;
+    }, 1000);
+}
+
+function configureRingColor() {
+    world.ringColor(() => primaryAccentColorInterpolator);
+}
+
+function renderGlobeRings() {
+    configureRingColor();
+    world
+        .ringsData(COORDINATES)
         .ringMaxRadius(() => 6.6)
-        .ringRepeatPeriod(1800)
+        .ringRepeatPeriod(1800);
+}
 
-        // Set up bermuda triangle.
+function renderBermudaTriangle() {
+    world
         .polygonCapColor(() => 'rgba(255, 0, 0, 0.06)')
         .polygonSideColor(() => 'rgba(0, 0, 0, 0)')
-        .polygonsData(bermudaTriangleGeoJSON.features)
+        .polygonsData(BERMUDA_TRIANGLE_GEO_JSON.features);
+}
 
-        // Set up arcs.
-        .arcColor(() => secondaryColorInterpolator)
+function configureArcColor() {
+    world.arcColor(() => secondaryAccentColorInterpolator);
+}
+
+function renderArcs() {
+    configureArcColor();
+    world
         .arcAltitudeAutoScale(0.3)
         .arcDashLength(0.3)
         .arcDashGap(2)
         .arcDashInitialGap(1)
         .arcDashAnimateTime(1000)
         .arcStroke(0.6)
-        .arcsTransitionDuration(0)
+        .arcsTransitionDuration(0);
 
-        // Set up shit in orbit.
+    // Begin emitting arcs.
+    setInterval(emitRandomArc, 300);
+}
+
+function renderOrbitDebris() {
+    world
         .customLayerData([...Array(333).keys()].map(() => ({
             lat: (Math.random() - 1) * 360,
             lng: (Math.random() - 1) * 360,
             altitude: Math.random() * 2,
             size: Math.random() * 0.6,
-            color: `rgb(${globeAccentColor.value})`,
+            color: `rgb(${primaryAccentColor.value})`,
         })))
         .customThreeObject((data) => {
             const { size, color } = data as { size: number; color: THREE.ColorRepresentation };
@@ -139,32 +191,14 @@ function setUpGlobe() {
             Object.assign(obj.position, world.getCoords(lat, lng, altitude));
             obj.lookAt(world.camera().position);
         });
-
-    sizeWorldContainerToViewport();
-
-    // Set up and save lights for an easier time recycling them.
-    defaultLights.push(...globe.lights());
-    globe.lights(isLightMode.value ? [defaultLights[0]] : defaultLights);
-
-    // Set up globe controls.
-    if (currentViewportWidth.value < tailwindXlBreakpoint) globe.controls().enabled = false;
-    globe.controls().enableZoom = false;
-    globe.controls().autoRotateSpeed = -0.6;
-    globe.controls().autoRotate = true;
-
-    setTimeout(() => {
-        globe.controls().autoRotate = true;
-    }, 1000);
-
-    setInterval(emitRandomArc, 300);
 }
 
 function emitRandomArc() {
-    const pointA = ancientSitesWithRings[Math.floor(Math.random() * ancientSitesWithRings.length)];
-    let pointB = ancientSitesWithRings[Math.floor(Math.random() * ancientSitesWithRings.length)];
+    const pointA = COORDINATES[Math.floor(Math.random() * COORDINATES.length)];
+    let pointB = COORDINATES[Math.floor(Math.random() * COORDINATES.length)];
 
     while (pointA === pointB) {
-        pointB = ancientSitesWithRings[Math.floor(Math.random() * ancientSitesWithRings.length)];
+        pointB = COORDINATES[Math.floor(Math.random() * COORDINATES.length)];
     }
 
     const arc = { startLat: pointA.lat, startLng: pointA.lng, endLat: pointB.lat, endLng: pointB.lng };
@@ -174,34 +208,6 @@ function emitRandomArc() {
         world.arcsData(world.arcsData().filter(d => d !== arc));
     }, 2000);
 }
-
-function setViewportWidthVariable() {
-    currentViewportWidth.value = document.body.clientWidth;
-}
-
-function sizeWorldContainerToViewport() {
-    const width = currentViewportWidth.value > tailwindXlBreakpoint
-        ? currentViewportWidth.value * 1.5
-        : currentViewportWidth.value;
-
-    world.width(width);
-    world.height(document.body.clientHeight);
-}
-
-watch(worldLoaded, setUpGlobe);
-
-watch(isLightMode, (newValue: boolean) => {
-    world
-        .lights(newValue ? [defaultLights[0]] : defaultLights)
-        .ringColor(() => colorInterpolator)
-        .arcColor(() => `rgb(${secondaryGlobeAccentColor.value})`);
-
-    const existingLayerData = world.customLayerData() as { color: string }[];
-    existingLayerData.forEach((layerObject) => {
-        layerObject.color = `rgb(${globeAccentColor.value})`;
-    });
-    world.customLayerData(existingLayerData);
-});
 </script>
 
 <template>
