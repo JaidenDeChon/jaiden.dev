@@ -111,8 +111,8 @@ function renderGlobe() {
 
     world(worldContainer.value)
         // Set up world texture and bump map.
-        .globeImageUrl('img/earth/earth-dark.jpg')
-        .bumpImageUrl('img/earth/earth-topology.png')
+        .globeImageUrl('img/earth/earth-dark.webp')
+        .bumpImageUrl('img/earth/earth-topology.webp')
         .backgroundColor('rgba(0, 0, 0, 0)')
         .atmosphereAltitude(0.24)
         // Start rotation on the Americas.

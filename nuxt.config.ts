@@ -21,8 +21,8 @@ export default defineNuxtConfig({
     app: {
         head: {
             link: [
-                { rel: 'preload', href: 'img/earth/earth-dark.jpg', as: 'image' },
-                { rel: 'preload', href: 'img/earth/earth-topology.png', as: 'image' },
+                { rel: 'preload', href: 'img/earth/earth-dark.webp', as: 'image' },
+                { rel: 'preload', href: 'img/earth/earth-topology.webp', as: 'image' },
             ],
         },
     },
