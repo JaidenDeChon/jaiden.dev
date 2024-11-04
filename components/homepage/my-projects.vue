@@ -6,7 +6,7 @@ const projects: ArticleCardProps[] = [
     {
         title: 'jaiden.dev',
         description: 'The site you\'re browsing now.',
-        image: '/img/jaiden-dev.png',
+        image: '/img/jaiden-dev.jpeg',
         tags: ['Nuxt', 'Vue', 'TypeScript', 'Tailwind'],
     },
     {
