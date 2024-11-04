@@ -49,7 +49,7 @@ function scrollToProjects(): void {
             </p>
 
             <div :class="`flex gap-6 justify-center transition ease-in-out ${animateButtonGroup} 2xl:justify-start`">
-                <Button class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker hover:shadow-lg dark:bg-brand-blue-darker dark:text-brand-blue-foreground dark:hover:bg-brand-blue md:relative md:backlight">
+                <Button class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker dark:bg-brand-blue-darker dark:text-brand-blue-foreground dark:hover:bg-brand-blue md:backlight">
                     Get in touch
                 </Button>
                 <Button

@@ -19,15 +19,19 @@
         text-underline-offset: 0.2em;
     }
 
-    .backlight::before {
-        content: '';
-        width: 100%;
-        height: 100%;
-        top: 0;
-        position: absolute;
-        background-color: inherit;
-        filter: blur(1.2em);
-        z-index: -1;
+    .backlight {
+        position: relative;
+
+        &::before {
+            content: '';
+            width: 100%;
+            height: 100%;
+            top: 0;
+            position: absolute;
+            background-color: inherit;
+            filter: blur(1.2em);
+            z-index: -1;
+        }
     }
 }
 
@@ -133,5 +137,6 @@
     }
     body {
         @apply bg-background text-foreground transition-colors overflow-x-hidden;
+        max-width: 100vw;
     }
 }

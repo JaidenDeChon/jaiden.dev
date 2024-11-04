@@ -97,7 +97,6 @@ const world = Globe(
             stencil: false,
             preserveDrawingBuffer: false,
             powerPreference: 'high-performance',
-            alpha: false,
         },
     },
 );
@@ -221,7 +220,7 @@ function emitRandomArc() {
             class="hero-parent__world-container 2xl:transform 2xl:translate-x-1/3 2xl:-mr-40 3xl:-mr-64 4xl:-mr-72 5xl:-mr-80 6xl:-mr-96"
             :class="{ 'hero-parent__world-container--inverted': isLightMode }"
         />
-        <div class="absolute h-full w-full max-w-72xl pointer-events-none lg:left-1/2 lg:transform lg:-translate-x-1/2">
+        <div class="absolute h-full w-full pointer-events-none lg:left-1/2 lg:transform lg:-translate-x-1/2">
             <hero-text class="h-full px-9 max-w-lg 22xl:p-0 mx-auto text-center 2xl:px-0 2xl:mx-0 2xl:text-left" />
         </div>
     </div>

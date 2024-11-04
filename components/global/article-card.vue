@@ -17,7 +17,7 @@ defineProps<{
             <nuxt-img
                 :src="$props.articleData.image"
                 :alt="`Image for ${$props.articleData.title}`"
-                class="w-full h-full max-w-full max-h-full object-cover transition-all duration-200 group-hover:scale-105"
+                class="w-full h-full max-w-full max-h-full object-cover transition-all group-hover:scale-105"
             />
         </div>
 
