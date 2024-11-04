@@ -4,6 +4,7 @@ import Globe from 'globe.gl';
 import HeroText from './hero-text.vue';
 import { COORDINATES } from '~/lib/constants/coordinates';
 import { BERMUDA_TRIANGLE_GEO_JSON } from '~/lib/constants/bermuda-triangle-geo-json';
+import { getOrbitPoints } from '~/lib/constants/orbit-points';
 
 /**
  * ====================================================================================================================
@@ -69,6 +70,7 @@ watch(isLightMode, () => {
     if (!worldLoaded.value) return;
     configureRingColor();
     configureArcColor();
+    configureLights();
 });
 
 const primaryAccentColorInterpolator = (t: number): string => `rgba(${primaryAccentColor.value},${Math.sqrt(1 - t)})`;
@@ -87,7 +89,18 @@ const secondaryAccentColor = computed(() => {
  * ====================================================================================================================
  */
 
-const world = Globe();
+const world = Globe(
+    {
+        // Customize the WebGLRenderer config for better performance.
+        rendererConfig: {
+            precision: 'mediump',
+            stencil: false,
+            preserveDrawingBuffer: false,
+            powerPreference: 'high-performance',
+            alpha: false,
+        },
+    },
+);
 const worldContainer: Ref<HTMLElement | null> = ref(null);
 
 const worldLoaded = ref(false);
@@ -122,13 +135,7 @@ function renderGlobe() {
         .arcsTransitionDuration(0)
         .arcColor(() => secondaryAccentColorInterpolator)
         // Render orbit effects (a few hundred random points around the globe).
-        .customLayerData([...Array(333).keys()].map(() => ({
-            lat: (Math.random() - 1) * 360,
-            lng: (Math.random() - 1) * 360,
-            altitude: Math.random() * 2,
-            size: Math.random() * 0.6,
-            color: `rgb(${primaryAccentColor.value})`,
-        })))
+        .customLayerData(getOrbitPoints(`rgb(${primaryAccentColor.value})`))
         .customThreeObject((data) => {
             const { size, color } = data as { size: number; color: THREE.ColorRepresentation };
             const circleGeometry = new THREE.CircleGeometry(size, 16);
@@ -147,7 +154,7 @@ function renderGlobe() {
     // Set up and save world lights for an easier time recycling them. This effectively disables the spotlight in light
     // mode since the color modification inverts the world colors, turning the spotlight into a... spotdark?
     if (defaultLights.length === 0) defaultLights.push(...world.lights());
-    world.lights(isLightMode.value ? [defaultLights[0]] : defaultLights);
+    configureLights();
 
     // Set up globe controls.
     if (currentViewportWidth.value < tailwindXlBreakpoint) world.controls().enabled = false;
@@ -157,6 +164,14 @@ function renderGlobe() {
 
     // Add the rings to the globe from the north to the south.
     addRingsIncrementally();
+}
+
+function configureLights() {
+    world.lights(isLightMode.value ? [defaultLights[0]] : defaultLights);
+}
+
+function configureArcColor() {
+    world.arcColor(() => secondaryAccentColorInterpolator);
 }
 
 function configureRingColor() {
@@ -177,10 +192,6 @@ function addRingsIncrementally() {
         world.ringsData([...world.ringsData(), currentCoordinate]);
         index += 1;
     }, 12);
-}
-
-function configureArcColor() {
-    world.arcColor(() => secondaryAccentColorInterpolator);
 }
 
 function emitRandomArc() {
