@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ProjectShowcaseHero from '~/components/project-showcase/project-showcase-hero.vue';
+import ProjectShowcaseTitleArea from '~/components/project-showcase/project-showcase-title-area.vue';
 import { PROJECTS_LIST } from '~/lib/constants/projects/projects-list';
 import { ProjectArticleNames } from '~/lib/constants/projects/project-article-enums';
 
@@ -13,7 +13,7 @@ const projectInfo = computed(() =>
         v-if="projectInfo"
         class="project-article"
     >
-        <project-showcase-hero
+        <project-showcase-title-area
             :project-header-info="projectInfo"
         />
     </div>
