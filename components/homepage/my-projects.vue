@@ -1,45 +1,6 @@
 <script setup lang="ts">
 import ArticleCard from '../global/article-card.vue';
-import type { ArticleCardProps } from '~/lib/models/article-card-props';
-
-const projects: ArticleCardProps[] = [
-    {
-        title: 'jaiden.dev',
-        description: 'The site you\'re browsing now.',
-        image: '/img/jaiden-dev.jpeg',
-        tags: ['Nuxt', 'Vue', 'TypeScript', 'Tailwind'],
-    },
-    {
-        title: 'NatureJab Dashboard',
-        description: 'Dashboard app for controlling and monitoring Julian Brown\'s vacuum pyrolysis reactor.',
-        image: '/img/naturejab-logo.png',
-        tags: ['Nuxt', 'Vue', 'TypeScript', 'Tailwind'],
-    },
-    {
-        title: 'osrs-ge-skiller',
-        description: 'Helps OSRS players turn their skilling processes into more profitable ventures.',
-        image: '/img/osrs-ge-skiller.png',
-        tags: ['SvelteKit', 'MongoDB', 'TypeScript', 'Tailwind'],
-    },
-    {
-        title: 'Clique',
-        description: 'A social calendar app that transforms event planning with friends into an easy, intuitive experience.',
-        image: '/img/clique.png',
-        tags: ['React', 'NestJS', 'TypeScript', 'Firebase'],
-    },
-    {
-        title: 'cake',
-        description: 'Easy-to-use website builder powered by a rich text editor.',
-        image: '/img/cake.png',
-        tags: ['VueJS', 'NestJS', 'MongoDB', 'AWS', 'TypeScript', 'Tailwind'],
-    },
-    {
-        title: 'self-aware-grid',
-        description: 'Open-source NPM package for enhancing functionality of CSS grids.',
-        image: '/img/self-aware-grid.png',
-        tags: ['VueJS', 'NestJS', 'MongoDB', 'AWS', 'TypeScript', 'Tailwind'],
-    },
-];
+import { PROJECTS_LIST } from '~/lib/constants/projects/projects-list';
 </script>
 
 <template>
@@ -53,14 +14,22 @@ const projects: ArticleCardProps[] = [
             </h2>
 
             <div class="mt-6">
-                <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
-                    <article-card
-                        v-for="project in projects"
+                <ul class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+                    <li
+                        v-for="project in PROJECTS_LIST"
                         :key="project.title"
-                        :article-data="project"
-                        :to="project.title"
-                    />
-                </div>
+                    >
+                        <nuxt-link
+                            :to="{ path: project.path }"
+                        >
+                            <article-card
+                                :article-header-data="project"
+                                :to="project.path"
+                                class="h-full"
+                            />
+                        </nuxt-link>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

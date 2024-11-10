@@ -18,12 +18,4 @@ export default defineNuxtConfig({
         preference: 'system',
         fallback: 'light',
     },
-    app: {
-        head: {
-            link: [
-                { rel: 'preload', href: 'img/earth/earth-dark.webp', as: 'image' },
-                { rel: 'preload', href: 'img/earth/earth-topology.webp', as: 'image' },
-            ],
-        },
-    },
 });

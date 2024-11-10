@@ -6,15 +6,15 @@ import MyProjects from '~/components/homepage/my-projects.vue';
 
 <template>
     <div>
-        <app-header />
-
         <main>
             <div class="h-screen">
                 <client-only>
-                    <hero-pane />
+                    <hero-pane class="-mt-16" />
                 </client-only>
             </div>
+
             <technologies-list />
+
             <my-projects />
         </main>
     </div>
