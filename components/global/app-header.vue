@@ -40,7 +40,11 @@
                             size="icon"
                             as-child
                         >
-                            <a href="https://github.com/JaidenDeChon">
+                            <a
+                                href="https://github.com/JaidenDeChon"
+                                rel="noreferrer"
+                                target="_blank"
+                            >
                                 <Icon
                                     name="mdi:github"
                                     class="h-[1.2rem] w-[1.2rem]"
