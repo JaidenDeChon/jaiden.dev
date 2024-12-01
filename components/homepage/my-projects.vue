@@ -19,15 +19,11 @@ import { PROJECTS_LIST } from '~/lib/constants/projects/projects-list';
                         v-for="project in PROJECTS_LIST"
                         :key="project.title"
                     >
-                        <nuxt-link
-                            :to="{ path: project.path }"
-                        >
-                            <article-card
-                                :article-header-data="project"
-                                :to="project.path"
-                                class="h-full"
-                            />
-                        </nuxt-link>
+                        <article-card
+                            :article-header-data="project"
+                            :to="project.path"
+                            class="h-full"
+                        />
                     </li>
                 </ul>
             </div>

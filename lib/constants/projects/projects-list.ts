@@ -8,6 +8,13 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         description: 'The site you\'re browsing now.',
         image: '/img/jaiden-dev.jpeg',
         tags: ['Nuxt', 'Vue', 'TypeScript', 'Tailwind'],
+        relatedLinks: [
+            {
+                name: 'GitHub',
+                url: 'https://github.com/JaidenDeChon/jaiden.dev',
+                icon: 'mdi:github',
+            },
+        ],
     },
     {
         title: ProjectArticleNames.NATUREJAB_DASHBOARD,
@@ -15,6 +22,13 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         description: 'Dashboard app for controlling and monitoring Julian Brown\'s vacuum pyrolysis reactor.',
         image: '/img/naturejab-logo.png',
         tags: ['Nuxt', 'Vue', 'TypeScript', 'Tailwind'],
+        relatedLinks: [
+            {
+                name: 'GitHub',
+                url: 'https://github.com/JaidenDeChon/naturejab-dashboard',
+                icon: 'mdi:github',
+            },
+        ],
     },
     {
         title: ProjectArticleNames.OSRS_GE_SKILLER,
@@ -22,13 +36,37 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         description: 'Helps OSRS players turn their skilling processes into more profitable ventures.',
         image: '/img/osrs-ge-skiller.png',
         tags: ['SvelteKit', 'MongoDB', 'TypeScript', 'Tailwind'],
+        relatedLinks: [
+            {
+                name: 'GitHub',
+                url: 'https://github.com/JaidenDeChon/osrs-ge-skiller',
+                icon: 'mdi:github',
+            },
+            {
+                name: 'Visit osrs-ge-skiller',
+                url: 'https://osrs-ge-skiller.netlify.app/',
+                icon: 'mdi:earth',
+            },
+        ],
     },
     {
         title: ProjectArticleNames.CLIQUE,
         path: `${PROEJCT_PATH_PREFIX}/${ProjectArticlePaths.CLIQUE}`,
         description: 'A social calendar app that transforms event planning with friends into an easy, intuitive experience.',
         image: '/img/clique.png',
-        tags: ['React', 'NestJS', 'TypeScript', 'Firebase'],
+        tags: ['React', 'TypeScript', 'Firebase'],
+        relatedLinks: [
+            {
+                name: 'LinkedIn',
+                url: 'https://linkedin.com/company/makeaclique',
+                icon: 'mdi:linkedin',
+            },
+            {
+                name: 'Visit Clique website',
+                url: 'https://www.makeaclique.com/',
+                icon: 'mdi:earth',
+            },
+        ],
     },
     {
         title: ProjectArticleNames.CAKE,
@@ -36,6 +74,13 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         description: 'Easy-to-use website builder powered by a rich text editor.',
         image: '/img/cake.png',
         tags: ['VueJS', 'NestJS', 'MongoDB', 'AWS', 'TypeScript', 'Tailwind'],
+        relatedLinks: [
+            {
+                name: 'GitHub',
+                url: 'https://github.com/JaidenDeChon/cake',
+                icon: 'mdi:github',
+            },
+        ],
     },
     {
         title: ProjectArticleNames.SELF_AWARE_GRID,
@@ -43,5 +88,17 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         description: 'Open-source NPM package for enhancing functionality of CSS grids.',
         image: '/img/self-aware-grid.png',
         tags: ['VueJS', 'NestJS', 'MongoDB', 'AWS', 'TypeScript', 'Tailwind'],
+        relatedLinks: [
+            {
+                name: 'GitHub',
+                url: 'https://github.com/JaidenDeChon/SelfAwareGrid',
+                icon: 'mdi:github',
+            },
+            {
+                name: 'Demo',
+                url: 'https://jaidendechon.github.io/SelfAwareGrid-Demo/',
+                icon: 'mdi:earth',
+            },
+        ],
     },
 ] as const;
