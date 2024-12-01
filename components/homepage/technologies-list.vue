@@ -5,7 +5,7 @@ interface Technology {
     subtitle: string;
     highlighted: boolean;
     iconColor: string;
-};
+}
 
 const technologies: Technology[] = [
     {
@@ -20,7 +20,7 @@ const technologies: Technology[] = [
         icon: 'devicon-plain:css3',
         subtitle: '8 years',
         highlighted: true,
-        iconColor: '#1572B6',
+        iconColor: '#663399', // rebeccapurple 💜 still waiting for an icon of the new logo @ icones.js.org
     },
     {
         name: 'JS, TS',
