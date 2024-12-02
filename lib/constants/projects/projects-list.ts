@@ -10,7 +10,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         tags: ['Nuxt', 'Vue', 'TypeScript', 'Tailwind'],
         relatedLinks: [
             {
-                name: 'GitHub',
+                name: 'Source Code',
                 url: 'https://github.com/JaidenDeChon/jaiden.dev',
                 icon: 'mdi:github',
             },
@@ -24,7 +24,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         tags: ['Nuxt', 'Vue', 'TypeScript', 'Tailwind'],
         relatedLinks: [
             {
-                name: 'GitHub',
+                name: 'Source Code',
                 url: 'https://github.com/JaidenDeChon/naturejab-dashboard',
                 icon: 'mdi:github',
             },
@@ -38,12 +38,12 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         tags: ['SvelteKit', 'MongoDB', 'TypeScript', 'Tailwind'],
         relatedLinks: [
             {
-                name: 'GitHub',
+                name: 'Source Code',
                 url: 'https://github.com/JaidenDeChon/osrs-ge-skiller',
                 icon: 'mdi:github',
             },
             {
-                name: 'Visit osrs-ge-skiller',
+                name: 'Open osrs-ge-skiller',
                 url: 'https://osrs-ge-skiller.netlify.app/',
                 icon: 'mdi:earth',
             },
@@ -62,7 +62,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
                 icon: 'mdi:linkedin',
             },
             {
-                name: 'Visit Clique website',
+                name: 'Open Clique website',
                 url: 'https://www.makeaclique.com/',
                 icon: 'mdi:earth',
             },
@@ -76,7 +76,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         tags: ['VueJS', 'NestJS', 'MongoDB', 'AWS', 'TypeScript', 'Tailwind'],
         relatedLinks: [
             {
-                name: 'GitHub',
+                name: 'Source Code',
                 url: 'https://github.com/JaidenDeChon/cake',
                 icon: 'mdi:github',
             },
@@ -90,12 +90,12 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         tags: ['VueJS', 'NestJS', 'MongoDB', 'AWS', 'TypeScript', 'Tailwind'],
         relatedLinks: [
             {
-                name: 'GitHub',
+                name: 'Source Code',
                 url: 'https://github.com/JaidenDeChon/SelfAwareGrid',
                 icon: 'mdi:github',
             },
             {
-                name: 'Demo',
+                name: 'Open demo',
                 url: 'https://jaidendechon.github.io/SelfAwareGrid-Demo/',
                 icon: 'mdi:earth',
             },
