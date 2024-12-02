@@ -228,13 +228,13 @@ function emitRandomArc() {
 
 <style>
 .hero-parent__world-container {
-  & canvas {
-    width: 100vw;
-    transition: filter 0.420s ease;
-  }
+    & canvas {
+        width: 100vw;
+        transition: filter 0.420s ease;
+    }
 
-  &.hero-parent__world-container--inverted canvas {
-    filter: invert(100%) hue-rotate(180deg);
-  }
+    &.hero-parent__world-container--inverted canvas {
+        filter: invert(100%) hue-rotate(180deg);
+    }
 }
 </style>

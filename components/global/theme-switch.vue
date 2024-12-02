@@ -18,7 +18,7 @@ function toggleTheme() {
 </script>
 
 <template>
-    <tooltip-provider>
+    <tooltip-provider :delay-duration="432">
         <tooltip>
             <tooltip-trigger as-child>
                 <Button

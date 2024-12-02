@@ -56,6 +56,7 @@ const nuxtRouterDestination = { path: props.to };
                 <tooltip-provider
                     v-for="relatedLink in articleHeaderData.relatedLinks"
                     :key="relatedLink.url"
+                    :delay-duration="432"
                 >
                     <tooltip>
                         <tooltip-trigger as-child>

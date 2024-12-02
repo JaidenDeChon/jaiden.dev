@@ -1,5 +1,5 @@
 <template>
-    <header class="border-b-2 border-border px-6 h-16 content-center fixed w-full bg-background/60 backdrop-blur-lg z-50">
+    <header class="border-b-2 border-border px-6 h-16 content-center fixed w-screen bg-background/60 backdrop-blur-lg z-50">
         <div class="size-for-all-screens flex items-center gap-3">
             <nuxt-link
                 to="/"
@@ -10,7 +10,7 @@
                 </h1>
             </nuxt-link>
 
-            <tooltip-provider>
+            <tooltip-provider :delay-duration="432">
                 <tooltip>
                     <tooltip-trigger as-child>
                         <Button
@@ -32,7 +32,7 @@
                 </tooltip>
             </tooltip-provider>
 
-            <tooltip-provider>
+            <tooltip-provider :delay-duration="432">
                 <tooltip>
                     <tooltip-trigger as-child>
                         <Button
