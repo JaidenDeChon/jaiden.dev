@@ -16,5 +16,10 @@ const projectInfo = computed(() =>
         <project-showcase-hero
             :project-header-info="projectInfo"
         />
+
+        <content-doc
+            class="size-for-all-screens"
+            path="/project-spotlights/cake"
+        />
     </div>
 </template>

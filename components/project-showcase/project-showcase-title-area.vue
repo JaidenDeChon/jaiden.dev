@@ -59,6 +59,8 @@ function toggleSpeech() {
                 v-for="relatedLink in props.projectHeaderInfo.relatedLinks"
                 :key="relatedLink.url"
                 :href="relatedLink.url"
+                target="_blank"
+                rel="noreferrer"
             >
                 <Button
                     variant="outline"
@@ -73,15 +75,17 @@ function toggleSpeech() {
             </a>
         </div>
 
-        <!-- Project title. -->
-        <h1 class="text-4xl font-bold mt-6">
-            Project Spotlight: {{ props.projectHeaderInfo.title }}
-        </h1>
+        <header class="mb-4">
+            <!-- Project title. -->
+            <h1 class="text-4xl font-bold mt-6 mb-3">
+                Project Spotlight: {{ props.projectHeaderInfo.title }}
+            </h1>
 
-        <!-- Project subtitle. -->
-        <p class="text-sm text-muted-foreground">
-            {{ props.projectHeaderInfo.description }}
-        </p>
+            <!-- Project subtitle. -->
+            <p class="text-sm text-muted-foreground">
+                {{ props.projectHeaderInfo.description }}
+            </p>
+        </header>
 
         <!-- Tags. -->
         <div class="flex gap-2 flex-wrap mb-6">

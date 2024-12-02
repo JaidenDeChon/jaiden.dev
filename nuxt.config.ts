@@ -12,6 +12,7 @@ export default defineNuxtConfig({
         'shadcn-nuxt',
         '@nuxt/icon',
         '@nuxt/image',
+        '@nuxt/content',
     ],
     colorMode: {
         classSuffix: '',

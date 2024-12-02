@@ -16,5 +16,10 @@ const projectInfo = computed(() =>
         <project-showcase-title-area
             :project-header-info="projectInfo"
         />
+
+        <content-doc
+            class="size-for-all-screens"
+            path="/project-spotlights/jaiden-dot-dev"
+        />
     </div>
 </template>
