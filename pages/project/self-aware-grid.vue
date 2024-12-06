@@ -11,14 +11,14 @@ const projectInfo = computed(() =>
 <template>
     <div
         v-if="projectInfo"
-        class="project-article"
+        class="project-article size-for-all-screens"
     >
         <project-showcase-hero
             :project-header-info="projectInfo"
         />
 
         <content-doc
-            class="size-for-all-screens"
+            class="prose prose-slate dark:prose-invert"
             path="/project-spotlights/self-aware-grid"
         />
     </div>
