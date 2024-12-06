@@ -43,7 +43,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
                 icon: 'mdi:github',
             },
             {
-                name: 'Open osrs-ge-skiller',
+                name: 'Live site',
                 url: 'https://osrs-ge-skiller.netlify.app/',
                 icon: 'mdi:earth',
             },
@@ -62,7 +62,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
                 icon: 'mdi:linkedin',
             },
             {
-                name: 'Open Clique website',
+                name: 'Live site (under construction)',
                 url: 'https://www.makeaclique.com/',
                 icon: 'mdi:earth',
             },
@@ -95,7 +95,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
                 icon: 'mdi:github',
             },
             {
-                name: 'Open demo',
+                name: 'Live demo',
                 url: 'https://jaidendechon.github.io/SelfAwareGrid-Demo/',
                 icon: 'mdi:earth',
             },

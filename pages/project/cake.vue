@@ -11,7 +11,7 @@ const projectInfo = computed(() =>
 <template>
     <div
         v-if="projectInfo"
-        class="project-article"
+        class="project-article size-for-all-screens"
     >
         <project-showcase-hero
             :project-header-info="projectInfo"
