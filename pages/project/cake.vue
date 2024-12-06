@@ -18,7 +18,7 @@ const projectInfo = computed(() =>
         />
 
         <content-doc
-            class="size-for-all-screens"
+            class="prose prose-slate dark:prose-invert size-for-all-screens"
             path="/project-spotlights/cake"
         />
     </div>

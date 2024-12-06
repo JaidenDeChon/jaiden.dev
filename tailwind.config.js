@@ -1,11 +1,12 @@
 const animate = require('tailwindcss-animate');
+const typography = require('@tailwindcss/typography');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     darkMode: ['class'],
     safelist: ['dark'],
     prefix: '',
-
+    plugins: [animate, typography],
     theme: {
         container: {
             center: true,
@@ -117,5 +118,4 @@ module.exports = {
             1000: '1000ms',
         },
     },
-    plugins: [animate],
 };
