@@ -1,8 +1,8 @@
-## Part 1 - A challenger approaches
+## A challenger approaches
 
 SelfAwareGrid came about due to an interesting design requirement given to me by our UI/UX team. It started as a head-scratcher and ended up becoming my first foray into publishing NPM packages, using GitHub Pages, and contributing to the open-source community in general. 
 
-In 2020, my [Beast Code]([https://www.beast-code.com](https://www.beast-code.com/)) team and I began scaffolding an exciting new project. (For security purposes, I won’t say the real name here. Instead I’ll refer to it as *Super*.) *Super* was something of a special one as its prototype had made waves throughout our customer base about a year prior, and now, that same customer was ready to support full-time development on the project. 
+In 2020, my [Beast Code](https://www.beast-code.com) team and I began scaffolding an exciting new project which we'll call _Super_. *Super* was something of a special one as its prototype had made waves throughout our customer base about a year prior, and now, that same customer was ready to support full-time development on the project. 
 
 Our UI/UX team brought a strong game and provided us with a sleek, modern design. One of the views in the app would contain a grid of cards. Each card was to expand and grow larger when hovered. Pretty simple, right?
 
@@ -16,7 +16,7 @@ The problem we faced was that this app must be compatible with many common scree
 
 So how do you do this? Well, the short answer is: you can’t. CSS doesn’t provide a way for querying positions of a grid beyond indexes via something like `nth-child`. If you want to know which child is at the bottom left position of your grid, you’re kinda screwed. 
 
-## Part 2 - Screw being screwed
+## Screw being screwed
 
 Why accept defeat? There had to be *some* way we could pull this off. I started brainstorming and realized this problem was very similar to one I’d worked with in the past. 
 
@@ -41,7 +41,7 @@ And, as mentioned before, requirements are often not so simple. What happens if 
 
 Here’s how this logic looks, converted to TypeScript:
 
-```typescript
+```javascript
 function isTopRow (gridItemIndex: number): boolean {
 	return gridItemIndex < this._columnCount;
 }
@@ -69,7 +69,7 @@ function isRightColumn (gridItemIndex: number): boolean {
 
 While we’re at it, now that we have these set up, we can add the directional functions described in the first group of bullet points:
 
-```typescript
+```javascript
 function getGridItemAbove (gridItemIndex: number): number {
 	return this.isTopRow(gridItemIndex)
 		? 0
@@ -98,7 +98,7 @@ function getGridItemToTheRight (gridItemIndex: number): number {
 
 (We also add some extra arguments for preventing wrap behavior when desired, as this doesn’t complicate the logic much at all.)
 
-## Part 3 - Measuring up
+## Measuring up
 
 Alright, so we have a bunch of logic now. We can determine whether a grid child is in the top, bottom, left, or right column; we can determine whether a grid child is in an arbitrary column; and we can determine which, if any, grid child is above, below, or beside the one in question. In order for these abilities to be useful, however, we have to know the size of the grid we’re working with. So what do we care about in that regard?
 

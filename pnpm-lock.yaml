@@ -21,6 +21,7 @@ specifiers:
   clsx: ^2.1.1
   eslint: ^9.10.0
   globe.gl: ^2.33.1
+  highlight.js: ^11.10.0
   lucide-vue-next: ^0.439.0
   nuxt: ^3.13.0
   pinia-plugin-persistedstate: ^4.0.1
@@ -45,6 +46,7 @@ dependencies:
   class-variance-authority: 0.7.1
   clsx: 2.1.1
   globe.gl: 2.34.1
+  highlight.js: 11.10.0
   lucide-vue-next: 0.439.0_vue@3.5.13
   nuxt: 3.14.1592_albbcikymjolm3ubzqlwoygz5m
   pinia-plugin-persistedstate: 4.1.3_@pinia+nuxt@0.5.5
@@ -1978,6 +1980,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.8
+      napi-wasm: 1.1.3
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -5292,6 +5295,11 @@ packages:
       space-separated-tokens: 2.0.2
     dev: false
 
+  /highlight.js/11.10.0:
+    resolution: {integrity: sha512-SYVnVFswQER+zu1laSya563s+F8VDGt7o35d4utbamowvUNLLMovFqwCLSocpZTz3MgaSRA1IbqRWZv97dtErQ==}
+    engines: {node: '>=12.0.0'}
+    dev: false
+
   /hookable/5.5.3:
     resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==}
 
@@ -6629,6 +6637,10 @@ packages:
     resolution: {integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==}
     dev: false
     optional: true
+
+  /napi-wasm/1.1.3:
+    resolution: {integrity: sha512-h/4nMGsHjZDCYmQVNODIrYACVJ+I9KItbG+0si6W/jSjdA9JbWDoU4LLeMXVcEQGHjttI2tuXqDrbGF7qkUHHg==}
+    dev: false
 
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}

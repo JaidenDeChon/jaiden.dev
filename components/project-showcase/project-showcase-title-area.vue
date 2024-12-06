@@ -131,7 +131,7 @@ function toggleSpeech() {
             :src="props.projectHeaderInfo.image"
             :alt="`${props.projectHeaderInfo.title} image`"
             :title="`${props.projectHeaderInfo.title} image`"
-            class="w-full rounded-md border"
+            class="w-full rounded-md border max-w-[65ch] mx-auto my-12"
         />
     </div>
 </template>
