@@ -11,7 +11,8 @@ const projectInfo = computed(() =>
 
 function highlightCodeBlocks(): void {
     document.querySelectorAll('pre code').forEach((block) => {
-        highlightJs.highlightElement(block as HTMLElement);
+        block.classList.add('language-typescript');
+        highlightJs.highlightElement(block);
     });
 }
 
