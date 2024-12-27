@@ -1,20 +1,38 @@
-## A challenger approaches
+## An intriguing name for a simple package
 
-SelfAwareGrid came about due to an interesting design requirement given to me by our UI/UX team. It started as a head-scratcher and ended up becoming my first foray into publishing NPM packages, using GitHub Pages, and contributing to the open-source community in general. 
+SelfAwareGrid came about when a design for a customer's website contained a grid of items which would be styled based on their position within the grid. Imagine a simple grid where the elements in the top row of the grid needed to be one color, while elements in the first column needed to be another color. This is simple enough, but the 
 
-In 2020, my [Beast Code](https://www.beast-code.com) team and I began scaffolding an exciting new project which we'll call _Super_. *Super* was something of a special one as its prototype had made waves throughout our customer base about a year prior, and now, that same customer was ready to support full-time development on the project. 
+[work in progress]
 
-Our UI/UX team brought a strong game and provided us with a sleek, modern design. One of the views in the app would contain a grid of cards. Each card was to expand and grow larger when hovered. Pretty simple, right?
+SelfAwareGrid is an NPM package that allows you to easily track the positions of grid children relative to their parent and their siblings. This means you can determine whether grid children are in corners, along edges, or other positional details, such as which grid child is adjacent to another. CSS does not provide a way to target particular rows or columns in a dynamic way (that is, ), so this functionality can prove very helpful when you have a dynamic grid but want to style grid children based on their positions.
 
-Wrong.
+Here's a demo to illustrate what I'm talking about. First, I'll show you a normal grid I've styled such that grid children along the edges will use a different color than the rest. Resize this demo to see where the issue arises:
 
-There was a quirk about this design that threw a wrench in my plans. You see, not all cards in our mock-up expanded exactly the same way. Most cards would simply grow in size equally in all directions, but any cards alongside the edges of the grid container (top and bottom, left and right) would expand **away from their edge** rather than expanding out from the center. For example, a card in the **top row** of the grid is **already as high as it can get**, so it must expand downward rather than outward. Likewise, a card in the **far-left column** of the grid is **already as far left as it can get**, so it must expand to the right. Corner cards would combine this logic by expanding away from their respective corner. 
+> _demo without it_
 
-At first, one would think one could throw in a `transform-origin` to knock each of those out and call it a day. Alas, not all requirements are so simple. 
+I'll apply SelfAwareGrid to this instead, and right away we can observe the difference it made. No matter how we resize the grid, children on along the outside edges maintain their styling, even as the grid is reordered to compensate for the changing dimensions.
 
-The problem we faced was that this app must be compatible with many common screen sizes, which meant our grid would have different dimensions for different users. Our card expansion animation logic needed to take into account *where in the grid* a given grid child was.
+> _demo with it, and custom styles enabled_
 
-So how do you do this? Well, the short answer is: you can’t. CSS doesn’t provide a way for querying positions of a grid beyond indexes via something like `nth-child`. If you want to know which child is at the bottom left position of your grid, you’re kinda screwed. 
+Since SelfAwareGrid can easily determine which grid children are adjacent to any given child, it can be used to easily implement a keyboard-navigable grid interface akin to what you find in spreadsheet software like Excel.
+
+> _demo of keyboard navigability_
+
+SelfAwareGrid came about due to a design I received for a product at my day job. In this design, there was a dashboard of sorts where cards were arranged in a grid. Whenever you hovered a card, it would expand and grow somewhat. Easy, right? Well, there was a small catch. Or at least, I thought it was a "small catch," until it grew into what became the thing you're reading about here for some reason. 
+
+You see, the cards along the edges of the grid couldn't expand outward in all directions. They needed to expand away from whatever edge they were touching (as opposed to overlapping the edge once it grows). This was to preserve the satisfying "clean edge" look our designers were going for in this particular effort. And if the card was in a corner (read: along two edges), it would have to expand away from _both_ of those. Beyond all of this, the grid needed to be responsive in case the user rotated their device and the dimensions of the grid changed.
+
+So how can we do this? Because, as it turns out, CSS really isn't equipped for this kind of thing.
+
+We can't just use `nth-child(n)` because we expect the number of columns to change. And there isn't such a thing as a `:top-row` pseudo-class or similar. I would have to use math.
+
+The math actually ended up being pretty fun to work out, so I wanted to go over it here. I figured it would be good enough for the first article I put on this site.
+
+
+
+
+
+_____
 
 ## Screw being screwed
 
@@ -41,7 +59,7 @@ And, as mentioned before, requirements are often not so simple. What happens if 
 
 Here’s how this logic looks, converted to TypeScript:
 
-```javascript
+```typescript
 function isTopRow (gridItemIndex: number): boolean {
 	return gridItemIndex < this._columnCount;
 }
@@ -69,7 +87,7 @@ function isRightColumn (gridItemIndex: number): boolean {
 
 While we’re at it, now that we have these set up, we can add the directional functions described in the first group of bullet points:
 
-```javascript
+```typescript
 function getGridItemAbove (gridItemIndex: number): number {
 	return this.isTopRow(gridItemIndex)
 		? 0

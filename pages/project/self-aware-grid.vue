@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import 'highlight.js/styles/base16/dracula.min.css';
-import hljs from 'highlight.js';
+import highlightJs from 'highlight.js';
 import ProjectShowcaseHero from '~/components/project-showcase/project-showcase-title-area.vue';
 import { PROJECTS_LIST } from '~/lib/constants/projects/projects-list';
 import { ProjectArticleNames } from '~/lib/constants/projects/project-article-enums';
@@ -11,7 +11,7 @@ const projectInfo = computed(() =>
 
 function highlightCodeBlocks(): void {
     document.querySelectorAll('pre code').forEach((block) => {
-        hljs.highlightElement(block);
+        highlightJs.highlightElement(block as HTMLElement);
     });
 }
 
