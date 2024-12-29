@@ -1,7 +1,6 @@
 ## Finding (and fixing) a hole in CSS Grid
 
-SelfAwareGrid came about when a design for a customer's website contained a 
-deceptively tricky set of requirements:
+SelfAwareGrid came about when a design for a customer's website contained a tricky set of requirements:
 
 1. The UI contains a grid where child elements are styled based on their position within the grid.
 2. The grid needs to be **responsive** -- that is, it must maintain its position-based styling even if the size/flow of the grid changes (e.g. it gains or loses columns or rows).
