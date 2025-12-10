@@ -11,7 +11,7 @@ const nuxtRouterDestination = { path: props.to };
 
 <template>
     <div
-        class="p-4 flex flex-col gap-3 rounded-md bg-background transition-all border-2 hover:shadow-xl hover:border-background group"
+        class="p-4 flex h-full flex-col gap-3 rounded-md bg-background transition-all border-2 hover:shadow-xl hover:border-background group"
     >
         <!-- Image. -->
         <nuxt-link :to="nuxtRouterDestination">
@@ -45,10 +45,10 @@ const nuxtRouterDestination = { path: props.to };
         </div>
 
         <!-- Description. -->
-        <div class="flex gap-3 justify-between">
+        <div class="mt-auto flex items-end gap-3 justify-between">
             <router-link
                 :to="nuxtRouterDestination"
-                class="fancy-text-decoration text-muted-foreground mt-auto"
+                class="fancy-text-decoration text-muted-foreground"
             >
                 {{ $props.articleHeaderData.description }}
             </router-link>
