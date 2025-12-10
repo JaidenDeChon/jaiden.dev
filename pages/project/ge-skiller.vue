@@ -31,6 +31,11 @@ const projectInfo = computed(() =>
             playsinline
         />
 
+        <content-doc
+            class="prose prose-slate dark:prose-invert mx-auto mb-6 p-6 lg:px-0"
+            path="/project-spotlights/ge-skiller/ge-skiller-2"
+        />
+
         <video
             src="/img/ge-skiller-article-images/img-3.mp4"
             class="my-4 mx-auto max-w-sm rounded-md shadow-md"
@@ -38,6 +43,11 @@ const projectInfo = computed(() =>
             muted
             loop
             playsinline
+        />
+
+        <content-doc
+            class="prose prose-slate dark:prose-invert mx-auto mb-6 p-6 lg:px-0"
+            path="/project-spotlights/ge-skiller/ge-skiller-3"
         />
     </div>
 </template>

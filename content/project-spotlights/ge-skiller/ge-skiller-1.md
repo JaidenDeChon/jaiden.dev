@@ -12,7 +12,7 @@ In late 2023, I found myself wishing I had an idea for a web project to spend so
 
 ## Early days
 
-Though it's undergone many iterations, GE Skiller has always been a SvelteKit app. I started before the Runes feature was introduced, and have used several UI options before finally landing on shadcn-svelte and developing what the app into has become today. 
+Though it's undergone many iterations, GE Skiller has always been a SvelteKit app. I started before the Runes feature was introduced, and have used several UI options before finally landing on [shadcn-svelte](https://www.shadcn-svelte.com) and developing what the app into has become today. 
 
 In the spirit of Svelte's "it works with anything JS" approach, I wanted to find a component library that was minimal and as simple as possible. The first place that landed me was with [Pico CSS](https://picocss.com). Less of a component library and more of a stylized CSS reset, Pico gave me a decent jumping-off point to help flesh out the most basic ideas of the app. 
 
@@ -22,4 +22,9 @@ I knew I wanted to:
 - filter those items based on which ones I could make (with smithing, crafting, fletching etc)
 - see a breakdown of what materials went into creating a given item
 
-With those ideas in mind, and Svelte and Pico in my toolbelt, I set out on creating my first prototype. And, despite a massive data loss event I had in 2024, these videos of the app at that time survived:
+With those ideas in mind, and Svelte and Pico in my toolbelt, I set out on creating my first prototype. Pico was a 
+pleasure to use, but I was looking for more in my component library. I was in a place where I was alright with leaning 
+on a component library, and while I saw the value in Pico, I was looking for more. 
+
+Despite a massive data loss event I had in 2024, a couple videos of the app from that time survived 🥹 Here's a video 
+of what it looked like early on, with the above goals in mind. 

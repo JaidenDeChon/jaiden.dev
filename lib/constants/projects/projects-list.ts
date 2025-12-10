@@ -24,7 +24,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         title: ProjectArticleNames.GE_SKILLER,
         path: `${PROEJCT_PATH_PREFIX}/${ProjectArticlePaths.GE_SKILLER}`,
         description:
-            'Unexpected lessons in perserverance, delegation, and grief of a loved one',
+            'Unexpected lessons in perserverance, delegation, and loss',
         image: '/img/osrs-ge-skiller.png',
         tags: ['SvelteKit', 'MongoDB', 'TypeScript', 'Tailwind', 'Personal'],
         relatedLinks: [
