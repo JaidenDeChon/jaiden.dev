@@ -1,1 +1,0 @@
-osrs-ge-skiller article

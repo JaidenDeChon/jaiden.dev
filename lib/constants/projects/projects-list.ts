@@ -21,21 +21,21 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         ],
     },
     {
-        title: ProjectArticleNames.OSRS_GE_SKILLER,
-        path: `${PROEJCT_PATH_PREFIX}/${ProjectArticlePaths.OSRS_GE_SKILLER}`,
+        title: ProjectArticleNames.GE_SKILLER,
+        path: `${PROEJCT_PATH_PREFIX}/${ProjectArticlePaths.GE_SKILLER}`,
         description:
-            'Helps OSRS players turn their skilling processes into more profitable ventures.',
+            'Unexpected lessons in perserverance, delegation, and grief of a loved one',
         image: '/img/osrs-ge-skiller.png',
-        tags: ['SvelteKit', 'MongoDB', 'TypeScript', 'Tailwind'],
+        tags: ['SvelteKit', 'MongoDB', 'TypeScript', 'Tailwind', 'Personal'],
         relatedLinks: [
             {
                 name: 'Source Code',
-                url: 'https://github.com/JaidenDeChon/osrs-ge-skiller',
+                url: 'https://github.com/JaidenDeChon/ge-skiller',
                 icon: 'mdi:github',
             },
             {
                 name: 'Live site',
-                url: 'https://osrs-ge-skiller.netlify.app/',
+                url: 'https://ge-skiller.netlify.app/',
                 icon: 'mdi:earth',
             },
         ],
