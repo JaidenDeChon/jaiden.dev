@@ -30,11 +30,19 @@ other items if they had ingredients. The full contents of that nested data can b
 With that in mind, I took my 20-something hard-coded items and inserted them into the database. Paired with an assist 
 from the OSRS Prices wiki, each card now showed a price and some other helpful info. Now we're cooking!
 
-![GE Skiller homepage](img/ge-skiller-article-images/img-5.png)
+![GE Skiller cards UI](img/ge-skiller-article-images/img-5.png)
 
 By now you can also see the app has taken on a new aesthetic. While it's similar to many apps out there today, I enjoy 
 this look, and feel satisfied making a website that looks so clean. I'm sure this look will eventually grow as tired as 
 the original Material Design, but today, we enjoy it!
+
+![GE Skiller cards UI](img/ge-skiller-article-images/img-12.png)
+
+I used an older, well-established library called [echarts](https://echarts.apache.org/en/index.html) to render the item 
+ingredients tree. To my surprise, this lended itself very well to an SPA-style application where, instead of linking 
+between actual pages, the contents of the same page are simply replaced. Because of this behavior, the chart will 
+animate between pages. Try opening [the page](https://ge-skiller.netlify.app/items/1295) in the screenshot above and 
+then clicking one of the ingredients within the tree to see what I mean!
 
 ## Welcome to Mongoland - Population 10,000
 
