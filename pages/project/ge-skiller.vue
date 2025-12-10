@@ -30,6 +30,15 @@ const projectInfo = computed(() =>
             loop
             playsinline
         />
+
+        <video
+            src="/img/ge-skiller-article-images/img-3.mp4"
+            class="my-4 mx-auto max-w-sm rounded-md shadow-md"
+            controls
+            muted
+            loop
+            playsinline
+        />
     </div>
 </template>
 

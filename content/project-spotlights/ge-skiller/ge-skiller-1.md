@@ -22,4 +22,4 @@ I knew I wanted to:
 - filter those items based on which ones I could make (with smithing, crafting, fletching etc)
 - see a breakdown of what materials went into creating a given item
 
-With those ideas in mind, and Svelte and Pico in my toolbelt, I set out on creating my first prototype. And, despite a massive data loss event I had in 2024, this video of the app at that time survived:
+With those ideas in mind, and Svelte and Pico in my toolbelt, I set out on creating my first prototype. And, despite a massive data loss event I had in 2024, these videos of the app at that time survived:
