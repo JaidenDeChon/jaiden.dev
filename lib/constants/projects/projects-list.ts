@@ -1,5 +1,9 @@
 import type { ProjectHeader } from '~/lib/models/project-header';
-import { PROEJCT_PATH_PREFIX, ProjectArticleNames, ProjectArticlePaths } from '~/lib/constants/projects/project-article-enums';
+import {
+    PROEJCT_PATH_PREFIX,
+    ProjectArticleNames,
+    ProjectArticlePaths,
+} from '~/lib/constants/projects/project-article-enums';
 
 export const PROJECTS_LIST: ProjectHeader[] = [
     {
@@ -17,23 +21,10 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         ],
     },
     {
-        title: ProjectArticleNames.NATUREJAB_DASHBOARD,
-        path: `${PROEJCT_PATH_PREFIX}/${ProjectArticlePaths.NATUREJAB_DASHBOARD}`,
-        description: 'Dashboard app for controlling and monitoring Julian Brown\'s vacuum pyrolysis reactor.',
-        image: '/img/naturejab-logo.png',
-        tags: ['Nuxt', 'Vue', 'TypeScript', 'Tailwind'],
-        relatedLinks: [
-            {
-                name: 'Source Code',
-                url: 'https://github.com/JaidenDeChon/naturejab-dashboard',
-                icon: 'mdi:github',
-            },
-        ],
-    },
-    {
         title: ProjectArticleNames.OSRS_GE_SKILLER,
         path: `${PROEJCT_PATH_PREFIX}/${ProjectArticlePaths.OSRS_GE_SKILLER}`,
-        description: 'Helps OSRS players turn their skilling processes into more profitable ventures.',
+        description:
+            'Helps OSRS players turn their skilling processes into more profitable ventures.',
         image: '/img/osrs-ge-skiller.png',
         tags: ['SvelteKit', 'MongoDB', 'TypeScript', 'Tailwind'],
         relatedLinks: [
@@ -50,28 +41,10 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         ],
     },
     {
-        title: ProjectArticleNames.CLIQUE,
-        path: `${PROEJCT_PATH_PREFIX}/${ProjectArticlePaths.CLIQUE}`,
-        description: 'A social calendar app that transforms event planning with friends into an easy, intuitive experience.',
-        image: '/img/clique.png',
-        tags: ['React', 'TypeScript', 'Firebase'],
-        relatedLinks: [
-            {
-                name: 'LinkedIn',
-                url: 'https://linkedin.com/company/makeaclique',
-                icon: 'mdi:linkedin',
-            },
-            {
-                name: 'Live site (under construction)',
-                url: 'https://www.makeaclique.com/',
-                icon: 'mdi:earth',
-            },
-        ],
-    },
-    {
         title: ProjectArticleNames.CAKE,
         path: `${PROEJCT_PATH_PREFIX}/${ProjectArticlePaths.CAKE}`,
-        description: 'Easy-to-use website builder powered by a rich text editor.',
+        description:
+            'Easy-to-use website builder powered by a rich text editor.',
         image: '/img/cake.png',
         tags: ['VueJS', 'NestJS', 'MongoDB', 'AWS', 'TypeScript', 'Tailwind'],
         relatedLinks: [
@@ -85,7 +58,8 @@ export const PROJECTS_LIST: ProjectHeader[] = [
     {
         title: ProjectArticleNames.SELF_AWARE_GRID,
         path: `${PROEJCT_PATH_PREFIX}/${ProjectArticlePaths.SELF_AWARE_GRID}`,
-        description: 'Open-source NPM package for enhancing functionality of CSS grids.',
+        description:
+            'Open-source NPM package for enhancing functionality of CSS grids.',
         image: '/img/self-aware-grid.png',
         tags: ['VueJS', 'NestJS', 'MongoDB', 'AWS', 'TypeScript', 'Tailwind'],
         relatedLinks: [
