@@ -19,7 +19,22 @@ const projectInfo = computed(() =>
 
         <content-doc
             class="prose prose-slate dark:prose-invert mx-auto mb-6 p-6 lg:px-0"
-            path="/project-spotlights/ge-skiller"
+            path="/project-spotlights/ge-skiller/ge-skiller-1"
+        />
+
+        <video
+            src="/img/ge-skiller-article-images/img-2.mp4"
+            class="my-4 mx-auto max-w-sm rounded-md shadow-md"
+            controls
+            muted
+            loop
+            playsinline
         />
     </div>
 </template>
+
+<style>
+    .prose img {
+        margin: 0 auto !important
+    }
+</style>

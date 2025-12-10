@@ -4,7 +4,7 @@ My earliest memory of Old School RuneScape is a conversation two of my friends w
 
 A couple years later I switched schools and RuneScape came up again. This time it was my friend Michael telling me about it. He helped me get it installed (probably walked me through the Java installation, too) and I was immediately hooked. I remember getting so pumped when I'd get home from school, and when I heard the login music... Man, I could get chills just remembering those days. Days of friends and simplicity. I'm very grateful to have experienced those years the way I did because I know not everyone was so fortunate. 
 
-![an image](img/ge-skiller-article-images/img-1.png)
+![Jaiden excited to play on the computer -- any ideas what game he's about to play?](img/ge-skiller-article-images/img-1.png)
 
 Fast-forward 20 years and I'm still playing RuneScape. Like probably millions of others, when it was announced they were bringing _our_ version of the game back as a standalone title, I was ecstatic. 
 
@@ -23,5 +23,3 @@ I knew I wanted to:
 - see a breakdown of what materials went into creating a given item
 
 With those ideas in mind, and Svelte and Pico in my toolbelt, I set out on creating my first prototype. And, despite a massive data loss event I had a couple years ago, this video of the app at that time survived:
-
-![an image](img/ge-skiller-article-images/img-2.mp4)
