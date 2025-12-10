@@ -8,7 +8,7 @@ By the next year I'd switched schools and soon enough uneScape came up again. Th
 
 Fast-forward 20 years and I'm still playing RuneScape. Like probably millions of others, when it was announced they were bringing _our_ version of the game back as a standalone title, I was ecstatic. 
 
-In late 2023, I found myself wishing I had an idea for a web project to spend some time on so I'd been on the lookout for ideas. One day, as I was thinking about this game and my ongoing issue of being perpetually poor within it, and wished I had a tool that would analyze my account and tell me the most profitable items I could produce given my skill levels, quest completion status, and so on. That day, "GE Skiller" was born.
+In late 2023, I found myself wishing I had an idea for a web project to spend some time on so I'd been on the lookout for ideas. One day, as I was thinking about this game and my ongoing issue of being perpetually poor within it, I found myself wishing for a tool that would analyze my account and tell me the most profitable items I could produce given my skill levels, quest completion status, and so on. I realized this idea was as good as any and got to work. 
 
 ## Early days
 
