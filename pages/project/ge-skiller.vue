@@ -6,6 +6,21 @@ import { ProjectArticleNames } from '~/lib/constants/projects/project-article-en
 const projectInfo = computed(() =>
     PROJECTS_LIST.find(project => project.title === ProjectArticleNames.GE_SKILLER),
 );
+
+const seoTitle = computed(() => projectInfo.value
+    ? `Project Spotlight: ${projectInfo.value.title}`
+    : 'Project Spotlight',
+);
+const seoDescription = computed(() => projectInfo.value?.description);
+
+useSeoMeta(() => ({
+    title: seoTitle.value,
+    ogTitle: seoTitle.value,
+    twitterTitle: seoTitle.value,
+    description: seoDescription.value,
+    ogDescription: seoDescription.value,
+    twitterDescription: seoDescription.value,
+}));
 </script>
 
 <template>
