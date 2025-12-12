@@ -50,6 +50,7 @@ onMounted(async () => {
 
         <content-doc
             class="prose prose-slate dark:prose-invert mx-auto mb-6 p-6 lg:px-0"
+            :head="false"
             path="/project-spotlights/self-aware-grid"
         />
     </div>

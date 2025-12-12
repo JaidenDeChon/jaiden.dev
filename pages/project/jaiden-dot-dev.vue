@@ -34,6 +34,7 @@ useSeoMeta(() => ({
 
         <content-doc
             class="size-for-all-screens"
+            :head="false"
             path="/project-spotlights/jaiden-dot-dev"
         />
     </div>

@@ -34,6 +34,7 @@ useSeoMeta(() => ({
 
         <content-doc
             class="prose prose-slate dark:prose-invert"
+            :head="false"
             path="/project-spotlights/cake"
         />
     </div>

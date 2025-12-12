@@ -34,6 +34,7 @@ useSeoMeta(() => ({
 
         <content-doc
             class="prose prose-slate dark:prose-invert mx-auto mb-6 p-6 lg:px-0"
+            :head="false"
             path="/project-spotlights/ge-skiller/ge-skiller-1"
         />
 
@@ -48,6 +49,7 @@ useSeoMeta(() => ({
 
         <content-doc
             class="prose prose-slate dark:prose-invert mx-auto mb-6 p-6 lg:px-0"
+            :head="false"
             path="/project-spotlights/ge-skiller/ge-skiller-2"
         />
 
@@ -62,6 +64,7 @@ useSeoMeta(() => ({
 
         <content-doc
             class="prose prose-slate dark:prose-invert mx-auto mb-6 p-6 lg:px-0"
+            :head="false"
             path="/project-spotlights/ge-skiller/ge-skiller-3"
         />
     </div>
