@@ -6,6 +6,12 @@ import { ProjectArticleNames } from '~/lib/constants/projects/project-article-en
 const projectInfo = computed(() =>
     PROJECTS_LIST.find(project => project.title === ProjectArticleNames.GE_SKILLER),
 );
+
+useSeoMeta(() => ({
+    title: projectInfo.value
+        ? `Project Spotlight: ${projectInfo.value.title}`
+        : 'Project Spotlight',
+}));
 </script>
 
 <template>
@@ -19,6 +25,7 @@ const projectInfo = computed(() =>
 
         <content-doc
             class="prose prose-slate dark:prose-invert mx-auto mb-6 p-6 lg:px-0"
+            :head="false"
             path="/project-spotlights/ge-skiller/ge-skiller-1"
         />
 
@@ -33,6 +40,7 @@ const projectInfo = computed(() =>
 
         <content-doc
             class="prose prose-slate dark:prose-invert mx-auto mb-6 p-6 lg:px-0"
+            :head="false"
             path="/project-spotlights/ge-skiller/ge-skiller-2"
         />
 
@@ -47,6 +55,7 @@ const projectInfo = computed(() =>
 
         <content-doc
             class="prose prose-slate dark:prose-invert mx-auto mb-6 p-6 lg:px-0"
+            :head="false"
             path="/project-spotlights/ge-skiller/ge-skiller-3"
         />
     </div>
