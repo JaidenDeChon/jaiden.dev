@@ -2,93 +2,99 @@
 interface Technology {
     name: string;
     icon: string;
-    subtitle: string;
+    startYear: number;
     highlighted: boolean;
     iconColor: string;
 }
+
+const currentYear = new Date().getFullYear();
+const yearsSince = (startYear: number) => {
+    const years = currentYear - startYear;
+    return years === 1 ? '1 year' : `${years} years`;
+};
 
 const technologies: Technology[] = [
     {
         name: 'HTML',
         icon: 'devicon-plain:html5',
-        subtitle: '8 years',
+        startYear: 2014,
         highlighted: true,
         iconColor: '#E34F26',
     },
     {
         name: 'CSS',
         icon: 'devicon-plain:css3',
-        subtitle: '8 years',
+        startYear: 2014,
         highlighted: true,
         iconColor: '#663399', // rebeccapurple 💜 still waiting for an icon of the new logo @ icones.js.org
     },
     {
         name: 'JS, TS',
         icon: 'devicon-plain:typescript',
-        subtitle: '8 years',
+        startYear: 2015,
         highlighted: true,
         iconColor: '#F0DB4F',
     },
     {
         name: 'VueJS',
         icon: 'devicon-plain:vuejs',
-        subtitle: '7 years',
+        startYear: 2015,
         highlighted: true,
         iconColor: '#42B883',
     },
     {
         name: '.NET',
         icon: 'devicon-plain:dot-net',
-        subtitle: '6 years',
+        startYear: 2018,
         highlighted: false,
         iconColor: '#512BD4',
     },
     {
         name: 'SQL',
         icon: 'devicon-plain:azuresqldatabase',
-        subtitle: '6 years',
+        startYear: 2018,
         highlighted: true,
         iconColor: '#0078D4',
     },
     {
         name: 'React',
         icon: 'akar-icons:react-fill',
-        subtitle: '',
+        startYear: 2021,
         highlighted: false,
         iconColor: '#61DAFB',
     },
     {
         name: 'Angular',
         icon: 'devicon-plain:angular',
-        subtitle: '',
+        startYear: 2021,
         highlighted: false,
         iconColor: '#DD0031',
     },
     {
         name: 'Nuxt',
         icon: 'devicon-plain:nuxtjs',
-        subtitle: '',
+        startYear: 2021,
         highlighted: false,
         iconColor: '#00C58E',
     },
     {
         name: 'Svelte, SvelteKit',
         icon: 'devicon-plain:svelte',
-        subtitle: '',
+        startYear: 2021,
         highlighted: false,
         iconColor: '#FF3E00',
     },
     {
         name: 'NestJS',
         icon: 'devicon-plain:nestjs',
-        subtitle: '',
+        startYear: 2021,
         highlighted: false,
         iconColor: '#E0234E',
     },
     {
         name: 'MongoDB',
         icon: 'devicon-plain:mongodb',
-        subtitle: '',
+        startYear: 2021,
         highlighted: false,
         iconColor: '#47A248',
     },
@@ -119,7 +125,7 @@ const technologies: Technology[] = [
                         {{ technology.name }}
                     </p>
                     <p class="afacad w-full text-center text-sm text-muted-foreground -mt-3 md:-mt-4">
-                        {{ technology.subtitle }}
+                        {{ yearsSince(technology.startYear) }}
                     </p>
                 </div>
             </div>
