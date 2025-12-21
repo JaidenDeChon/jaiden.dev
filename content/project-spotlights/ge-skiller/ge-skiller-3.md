@@ -180,7 +180,7 @@ I'm going to miss you, Hayden. Rest easy, you big dumb bitch. I love you, man.
 
 ![Hayden and his mom](img/ge-skiller-article-images/img-11.jpg)
 
-## Thursday, December 11, 2025 at 10:17am
+## July 15, 1996 — Thursday, December 11, 2025 at 10:17am
 
 On the morning Hayden was scheduled to be taken off life support, for the first time since this ordeal began, Hayden tracked movement with his eyes and gsve his nurse a thumbs-up in response to her. Mikayla rushed to the hospital to hopefully greet him and be there for him, but as she arrived, Hayden's vitals began crashing and he suffered a brain hemorrhage which then claimed his life.
 
