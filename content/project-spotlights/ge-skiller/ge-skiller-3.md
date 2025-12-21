@@ -182,6 +182,6 @@ I'm going to miss you, Hayden. Rest easy, you big dumb bitch. I love you, man.
 
 ## Thursday, December 11, 2025 at 10:17am
 
-On the morning Haydem was scheduled to be taken off life support, for the first time since this ordeal began, Hayden tracked movement with his eyes and gsve his nurse a thumbs-up in response to her. Mikayla rushed to the hospital to hopefully greet him and be there for him, but as she arrived, Hayden's vitals began crashing and he suffered a brain hemorrhage which then claimed his life.
+On the morning Hayden was scheduled to be taken off life support, for the first time since this ordeal began, Hayden tracked movement with his eyes and gsve his nurse a thumbs-up in response to her. Mikayla rushed to the hospital to hopefully greet him and be there for him, but as she arrived, Hayden's vitals began crashing and he suffered a brain hemorrhage which then claimed his life.
 
 Hayden will be missed more dearly than words can say. The world is a little more dull without him here. Miss you buddy. I always will.
