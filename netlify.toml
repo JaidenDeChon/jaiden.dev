@@ -6,4 +6,5 @@
 
 [functions]
   node_bundler = "zisi"
-  included_files = [".netlify/functions-internal/server/node_modules/better-sqlite3/build/Release/better_sqlite3.node"]
+  external_node_modules = ["better-sqlite3"]
+  included_files = ["node_modules/better-sqlite3/build/Release/better_sqlite3.node"]
