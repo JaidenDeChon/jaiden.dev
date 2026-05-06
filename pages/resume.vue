@@ -160,7 +160,7 @@ onBeforeUnmount(() => {
         <section class="prose prose-slate dark:prose-invert mx-auto p-6 lg:px-0">
             <header class="not-prose mb-6 flex items-center justify-between gap-4">
                 <p class="afacad text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
-                    Resume
+                    Résumé
                 </p>
 
                 <div class="flex items-center gap-2">
