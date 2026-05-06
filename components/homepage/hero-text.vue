@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { smoothScrollIntoView } from '~/lib/helpers/smoth-scroll-into-view';
-
 const animateHeading = ref('opacity-0 translate-y-4');
 const animateParagraph1 = ref('opacity-0 translate-y-4');
 const animateParagraph2 = ref('opacity-0 translate-y-4');
@@ -13,13 +11,6 @@ onMounted(() => {
     setTimeout(() => animateParagraph2.value = '', 400);
     setTimeout(() => animateButtonGroup.value = '', 600);
 });
-
-function scrollToProjects(): void {
-    const myProjectsParent = document.getElementById('my-projects-parent');
-    if (!myProjectsParent) return;
-
-    smoothScrollIntoView(myProjectsParent);
-}
 </script>
 
 <template>
@@ -53,11 +44,13 @@ function scrollToProjects(): void {
                     Get in touch
                 </Button>
                 <Button
+                    as-child
                     class="text-lg"
                     variant="secondary"
-                    @click="scrollToProjects"
                 >
-                    My projects
+                    <NuxtLink to="/resume">
+                        Résumé
+                    </NuxtLink>
                 </Button>
             </div>
         </div>

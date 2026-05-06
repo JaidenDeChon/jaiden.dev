@@ -18,7 +18,7 @@
                             size="icon"
                             as-child
                         >
-                            <a href="mailto:me@jaiden.foo">
+                            <a href="mailto:hello@jaiden.dev">
                                 <Icon
                                     name="gravity-ui:envelope"
                                     class="h-[1.2rem] w-[1.2rem]"
