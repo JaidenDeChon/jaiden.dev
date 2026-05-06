@@ -1,4 +1,4 @@
-import { access, cp, lstat, rm } from 'node:fs/promises'
+import { access, cp, lstat, readdir, rm } from 'node:fs/promises'
 import path from 'node:path'
 
 const projectRoot = process.cwd()
@@ -42,7 +42,38 @@ async function replacePackage(relativePath) {
   })
 }
 
+async function replaceSymlinkedPackages() {
+  const entries = await readdir(functionNodeModules, { withFileTypes: true })
+
+  for (const entry of entries) {
+    if (entry.name.startsWith('.')) {
+      continue
+    }
+
+    if (entry.isSymbolicLink()) {
+      await replacePackage(entry.name)
+      continue
+    }
+
+    if (!entry.isDirectory() || !entry.name.startsWith('@')) {
+      continue
+    }
+
+    const scopePath = path.join(functionNodeModules, entry.name)
+    const scopedEntries = await readdir(scopePath, { withFileTypes: true })
+
+    for (const scopedEntry of scopedEntries) {
+      if (!scopedEntry.isSymbolicLink()) {
+        continue
+      }
+
+      await replacePackage(path.join(entry.name, scopedEntry.name))
+    }
+  }
+}
+
 if (await exists(functionNodeModules)) {
   await replacePackage('vue')
   await replacePackage('@vue')
+  await replaceSymlinkedPackages()
 }
