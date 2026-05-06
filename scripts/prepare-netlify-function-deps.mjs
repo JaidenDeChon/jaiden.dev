@@ -42,7 +42,7 @@ async function replacePackage(relativePath) {
   })
 }
 
-async function replaceSymlinkedPackages() {
+async function replaceGeneratedPackages() {
   const entries = await readdir(functionNodeModules, { withFileTypes: true })
 
   for (const entry of entries) {
@@ -50,7 +50,7 @@ async function replaceSymlinkedPackages() {
       continue
     }
 
-    if (entry.isSymbolicLink()) {
+    if (entry.isDirectory() || entry.isSymbolicLink()) {
       await replacePackage(entry.name)
       continue
     }
@@ -63,7 +63,7 @@ async function replaceSymlinkedPackages() {
     const scopedEntries = await readdir(scopePath, { withFileTypes: true })
 
     for (const scopedEntry of scopedEntries) {
-      if (!scopedEntry.isSymbolicLink()) {
+      if (!scopedEntry.isDirectory() && !scopedEntry.isSymbolicLink()) {
         continue
       }
 
@@ -73,7 +73,5 @@ async function replaceSymlinkedPackages() {
 }
 
 if (await exists(functionNodeModules)) {
-  await replacePackage('vue')
-  await replacePackage('@vue')
-  await replaceSymlinkedPackages()
+  await replaceGeneratedPackages()
 }
