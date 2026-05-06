@@ -81,6 +81,7 @@ async function renderResumePages(): Promise<void> {
             canvas.height = Math.ceil(renderViewport.height);
 
             await page.render({
+                canvas: null,
                 canvasContext,
                 viewport: renderViewport,
             }).promise;
