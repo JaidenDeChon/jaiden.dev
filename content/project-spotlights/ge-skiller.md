@@ -85,10 +85,10 @@ then clicking one of the ingredients within the tree to see what I mean!
 
 ## Welcome to Mongoland - Population 10,000
 
-MongoDB was meant for massive amounts—_huMONGOus_ amounts, in fact—of data. But I just love using it because it's so 
-simple. I populated my MongoDB collection with items using a tool named [OSRSBox](https://www.osrsbox.com), and later, 
-a more up-to-date derivative named [osrsboxed-db](https://github.com/0xNeffarion/osrsreboxed-db). The resulting 10,000 
-items might make MongoDB overkill, but I find the ease of use to be well worth reaching for something so powerful.
+MongoDB was meant for humungous amounts of data. But I love using it for its simplicity. I populated my MongoDB
+collection with items using a tool named [OSRSBox](https://www.osrsbox.com), and later, a more up-to-date derivative
+named [osrsboxed-db](https://github.com/0xNeffarion/osrsreboxed-db). The resulting 13,000 items might make MongoDB
+overkill, but I find the ease of use to be well worth reaching for something so powerful.
 
 Populating the database was one of the most fun and novel parts of the entire experience. No one has time to crawl 
 thousands of individual items, pulling their data piece-by-piece to populate a DB, so this was when I decided to get 
