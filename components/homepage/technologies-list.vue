@@ -38,7 +38,7 @@ const technologies: Technology[] = [
     {
         name: 'VueJS',
         icon: 'devicon-plain:vuejs',
-        startYear: 2017,
+        startYear: 2018,
         highlighted: true,
         iconColor: '#42B883',
     },

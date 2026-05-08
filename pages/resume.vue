@@ -156,7 +156,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <main class="min-h-[calc(100vh-4rem)] pt-24 pb-12">
+    <main class="min-h-[calc(100vh-4rem)] pb-12">
         <section class="prose prose-slate dark:prose-invert mx-auto p-6 lg:px-0">
             <header class="not-prose mb-6 flex items-center justify-between gap-4">
                 <p class="afacad text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
