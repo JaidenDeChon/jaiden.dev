@@ -39,5 +39,6 @@ colorMode.preference = 'system';
     <div class="h-screen relative">
         <app-header />
         <nuxt-page class="absolute mt-16 top-0 left-0 w-screen" />
+        <contact-dialog />
     </div>
 </template>

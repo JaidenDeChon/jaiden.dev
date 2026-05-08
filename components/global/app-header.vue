@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const { open } = useContactDialog();
+</script>
+
 <template>
     <header class="border-b-2 border-border px-6 h-16 content-center fixed w-screen bg-background/60 backdrop-blur-lg z-50">
         <div class="size-for-all-screens flex items-center gap-3">
@@ -16,14 +20,13 @@
                         <Button
                             variant="outline"
                             size="icon"
-                            as-child
+                            type="button"
+                            @click="open"
                         >
-                            <a href="mailto:hello@jaiden.dev">
-                                <Icon
-                                    name="gravity-ui:envelope"
-                                    class="h-[1.2rem] w-[1.2rem]"
-                                />
-                            </a>
+                            <Icon
+                                name="gravity-ui:envelope"
+                                class="h-[1.2rem] w-[1.2rem]"
+                            />
                         </Button>
                     </tooltip-trigger>
                     <tooltip-content>
