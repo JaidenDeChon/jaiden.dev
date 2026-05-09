@@ -3,10 +3,15 @@ import type { ProjectHeader } from '~/lib/models/project-header';
 
 const props = defineProps<{
     articleHeaderData: ProjectHeader;
-    to: string;
+    to?: string;
 }>();
 
-const nuxtRouterDestination = { path: props.to };
+const hasDestination = computed(() => Boolean(props.to));
+const nuxtRouterDestination = computed(() =>
+    props.to
+        ? { path: props.to }
+        : undefined,
+);
 </script>
 
 <template>
@@ -14,7 +19,10 @@ const nuxtRouterDestination = { path: props.to };
         class="p-4 flex h-full flex-col gap-3 rounded-md bg-background transition-all border-2 hover:shadow-xl hover:border-background group"
     >
         <!-- Image. -->
-        <nuxt-link :to="nuxtRouterDestination">
+        <nuxt-link
+            v-if="hasDestination"
+            :to="nuxtRouterDestination"
+        >
             <div class="w-full bg-accent h-56 flex items-center justify-center rounded-md overflow-hidden">
                 <nuxt-img
                     :src="$props.articleHeaderData.image"
@@ -23,14 +31,31 @@ const nuxtRouterDestination = { path: props.to };
                 />
             </div>
         </nuxt-link>
+        <div
+            v-else
+            class="w-full bg-accent h-56 flex items-center justify-center rounded-md overflow-hidden"
+        >
+            <nuxt-img
+                :src="$props.articleHeaderData.image"
+                :alt="`Image for ${$props.articleHeaderData.title}`"
+                class="w-full h-full max-w-full max-h-full object-cover"
+            />
+        </div>
 
         <!-- Title. -->
         <nuxt-link
+            v-if="hasDestination"
             :to="nuxtRouterDestination"
             class="text-2xl fancy-text-decoration"
         >
             {{ $props.articleHeaderData.title }}
         </nuxt-link>
+        <div
+            v-else
+            class="text-2xl"
+        >
+            {{ $props.articleHeaderData.title }}
+        </div>
 
         <!-- Tags. -->
         <div class="flex gap-2 flex-wrap mb-3">
@@ -47,11 +72,18 @@ const nuxtRouterDestination = { path: props.to };
         <!-- Description. -->
         <div class="mt-auto flex items-end gap-3 justify-between">
             <router-link
+                v-if="hasDestination"
                 :to="nuxtRouterDestination"
                 class="fancy-text-decoration text-muted-foreground"
             >
                 {{ $props.articleHeaderData.description }}
             </router-link>
+            <div
+                v-else
+                class="text-muted-foreground"
+            >
+                {{ $props.articleHeaderData.description }}
+            </div>
             <div class="flex gap-3 items-end">
                 <tooltip-provider
                     v-for="relatedLink in articleHeaderData.relatedLinks"

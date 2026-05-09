@@ -54,6 +54,9 @@ _(Sarcasm, obviously. If you can think of a better name PLEASE let me know.)_
 
 ## The ~~Emperor~~ Website's New Clothes
 
+::article-image-pair{left-src="/img/ge-skiller-article-images/img-13.png" right-src="/img/ge-skiller-article-images/img-14.png" left-alt="GE Skiller website before restyling" right-alt="GE Skiller website after restyling"}
+::
+
 With shadcn-svelte in my corner, it was time to go to work recreating the app. I started with the homepage and basic 
 app layout, and those haven't changed much since its creation. As a "just for fun" thing, each time the page is loaded 
 or refreshed, you'll get one of 15 or so iconic NPCs and outfits from the game.

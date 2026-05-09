@@ -2,6 +2,7 @@
 import HeroPane from '~/components/homepage/hero-pane.vue';
 import TechnologiesList from '~/components/homepage/technologies-list.vue';
 import MyProjects from '~/components/homepage/my-projects.vue';
+import MyBlogPosts from '~/components/homepage/my-blog-posts.vue';
 </script>
 
 <template>
@@ -16,6 +17,8 @@ import MyProjects from '~/components/homepage/my-projects.vue';
             <technologies-list />
 
             <my-projects />
+
+            <my-blog-posts />
         </main>
     </div>
 </template>
