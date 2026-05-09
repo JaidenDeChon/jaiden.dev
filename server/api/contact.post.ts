@@ -20,8 +20,12 @@ function fail(event: H3Event, statusCode: number, message: string, details?: str
     };
 }
 
-function sanitizeText(value: string | undefined) {
-    return value?.trim() || '';
+function sanitizeText(value: unknown) {
+    if (typeof value !== 'string') {
+        return '';
+    }
+
+    return value.trim();
 }
 
 function escapeHtml(value: string) {
