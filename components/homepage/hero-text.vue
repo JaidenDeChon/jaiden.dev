@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { open } = useContactDialog();
+
 const animateHeading = ref('opacity-0 translate-y-4');
 const animateParagraph1 = ref('opacity-0 translate-y-4');
 const animateParagraph2 = ref('opacity-0 translate-y-4');
@@ -40,7 +42,11 @@ onMounted(() => {
             </p>
 
             <div :class="`flex gap-6 justify-center transition ease-in-out ${animateButtonGroup} 2xl:justify-start`">
-                <Button class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker dark:bg-brand-blue-darker dark:text-brand-blue-foreground dark:hover:bg-brand-blue md:backlight">
+                <Button
+                    class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker dark:bg-brand-blue-darker dark:text-brand-blue-foreground dark:hover:bg-brand-blue md:backlight"
+                    type="button"
+                    @click="open"
+                >
                     Get in touch
                 </Button>
                 <Button
