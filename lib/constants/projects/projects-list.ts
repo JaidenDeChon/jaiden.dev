@@ -7,7 +7,8 @@ import {
 
 export const PROJECTS_LIST: ProjectHeader[] = [
     {
-        title: 'LucyVPMS',
+        title: ProjectArticleNames.LUCY_VPMS,
+        path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.LUCY_VPMS}`,
         description:
             'Veterinary practice management system for scheduling, invoicing, and inventory',
         image: '/img/lucy-vpms.png',
