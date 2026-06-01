@@ -13,6 +13,13 @@ export const PROJECTS_LIST: ProjectHeader[] = [
             'Veterinary practice management system for scheduling, invoicing, and inventory',
         image: '/img/lucy-vpms.png',
         tags: ['Nuxt', 'Vue', 'Supabase'],
+        relatedLinks: [
+            {
+                name: 'Live site',
+                url: 'https://lucy.vet',
+                icon: 'mdi:earth',
+            },
+        ],
     },
     {
         title: ProjectArticleNames.JAIDEN_DOT_DEV,
