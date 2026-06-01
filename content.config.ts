@@ -6,5 +6,9 @@ export default defineContentConfig({
             type: 'page',
             source: 'project-spotlights/**/*.md',
         }),
+        blogPosts: defineCollection({
+            type: 'page',
+            source: 'blog-posts/**/*.md',
+        }),
     },
 });

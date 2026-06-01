@@ -2,7 +2,12 @@
 import type { ProjectHeader } from '~/lib/models/project-header';
 
 const route = useRoute();
-const props = defineProps<{ projectHeaderInfo: ProjectHeader }>();
+const props = withDefaults(defineProps<{
+    projectHeaderInfo: ProjectHeader;
+    titlePrefix?: string;
+}>(), {
+    titlePrefix: 'Project Spotlight',
+});
 
 const utterance = ref<null | SpeechSynthesisUtterance>(null);
 
@@ -20,7 +25,11 @@ function shareURL() {
 
 function buildSpeechContents() {
     const utteranceContents: { title?: string; tags?: string } = {};
-    utteranceContents.title = `Project Spotlight: ${props.projectHeaderInfo.title}. ${props.projectHeaderInfo.description}`;
+    const heading = props.titlePrefix
+        ? `${props.titlePrefix}: ${props.projectHeaderInfo.title}`
+        : props.projectHeaderInfo.title;
+
+    utteranceContents.title = `${heading}. ${props.projectHeaderInfo.description}`;
     utteranceContents.tags = `Related tags: ${props.projectHeaderInfo.tags?.join(', ')}`;
 
     return `${utteranceContents.title} ${utteranceContents.tags}`;
@@ -78,7 +87,7 @@ function toggleSpeech() {
         <header class="mb-4">
             <!-- Project title. -->
             <h1 class="text-4xl font-bold mt-6 mb-3">
-                Project Spotlight: {{ props.projectHeaderInfo.title }}
+                {{ props.titlePrefix ? `${props.titlePrefix}: ${props.projectHeaderInfo.title}` : props.projectHeaderInfo.title }}
             </h1>
 
             <!-- Project subtitle. -->

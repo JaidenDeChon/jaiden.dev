@@ -36,9 +36,12 @@ colorMode.preference = 'system';
         />
     </Head>
 
-    <div class="h-screen relative">
+    <div class="relative flex min-h-screen flex-col">
         <app-header />
-        <nuxt-page class="absolute mt-16 top-0 left-0 w-screen" />
+        <div class="flex-1 pt-16">
+            <nuxt-page />
+        </div>
+        <app-footer />
         <contact-dialog />
     </div>
 </template>
