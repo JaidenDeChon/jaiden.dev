@@ -1,15 +1,30 @@
 import type { ProjectHeader } from '~/lib/models/project-header';
 import {
-    PROEJCT_PATH_PREFIX,
+    PROJECT_PATH_PREFIX,
     ProjectArticleNames,
     ProjectArticlePaths,
 } from '~/lib/constants/projects/project-article-enums';
 
 export const PROJECTS_LIST: ProjectHeader[] = [
     {
+        title: ProjectArticleNames.LUCY_VPMS,
+        path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.LUCY_VPMS}`,
+        description:
+            'Veterinary practice management system for scheduling, invoicing, and inventory',
+        image: '/img/lucy-vpms.png',
+        tags: ['Nuxt', 'Vue', 'Supabase'],
+        relatedLinks: [
+            {
+                name: 'Live site',
+                url: 'https://lucy.vet',
+                icon: 'mdi:earth',
+            },
+        ],
+    },
+    {
         title: ProjectArticleNames.JAIDEN_DOT_DEV,
-        path: `${PROEJCT_PATH_PREFIX}/${ProjectArticlePaths.JAIDEN_DOT_DEV}`,
-        description: 'The site you\'re browsing now.',
+        path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.JAIDEN_DOT_DEV}`,
+        description: 'The site you\'re browsing now. Built with Nuxt and NuxtUI',
         image: '/img/jaiden-dev.jpeg',
         tags: ['Nuxt 3', 'Vue 3', 'TypeScript', 'Tailwind CSS', 'Shadcn-vue'],
         relatedLinks: [
@@ -22,11 +37,11 @@ export const PROJECTS_LIST: ProjectHeader[] = [
     },
     {
         title: ProjectArticleNames.GE_SKILLER,
-        path: `${PROEJCT_PATH_PREFIX}/${ProjectArticlePaths.GE_SKILLER}`,
+        path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.GE_SKILLER}`,
         description:
             'Unexpected lessons in perserverance, delegation, and loss',
-        image: '/img/osrs-ge-skiller.png',
-        tags: ['SvelteKit', 'MongoDB', 'TypeScript', 'Tailwind', 'Personal'],
+        image: '/img/ge-skiller.png',
+        tags: ['SvelteKit', 'MongoDB', 'Tailwind', 'Personal'],
         relatedLinks: [
             {
                 name: 'Source Code',
@@ -41,27 +56,12 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         ],
     },
     {
-        title: ProjectArticleNames.CAKE,
-        path: `${PROEJCT_PATH_PREFIX}/${ProjectArticlePaths.CAKE}`,
-        description:
-            'Easy-to-use website builder powered by a rich text editor.',
-        image: '/img/cake.png',
-        tags: ['VueJS', 'NestJS', 'MongoDB', 'AWS', 'TypeScript', 'Tailwind'],
-        relatedLinks: [
-            {
-                name: 'Source Code',
-                url: 'https://github.com/JaidenDeChon/cake',
-                icon: 'mdi:github',
-            },
-        ],
-    },
-    {
         title: ProjectArticleNames.SELF_AWARE_GRID,
-        path: `${PROEJCT_PATH_PREFIX}/${ProjectArticlePaths.SELF_AWARE_GRID}`,
+        path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.SELF_AWARE_GRID}`,
         description:
-            'Open-source NPM package for enhancing functionality of CSS grids.',
+            'Open-source NPM package for enhancing functionality of CSS grids',
         image: '/img/self-aware-grid.png',
-        tags: ['VueJS', 'NestJS', 'MongoDB', 'AWS', 'TypeScript', 'Tailwind'],
+        tags: ['VueJS', 'NestJS', 'MongoDB', 'Tailwind'],
         relatedLinks: [
             {
                 name: 'Source Code',

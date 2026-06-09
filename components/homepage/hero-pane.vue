@@ -51,9 +51,10 @@ function sizeWorldContainerToViewport() {
     const width = currentViewportWidth.value > tailwindXlBreakpoint
         ? currentViewportWidth.value * 1.5
         : currentViewportWidth.value;
+    const height = window.innerHeight || document.documentElement.clientHeight;
 
     world.width(width);
-    world.height(document.body.clientHeight);
+    world.height(height);
 }
 
 /**

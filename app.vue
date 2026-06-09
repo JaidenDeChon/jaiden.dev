@@ -36,24 +36,12 @@ colorMode.preference = 'system';
         />
     </Head>
 
-    <div class="h-screen relative">
+    <div class="relative flex min-h-screen flex-col">
         <app-header />
-        <nuxt-page
-            class="absolute mt-16 top-0 left-0 w-screen"
-            :transition="{ name: 'page', mode: 'out-in' }"
-        />
+        <div class="flex-1 pt-16">
+            <nuxt-page />
+        </div>
+        <app-footer />
+        <contact-dialog />
     </div>
 </template>
-
-<style>
-.page-enter-active,
-.page-leave-active {
-    transition: all 0.4s;
-}
-
-.page-enter-from,
-.page-leave-to {
-    opacity: 0;
-    filter: blur(1rem);
-}
-</style>

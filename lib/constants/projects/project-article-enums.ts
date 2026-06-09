@@ -1,22 +1,18 @@
 export enum ProjectArticleNames {
+    LUCY_VPMS = 'LucyVPMS',
     JAIDEN_DOT_DEV = 'jaiden.dev',
-    NATUREJAB_DASHBOARD = 'NatureJab Dashboard',
     GE_SKILLER = 'ge-skiller',
-    CLIQUE = 'Clique',
-    CAKE = 'Cake',
     SELF_AWARE_GRID = 'self-aware-grid',
 };
 
-export const PROEJCT_PATH_PREFIX = 'project';
+export const PROJECT_PATH_PREFIX = 'project';
 
 /**
  * A view for each must exist in pages/project.
  */
 export enum ProjectArticlePaths {
+    LUCY_VPMS = 'lucy-vpms',
     JAIDEN_DOT_DEV = 'jaiden-dot-dev',
-    NATUREJAB_DASHBOARD = 'naturejab-dashboard',
     GE_SKILLER = 'ge-skiller',
-    CLIQUE = 'clique',
-    CAKE = 'cake',
     SELF_AWARE_GRID = 'self-aware-grid',
 };

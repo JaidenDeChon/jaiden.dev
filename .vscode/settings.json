@@ -1,4 +1,5 @@
 {
+  "workbench.tree.indent": 24,
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {

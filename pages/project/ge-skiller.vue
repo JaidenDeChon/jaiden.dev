@@ -6,48 +6,34 @@ import { ProjectArticleNames } from '~/lib/constants/projects/project-article-en
 const projectInfo = computed(() =>
     PROJECTS_LIST.find(project => project.title === ProjectArticleNames.GE_SKILLER),
 );
+
+const { data: article } = await useAsyncData('project-spotlight-ge-skiller', () =>
+    queryCollection('projectSpotlights')
+        .path('/project-spotlights/ge-skiller')
+        .first(),
+);
+
+if (!article.value) {
+    throw createError({
+        statusCode: 404,
+        statusMessage: 'Project article not found',
+    });
+}
 </script>
 
 <template>
     <div
-        v-if="projectInfo"
+        v-if="projectInfo && article"
         class="project-article"
     >
         <project-showcase-hero
             :project-header-info="projectInfo"
         />
 
-        <content-doc
+        <ContentRenderer
             class="prose prose-slate dark:prose-invert mx-auto mb-6 p-6 lg:px-0"
-            path="/project-spotlights/ge-skiller/ge-skiller-1"
-        />
-
-        <video
-            src="/img/ge-skiller-article-images/img-2.mp4"
-            class="my-4 mx-auto max-w-sm rounded-md shadow-md"
-            controls
-            muted
-            loop
-            playsinline
-        />
-
-        <content-doc
-            class="prose prose-slate dark:prose-invert mx-auto mb-6 p-6 lg:px-0"
-            path="/project-spotlights/ge-skiller/ge-skiller-2"
-        />
-
-        <video
-            src="/img/ge-skiller-article-images/img-3.mp4"
-            class="my-4 mx-auto max-w-sm rounded-md shadow-md"
-            controls
-            muted
-            loop
-            playsinline
-        />
-
-        <content-doc
-            class="prose prose-slate dark:prose-invert mx-auto mb-6 p-6 lg:px-0"
-            path="/project-spotlights/ge-skiller/ge-skiller-3"
+            :value="article"
+            prose
         />
     </div>
 </template>
