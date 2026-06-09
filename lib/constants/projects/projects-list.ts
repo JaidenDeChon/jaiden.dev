@@ -11,7 +11,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         path: `${PROEJCT_PATH_PREFIX}/${ProjectArticlePaths.JAIDEN_DOT_DEV}`,
         description: 'The site you\'re browsing now.',
         image: '/img/jaiden-dev.jpeg',
-        tags: ['Nuxt', 'Vue', 'TypeScript', 'Tailwind'],
+        tags: ['Nuxt 3', 'Vue 3', 'TypeScript', 'Tailwind CSS', 'Shadcn-vue'],
         relatedLinks: [
             {
                 name: 'Source Code',
