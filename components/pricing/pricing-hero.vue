@@ -6,7 +6,7 @@ import { TRUST_PILLARS } from '~/lib/data/pricing';
     <section class="relative overflow-hidden px-6 pt-12 pb-8">
         <!-- Hero background image: right side, fades at all edges (light) -->
         <div
-            class="pointer-events-none absolute inset-y-0 right-0 w-2/3 opacity-35 dark:hidden"
+            class="pointer-events-none absolute inset-y-0 right-0 w-2/3 opacity-35 hidden md:block dark:hidden"
             style="
                 background-image: url('/img/pricing-hero-image-light.png');
                 background-size: cover;
@@ -19,7 +19,7 @@ import { TRUST_PILLARS } from '~/lib/data/pricing';
         />
         <!-- Hero background image: right side, fades at all edges (dark) -->
         <div
-            class="pointer-events-none absolute inset-y-0 right-0 w-2/3 opacity-25 hidden dark:block"
+            class="pointer-events-none absolute inset-y-0 right-0 w-2/3 opacity-25 hidden dark:md:block"
             style="
                 background-image: url('/img/pricing-hero-image-dark.png');
                 background-size: cover;

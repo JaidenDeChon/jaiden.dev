@@ -10,7 +10,7 @@ const currentYear = new Date().getFullYear();
                 to="/pricing"
                 class="transition-colors hover:text-foreground"
             >
-                Website Plans
+                Pricing
             </nuxt-link>
         </div>
     </footer>
