@@ -44,9 +44,9 @@ const rows: MatrixRow[] = [
         agency: 'Custom',
     },
     {
-        label: 'Who updates & edits',
+        label: 'Updates & edits',
         diy: 'You',
-        jaidenDotDev: '2-5/mo included',
+        jaidenDotDev: '2-5 edits per month included',
         subscription: 'Often capped or extra',
         freelancer: 'Billed ~$50-$100/hr',
         agency: '$75-$150/hr or retainer',
@@ -62,7 +62,7 @@ const rows: MatrixRow[] = [
     {
         label: 'If you leave',
         diy: 'Site stays on their platform',
-        jaidenDotDev: `Buy it outright after day 30`,
+        jaidenDotDev: `Buy it outright after day 30; you keep your domain either way`,
         subscription: 'Often lose the site',
         freelancer: 'You own it',
         agency: 'You own it',

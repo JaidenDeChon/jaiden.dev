@@ -62,8 +62,11 @@ import { TRUST_PILLARS, PHONE } from '~/lib/data/pricing';
                         </a>
                     </Button>
                 </div>
-                <Button variant="outline">
-                    Customer Sign-In
+                <Button
+                    as-child
+                    variant="outline"
+                >
+                    <a href="https://webslinger.jaiden.dev">Customer Sign-In</a>
                 </Button>
             </div>
 
