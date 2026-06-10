@@ -105,7 +105,7 @@ export const ALACARTE_ITEMS: AlacarteItem[] = [
     {
         item: 'Site buyout',
         price: `Monthly cost x${BUYOUT_MULTIPLIER}`,
-        notes: 'You own the site outright — files and everything (anytime after the first 30 days). Price is calculated on monthly site cost.',
+        notes: 'Flat price: 6x your current monthly rate ($354 / $894 / $1,794), available anytime after the first 30 days. Buying out your site ends your agreement immediately; nothing else will be owed. From there, your site can be taken to any host or you can stay on the $25/mo hosting-only plan.',
         buyoutDerived: true,
     },
 ];
@@ -116,6 +116,8 @@ export const TRUST_PILLARS = [
     'You own your domain',
     'Talk to the same human, every time',
     'Free updates with every plan',
+    'Transparent business practices',
+    'Subscribers\' broken sites are prioritized and fixed free of charge',
 ] as const;
 
 export const UNIVERSAL_TERMS = [
@@ -129,7 +131,26 @@ export interface FaqItem {
     answer: string;
 }
 
+export const HOSTING_ONLY_PRICE = 25;
+export const HOURLY_RATE = 85;
+
+const fmtUSD = (n: number) => `$${n.toLocaleString('en-US')}`;
+
+const buyoutFor = (id: string) =>
+    fmtUSD(PLANS.find(p => p.id === id)!.buyoutPrice);
+
+const starterBuyout = buyoutFor('starter'); // "$354"
+const businessBuyout = buyoutFor('business'); // "$894"
+const commerceBuyout = buyoutFor('commerce'); // "$1,794"
+
+const hostingOnlyPrice = fmtUSD(HOSTING_ONLY_PRICE); // → "$25/mo" in copy
+const hourlyRate = fmtUSD(HOURLY_RATE); // → "$85/hr" in copy
+
 export const FAQ_ITEMS: FaqItem[] = [
+    {
+        question: 'What the heck is this?',
+        answer: 'I\'m a web developer. I create and sell websites at a low cost. Since it\'s just me, I can charge much lower rates than larger businesses. The experience you have is also more personal and human because we -- as in you and I -- talk when something is needed. I would love to be your website guy. ',
+    },
     {
         question: 'What counts as a content edit?',
         answer: 'One request that takes up to about 30 minutes — text changes, photo swaps, updating hours, menu prices, a new testimonial. Unused edits roll over one month (max bank: 2x your monthly allowance).',
@@ -157,5 +178,9 @@ export const FAQ_ITEMS: FaqItem[] = [
     {
         question: 'What happens if my site goes down?',
         answer: 'Site-down emergencies are treated as urgent at every tier, including Starter. I\'m on it as soon as I see it.',
+    },
+    {
+        question: 'How does site buyout work?',
+        answer: '',
     },
 ];

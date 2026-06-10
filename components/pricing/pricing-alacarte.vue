@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ALACARTE_ITEMS, PLANS, BUYOUT_MULTIPLIER } from '~/lib/data/pricing'
+import { ALACARTE_ITEMS, PLANS, BUYOUT_MULTIPLIER } from '~/lib/data/pricing';
 
-const buyoutDisplayPrice = PLANS.map(p => `$${p.monthlyPrice * BUYOUT_MULTIPLIER}`).join(' / ')
+const buyoutDisplayPrice = PLANS.map(p => `$${p.monthlyPrice * BUYOUT_MULTIPLIER}`).join(' / ');
 
 function displayPrice(item: typeof ALACARTE_ITEMS[number]): string {
     if (item.buyoutDerived) {
-        return buyoutDisplayPrice
+        return buyoutDisplayPrice;
     }
-    return item.price
+    return item.price;
 }
 </script>
 
@@ -18,7 +18,7 @@ function displayPrice(item: typeof ALACARTE_ITEMS[number]): string {
                 À la carte
             </h2>
             <p class="mb-6 text-muted-foreground">
-                Need something one-off? Everything below is available on its own.
+                Need a one-off? Everything below is available on its own.
             </p>
 
             <div class="overflow-hidden rounded-xl border border-border">

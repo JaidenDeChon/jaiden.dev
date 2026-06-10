@@ -28,15 +28,8 @@ useSeoMeta({
             </div>
         </div>
 
-        <!-- CTA #1 -->
-        <section class="px-6 py-10">
-            <div class="size-for-all-screens">
-                <pricing-cta subtitle="No forms or waiting. Just call or text and I'll answer your questions myself." />
-            </div>
-        </section>
-
         <!-- Pricing cards -->
-        <section class="px-6 pb-10">
+        <section class="px-6 pb-10 pt-10">
             <div class="size-for-all-screens">
                 <div class="grid gap-8 lg:grid-cols-3 lg:items-start">
                     <pricing-plan-card
@@ -52,11 +45,11 @@ useSeoMeta({
         <!-- Annual prepay -->
         <section class="px-6 pb-10">
             <div class="size-for-all-screens">
-                <div class="rounded-xl border border-border bg-muted/50 p-6">
-                    <h2 class="mb-1 text-lg font-bold">
+                <div class="rounded-xl border border-brand-blue/30 bg-brand-blue/10 p-6">
+                    <h2 class="mb-1 text-lg font-bold text-brand-blue">
                         Pay annually — receive 2 months free
                     </h2>
-                    <p class="mb-5 text-sm text-muted-foreground">
+                    <p class="mb-5 text-sm text-brand-blue/70">
                         Pay for 10 months, get 12.
                     </p>
                     <div class="flex flex-wrap gap-x-8 gap-y-3">
@@ -65,8 +58,8 @@ useSeoMeta({
                             :key="plan.id"
                             class="flex items-baseline gap-1.5"
                         >
-                            <span class="font-semibold">{{ plan.name }}</span>
-                            <span class="text-muted-foreground">
+                            <span class="font-semibold text-brand-blue">{{ plan.name }}</span>
+                            <span class="text-brand-blue/70">
                                 <span v-if="plan.fromPrice">from </span>${{ plan.annualPrice }}/yr
                             </span>
                         </div>
@@ -109,6 +102,12 @@ useSeoMeta({
                 </p>
                 <pricing-cta />
             </div>
+        </section>
+
+        <section>
+            <p class="mt-8 mx-auto text-center max-w-2xl text-lg text-muted-foreground">
+                🌵 Local to the Phoenix West Valley
+            </p>
         </section>
     </main>
 </template>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { cn } from '~/lib/utils'
-import type { Plan } from '~/lib/data/pricing'
-import { PHONE } from '~/lib/data/pricing'
+import { cn } from '~/lib/utils';
+import type { Plan } from '~/lib/data/pricing';
+import { PHONE } from '~/lib/data/pricing';
 
-defineProps<{ plan: Plan }>()
+defineProps<{ plan: Plan }>();
 </script>
 
 <template>
@@ -18,7 +18,7 @@ defineProps<{ plan: Plan }>()
             class="absolute -top-3.5 left-1/2 -translate-x-1/2"
         >
             <Badge class="bg-brand-yellow text-brand-yellow-foreground px-3 py-0.5 text-xs font-semibold">
-                Recommended
+                Most Popular
             </Badge>
         </div>
 
@@ -58,16 +58,29 @@ defineProps<{ plan: Plan }>()
             </li>
         </ul>
 
-        <Button
-            as-child
-            :class="cn(
-                'w-full transition-colors',
-                plan.recommended
-                    ? 'bg-brand-blue text-brand-blue-foreground hover:bg-brand-blue-darker'
-                    : 'border border-border bg-background hover:bg-muted',
-            )"
-        >
-            <a :href="`tel:${PHONE}`">Call to get started</a>
-        </Button>
+        <div class="flex">
+            <Button
+                as-child
+                :class="cn(
+                    'flex-1 rounded-l-md rounded-r-none transition-colors',
+                    plan.recommended
+                        ? 'bg-brand-blue text-brand-blue-foreground hover:bg-brand-blue-darker border-r border-brand-blue-darker/40'
+                        : 'border-y border-l border-border bg-background text-foreground hover:bg-muted',
+                )"
+            >
+                <a :href="`tel:${PHONE}`">Call me</a>
+            </Button>
+            <Button
+                as-child
+                :class="cn(
+                    'flex-1 rounded-r-md rounded-l-none transition-colors',
+                    plan.recommended
+                        ? 'bg-brand-blue text-brand-blue-foreground hover:bg-brand-blue-darker'
+                        : 'border border-border bg-background text-foreground hover:bg-muted',
+                )"
+            >
+                <a :href="`sms:${PHONE}`">Text me</a>
+            </Button>
+        </div>
     </div>
 </template>

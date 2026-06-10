@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { TRUST_PILLARS } from '~/lib/data/pricing';
+import { TRUST_PILLARS, PHONE } from '~/lib/data/pricing';
 </script>
 
 <template>
     <section class="relative overflow-hidden px-6 pt-12 pb-8">
         <!-- Hero background image: right side, fades at all edges (light) -->
         <div
-            class="pointer-events-none absolute inset-y-0 right-0 w-2/3 opacity-35 hidden md:block dark:hidden"
+            class="pointer-events-none absolute inset-y-0 right-0 w-2/3 opacity-35 hidden md:block dark:hidden z-0"
             style="
                 background-image: url('/img/pricing-hero-image-light.png');
                 background-size: cover;
@@ -19,7 +19,7 @@ import { TRUST_PILLARS } from '~/lib/data/pricing';
         />
         <!-- Hero background image: right side, fades at all edges (dark) -->
         <div
-            class="pointer-events-none absolute inset-y-0 right-0 w-2/3 opacity-25 hidden dark:md:block"
+            class="pointer-events-none absolute inset-y-0 right-0 w-2/3 opacity-25 hidden dark:md:block z-0"
             style="
                 background-image: url('/img/pricing-hero-image-dark.png');
                 background-size: cover;
@@ -30,19 +30,43 @@ import { TRUST_PILLARS } from '~/lib/data/pricing';
                 mask-composite: intersect;
             "
         />
-        <div class="size-for-all-screens">
+        <div class="size-for-all-screens relative z-10">
             <p class="afacad mb-4 text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
                 Website plans
             </p>
             <h1 class="mb-4 max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
-                $0 down. Your rate is locked in for life. Transparent practices. It's a <i class="underline">much</i> better experience.
+                $0 down. Your rate is locked in for life. Personal and quick customer service. It's a <i class="underline">much</i> better experience.
             </h1>
             <p class="mb-4 max-w-2xl text-lg text-muted-foreground">
-                Fair prices for honest work. Plans that work for every size and type of businesss. If your website breaks and it's not your fault, the fix is free, always. If a cheaper plan fits your business, I'll tell you so.
+                I create websites — fair prices for honest work. Plans and websites that work for every size and type of businesss. If a cheaper plan fits your business, I'll tell you so.
             </p>
-            <p class="mb-8 max-w-2xl text-lg text-muted-foreground">
-                And you own your domain, so if you ever want to fire me, you can take it with you -- but I promise you'll like it here 😉
-            </p>
+
+            <!-- CTA button group -->
+            <div class="mb-8 flex flex-wrap items-center gap-3">
+                <div class="flex overflow-hidden rounded-md">
+                    <Button
+                        as-child
+                        class="rounded-none bg-brand-blue text-brand-blue-foreground hover:bg-brand-blue-darker font-semibold border-r border-brand-blue-darker/40"
+                    >
+                        <a :href="`tel:${PHONE}`">{{ PHONE }}</a>
+                    </Button>
+                    <Button
+                        as-child
+                        class="rounded-none bg-brand-blue text-brand-blue-foreground hover:bg-brand-blue-darker px-3"
+                    >
+                        <a :href="`sms:${PHONE}`">
+                            <Icon
+                                name="mdi:message-text"
+                                class="h-4 w-4"
+                            />
+                        </a>
+                    </Button>
+                </div>
+                <Button variant="outline">
+                    Customer Sign-In
+                </Button>
+            </div>
+
             <div class="flex flex-wrap gap-2">
                 <span
                     v-for="pillar in TRUST_PILLARS"
