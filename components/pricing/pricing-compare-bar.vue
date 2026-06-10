@@ -13,7 +13,7 @@ function widthPct(row: CostRow): string {
 
 function valueLabel(row: CostRow): string {
     if (row.type === 'mine') return `$${row.low}/mo`;
-    return `$${row.low}–$${row.high}/mo`;
+    return `$${row.low}-$${row.high}/mo`;
 }
 </script>
 
@@ -21,7 +21,7 @@ function valueLabel(row: CostRow): string {
     <div
         class="w-full"
         role="img"
-        aria-label="Horizontal bar chart comparing monthly website costs. DIY builders cost $23–$39/mo (plus your own hours); Webslinger Starter $59/mo; subscription shops $99–$175/mo; Webslinger Business $149/mo; freelancers $92–$261/mo equivalent; Webslinger Commerce $299/mo; agencies $367–$833/mo equivalent."
+        aria-label="Horizontal bar chart comparing monthly website costs. DIY builders cost $23-$39/mo (plus your own hours); jaiden.dev Starter $59/mo; subscription shops $99-$175/mo; jaiden.dev Business $149/mo; freelancers $92-$261/mo equivalent; jaiden.dev Commerce $299/mo; agencies $367-$833/mo equivalent."
     >
         <!-- Legend -->
         <div class="mb-5 flex flex-wrap gap-4 text-xs text-muted-foreground">

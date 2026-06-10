@@ -4,7 +4,7 @@ import { BUYOUT_MULTIPLIER } from '~/lib/data/pricing';
 interface MatrixRow {
     label: string;
     diy: string;
-    webslinger: string;
+    jaidenDotDev: string;
     subscription: string;
     freelancer: string;
     agency: string;
@@ -14,7 +14,7 @@ const rows: MatrixRow[] = [
     {
         label: 'Upfront',
         diy: '$0',
-        webslinger: '$0',
+        jaidenDotDev: '$0',
         subscription: '$0',
         freelancer: '$1,500-$4,000',
         agency: '$6,000-$12,000',
@@ -22,7 +22,7 @@ const rows: MatrixRow[] = [
     {
         label: 'Ongoing',
         diy: '$23-$39/mo',
-        webslinger: '$59-$299/mo',
+        jaidenDotDev: '$59-$299/mo',
         subscription: '$99-$175/mo',
         freelancer: '~$50-$150/mo upkeep',
         agency: '$200-$500/mo retainer',
@@ -30,7 +30,7 @@ const rows: MatrixRow[] = [
     {
         label: 'Who builds it',
         diy: 'You',
-        webslinger: 'Not you',
+        jaidenDotDev: 'Not you',
         subscription: 'Not you',
         freelancer: 'Not you',
         agency: 'Not you',
@@ -38,7 +38,7 @@ const rows: MatrixRow[] = [
     {
         label: 'Design',
         diy: 'Template',
-        webslinger: 'Custom',
+        jaidenDotDev: 'Custom',
         subscription: 'Varies',
         freelancer: 'Custom',
         agency: 'Custom',
@@ -46,7 +46,7 @@ const rows: MatrixRow[] = [
     {
         label: 'Who updates & edits',
         diy: 'You',
-        webslinger: '2-5/mo included',
+        jaidenDotDev: '2-5/mo included',
         subscription: 'Often capped or extra',
         freelancer: 'Billed ~$50-$100/hr',
         agency: '$75-$150/hr or retainer',
@@ -54,7 +54,7 @@ const rows: MatrixRow[] = [
     {
         label: 'Domain in your name, day one',
         diy: 'Yes (you register it)',
-        webslinger: 'Yes — always',
+        jaidenDotDev: 'Yes — always',
         subscription: 'Sometimes',
         freelancer: 'Usually',
         agency: 'Usually',
@@ -62,7 +62,7 @@ const rows: MatrixRow[] = [
     {
         label: 'If you leave',
         diy: 'Site stays on their platform',
-        webslinger: `Buy it outright after day 30`,
+        jaidenDotDev: `Buy it outright after day 30`,
         subscription: 'Often lose the site',
         freelancer: 'You own it',
         agency: 'You own it',
@@ -70,7 +70,7 @@ const rows: MatrixRow[] = [
     {
         label: 'Price over time',
         diy: 'Platform sets it (costs are usually hiked periodically to increase profits)',
-        webslinger: 'Forever Rate — locked at signup',
+        jaidenDotDev: 'Forever Rate — locked at signup',
         subscription: 'Varies',
         freelancer: 'New work at then-current rates',
         agency: 'Retainers typically rise',
@@ -78,7 +78,7 @@ const rows: MatrixRow[] = [
     {
         label: 'When something breaks',
         diy: 'You fix it',
-        webslinger: 'Broken is always free',
+        jaidenDotDev: 'Broken is always free',
         subscription: 'Varies',
         freelancer: 'Hourly',
         agency: 'Covered if on retainer',
@@ -87,7 +87,7 @@ const rows: MatrixRow[] = [
 
 const columns = [
     { key: 'diy', label: 'DIY builder', mine: false },
-    { key: 'webslinger', label: 'Webslinger', mine: true },
+    { key: 'jaidenDotDev', label: 'jaiden.dev', mine: true },
     { key: 'subscription', label: 'Subscription shops', mine: false },
     { key: 'freelancer', label: 'Freelancer', mine: false },
     { key: 'agency', label: 'Agency', mine: false },
@@ -104,7 +104,7 @@ const columns = [
         <div class="overflow-x-auto rounded-xl border border-border">
             <table
                 class="w-full border-collapse text-sm"
-                aria-label="Feature comparison: DIY builder, Webslinger, Subscription shops, Freelancer, Agency"
+                aria-label="Feature comparison: DIY builder, jaiden.dev, Subscription shops, Freelancer, Agency"
             >
                 <thead>
                     <tr>

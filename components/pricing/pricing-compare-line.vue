@@ -64,7 +64,7 @@ const xTickValues = [0, 6, 12, 18, 24, 30, 36];
             <VisXYContainer
                 :data="chartData"
                 class="h-[320px] w-full sm:h-[380px]"
-                aria-label="Cumulative cost chart over 36 months. Freelancer starts at $2,750 on day one; agency starts at $9,000. All Webslinger plans start at $0."
+                aria-label="Cumulative cost chart over 36 months. Freelancer starts at $2,750 on day one; agency starts at $9,000. All jaiden.dev plans start at $0."
             >
                 <VisLine
                     v-for="s in CUMULATIVE_SERIES"

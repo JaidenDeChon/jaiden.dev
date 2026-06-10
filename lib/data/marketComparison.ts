@@ -111,14 +111,14 @@ export const CUMULATIVE_SERIES: CumulativeSeries[] = [
     },
     {
         key: 'starter',
-        label: 'Webslinger Starter',
+        label: 'jaiden.dev Starter',
         type: 'mine',
         upfront: 0,
         monthly: starter.monthlyPrice,
     },
     {
         key: 'business',
-        label: 'Webslinger Business',
+        label: 'jaiden.dev Business',
         type: 'mine',
         upfront: 0,
         monthly: business.monthlyPrice,
