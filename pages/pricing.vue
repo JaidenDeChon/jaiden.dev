@@ -86,6 +86,9 @@ useSeoMeta({
             </div>
         </section>
 
+        <!-- Comparison charts + matrix -->
+        <pricing-compare />
+
         <!-- FAQ -->
         <div class="border-t border-border">
             <pricing-faq />

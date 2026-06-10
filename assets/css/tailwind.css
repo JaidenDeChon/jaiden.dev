@@ -82,7 +82,7 @@
 
         --radius: 0.5rem;
 
-        /* For ShadCN charts */
+        /* For Unovis charts */
         --vis-tooltip-background-color: none !important;
         --vis-tooltip-border-color: none !important;
         --vis-tooltip-text-color: none !important;
@@ -90,12 +90,29 @@
         --vis-tooltip-backdrop-filter: none !important;
         --vis-tooltip-padding: none !important;
 
-        --vis-primary-color: var(--primary);
-        --vis-secondary-color: 160 81% 40%;
-        --vis-text-color: var(--muted-foreground);
+        --vis-primary-color: hsl(211 100% 50%);
+        --vis-secondary-color: hsl(240 3.8% 50%);
+        --vis-text-color: hsl(240 3.8% 46.1%);
+
+        /* Chart series palette */
+        --chart-1: hsl(211 100% 50%);
+        --chart-2: hsl(211 100% 35%);
+        --chart-3: hsl(240 3.8% 52%);
+        --chart-4: hsl(32 95% 52%);
+        --chart-5: hsl(0 72% 52%);
     }
 
     .dark {
+        --chart-1: hsl(211 100% 65%);
+        --chart-2: hsl(211 100% 55%);
+        --chart-3: hsl(240 3.8% 65%);
+        --chart-4: hsl(32 95% 65%);
+        --chart-5: hsl(0 72% 65%);
+
+        --vis-primary-color: hsl(211 100% 65%);
+        --vis-secondary-color: hsl(240 3.8% 65%);
+        --vis-text-color: hsl(240 5% 64.9%);
+
         --background: 240 10% 3.9%;
         --foreground: 0 0% 98%;
 
