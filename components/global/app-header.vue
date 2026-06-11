@@ -18,7 +18,7 @@ const { open } = useContactDialog();
                 to="/pricing"
                 class="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
-                Pricing
+                Custom sites
             </nuxt-link>
 
             <tooltip-provider :delay-duration="432">

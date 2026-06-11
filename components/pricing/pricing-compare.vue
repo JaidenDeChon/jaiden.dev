@@ -35,7 +35,7 @@ import { SOURCES } from '~/lib/data/marketComparison';
                     What you'll have spent by month X
                 </h3>
                 <p class="mb-6 text-sm text-muted-foreground">
-                    Total cash out the door from day one. $0 down means the lines for my plans (in blue) start at zero — freelancers and agencies ask for money before the site exists.
+                    Total money spent beginning from day one. Since my plans are $0 down, those lines (in blue) start at zero. Freelancers and agencies ask for money before the site exists; before you even know what you're getting.
                 </p>
                 <pricing-compare-line />
             </div>
@@ -54,7 +54,7 @@ import { SOURCES } from '~/lib/data/marketComparison';
             <!-- Sources disclosure -->
             <details class="group rounded-lg border border-border bg-muted/30 px-5 py-4">
                 <summary class="cursor-pointer select-none text-xs font-semibold text-muted-foreground group-open:mb-4">
-                    Where these numbers come from ↓
+                    Where these numbers come from
                 </summary>
                 <ul class="space-y-2">
                     <li

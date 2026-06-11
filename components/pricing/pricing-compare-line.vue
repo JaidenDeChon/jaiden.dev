@@ -91,21 +91,43 @@ const xTickValues = [0, 6, 12, 18, 24, 30, 36];
         </ClientOnly>
 
         <!-- Fine print -->
-        <div class="mt-4 space-y-1.5 text-xs text-muted-foreground">
-            <p>
-                Freelancer and Agency use typical midpoints: $2,750 upfront + $100/mo and $9,000 upfront + $350/mo.
-                Actual ranges are $1,500–$4,000 build and $50–$150/mo upkeep for freelancers;
-                $6,000–$12,000 build and $200–$500/mo retainer for agencies.
-            </p>
-            <p class="text-foreground/70">
-                <strong>What this means for you:</strong> Once you pass roughly month 56 (about 4½ years), a typical freelance build's total cash cost can dip below my Business plan — I'd rather tell you that than have you find it out later.
-            </p>
-            <p class="text-muted-foreground">
-                Two things sit on the other side of that math, however: their figure is <strong>upkeep only</strong> (content changes still bill by the hour, while my plan keeps including 3 edits every month, and anything broken is fixed free) — and if the numbers ever stop working for you, you don't have to leave to fix it. Buy your site outright, drop to $25/month hosting, and from that day you're paying less than the freelance path.
-            </p>
-            <p class="text-muted-foreground">
-                You control which side of this chart you're on.
-            </p>
+        <div class="mt-4 space-y-2">
+            <details class="group rounded-lg border border-border bg-muted/30 px-5 py-4">
+                <summary class="cursor-pointer select-none text-xs font-semibold text-muted-foreground group-open:mb-4">
+                    What this means for you
+                </summary>
+                <div class="space-y-2 text-xs text-muted-foreground">
+                    <p>
+                        As you may have noticed, the average freelancer price will eventually dip below the price of my
+                        plans. Once you pass roughly month 56 (about 4½ years), it is possible to have spent less with
+                        the more typical "up front" freelancer costs than with my plans offered here.
+                    </p>
+                    <p>
+                        However, that figure is for <strong>upkeep only</strong> -- content changes still bill by the
+                        hour, while my plan keeps including 3 edits every month, and anything broken is fixed for free.
+                        Still, if the numbers ever stop working for you, you don't have to leave to fix it. Buy your
+                        site outright, switch to the $25/month hosting-only plan, and from that point forward, you're
+                        far below the average freelancer price point.
+                    </p>
+                    <p>
+                        This is part of the reason I offer the hosting-only plan. By 4.5 years in, most websites have
+                        stabilized and don't require the higher costs of updating it often. Ad-hoc content updates still
+                        apply at the going rate of $35 per update (assuming the update takes about 30-60 minutes to
+                        implement) as shown on the à la carte table.
+                    </p>
+                </div>
+            </details>
+
+            <details class="group rounded-lg border border-border bg-muted/30 px-5 py-4">
+                <summary class="cursor-pointer select-none text-xs font-semibold text-muted-foreground group-open:mb-4">
+                    How this was calculated
+                </summary>
+                <p class="text-xs text-muted-foreground">
+                    The "freelancer" and "agency" lines use midpoints based on ranges found in market research: $2,750
+                    upfront + $100/mo and $9,000 upfront + $350/mo. Actual ranges are $1,500-$4,000 build with
+                    $50-$150/mo upkeep for freelancers; and $6,000-$12,000 build with $200-$500/mo retainer for agencies.
+                </p>
+            </details>
         </div>
     </div>
 </template>
