@@ -3,6 +3,7 @@ export enum ProjectArticleNames {
     JAIDEN_DOT_DEV = 'jaiden.dev',
     GE_SKILLER = 'ge-skiller',
     SELF_AWARE_GRID = 'self-aware-grid',
+    PSY_KICK = 'psy_kick',
 };
 
 export const PROJECT_PATH_PREFIX = 'project';
@@ -15,4 +16,5 @@ export enum ProjectArticlePaths {
     JAIDEN_DOT_DEV = 'jaiden-dot-dev',
     GE_SKILLER = 'ge-skiller',
     SELF_AWARE_GRID = 'self-aware-grid',
+    PSY_KICK = 'psy-kick',
 };

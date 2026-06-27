@@ -74,4 +74,19 @@ export const PROJECTS_LIST: ProjectHeader[] = [
             },
         ],
     },
+    {
+        title: ProjectArticleNames.PSY_KICK,
+        path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.PSY_KICK}`,
+        description:
+            'An app for strengthening and tracking one\'s skills in Remote Viewing, modeled after real CIA protocols',
+        image: '/img/psy-kick.png',
+        tags: ['Nuxt', 'Vue', 'Supabase'],
+        relatedLinks: [
+            {
+                name: 'Source Code',
+                url: 'https://github.com/JaidenDeChon/psy_kick',
+                icon: 'mdi:github',
+            },
+        ],
+    },
 ] as const;
