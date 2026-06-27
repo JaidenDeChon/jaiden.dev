@@ -41,21 +41,32 @@ onMounted(() => {
                 When I'm not coding, I love learning about ancient history, spirituality, and consciousness.
             </p>
 
-            <div :class="`flex gap-6 justify-center transition ease-in-out ${animateButtonGroup} 2xl:justify-start`">
-                <Button
-                    class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker dark:bg-brand-blue-darker dark:text-brand-blue-foreground dark:hover:bg-brand-blue md:backlight"
-                    type="button"
-                    @click="open"
-                >
-                    Get in touch
-                </Button>
+            <div :class="`flex flex-col gap-6 items-center transition ease-in-out ${animateButtonGroup} 2xl:items-start`">
+                <div class="flex gap-6 justify-center 2xl:justify-start">
+                    <Button
+                        class="bg-brand-blue text-lg transition-colors hover:bg-brand-blue-darker dark:bg-brand-blue-darker dark:text-brand-blue-foreground dark:hover:bg-brand-blue md:backlight"
+                        type="button"
+                        @click="open"
+                    >
+                        Get in touch
+                    </Button>
+                    <Button
+                        as-child
+                        class="text-lg"
+                        variant="secondary"
+                    >
+                        <NuxtLink to="/resume">
+                            Résumé
+                        </NuxtLink>
+                    </Button>
+                </div>
                 <Button
                     as-child
                     class="text-lg"
-                    variant="secondary"
+                    variant="outline"
                 >
-                    <NuxtLink to="/resume">
-                        Résumé
+                    <NuxtLink to="/pricing">
+                        Custom sites
                     </NuxtLink>
                 </Button>
             </div>
