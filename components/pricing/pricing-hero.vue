@@ -35,10 +35,10 @@ import { TRUST_PILLARS, PHONE } from '~/lib/data/pricing';
                 Website plans
             </p>
             <h1 class="mb-4 max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
-                $0 down. Your rate is locked in for life. Personal and quick customer service. It's a <i class="underline">much</i> better experience.
+                Great websites for $0 down. Personal customer service. Affordable forever.
             </h1>
             <p class="mb-4 max-w-2xl text-lg text-muted-foreground">
-                I create websites — fair prices for honest work. Plans and websites that work for every size and type of businesss. If a cheaper plan fits your business, I'll tell you so.
+                I love creating websites and I'm pretty good at it. I offer an affordable subscription service for websites with important features that work for every size and type of business.
             </p>
 
             <!-- CTA button group -->
