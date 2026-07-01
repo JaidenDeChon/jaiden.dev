@@ -47,7 +47,7 @@ Several years later, they had another daughter, and soon they were married as we
 The ceremony was beautiful, and it is a great memory and honor to have been a part
 of that day. Hayden's other best friend, Casey, and I were his groomsmen and I joked
 during my speech that I'll keep it short and, as half of the best man, deliver half of
-a speech. Hayden's cousin Drake took his shirt off during the ceremony (we expected
+a speech. Hayden's cousin Drake took his shirt off during the celebration (we expected
 no less). It was beautiful. 
 
 After they were married, Hayden and Mikayla soon moved to Florida. I was living in
