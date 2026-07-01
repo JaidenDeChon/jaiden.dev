@@ -6,7 +6,11 @@ colorMode.preference = 'system';
 
 // Site-wide social share (Open Graph / Twitter) defaults. Individual pages
 // can override the title/description; the share image applies everywhere.
-const shareImage = 'https://jaiden.dev/img/share-preview.png';
+// Build an absolute image URL from the serving host so it resolves on
+// production and on Netlify deploy previews alike (crawlers require an
+// absolute URL and do not run client-side JS).
+const requestUrl = useRequestURL();
+const shareImage = `${requestUrl.origin}/img/share-preview.png`;
 const shareDescription = 'I create beautiful web-apps with an intense focus on performance and accessibility.';
 
 useSeoMeta({
@@ -14,8 +18,8 @@ useSeoMeta({
     ogTitle: 'jaiden.dev',
     ogDescription: shareDescription,
     ogImage: shareImage,
-    ogImageWidth: 1200,
-    ogImageHeight: 630,
+    ogImageWidth: 2400,
+    ogImageHeight: 1260,
     ogImageType: 'image/png',
     ogImageAlt: 'jaiden.dev',
     twitterCard: 'summary_large_image',
