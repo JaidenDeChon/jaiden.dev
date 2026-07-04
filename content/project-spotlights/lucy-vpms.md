@@ -36,15 +36,15 @@ Now that we had our stack settled, it was time to pour the foundation. Since I k
 
 Once authentication was working, I got to work setting up some routes with dummy data. I started with routes for a dashboard, clients list (basically a page with a searchable, paginated clients table), individual client route, and inventory, and got to work populating them with realistic dummy data. This is a great way to get a feel for the app and make sure I had the right routes and data structures in mind before I got too far into development. The "dummy data" approach has burned me before, but as long as you go about it carefully, it can be very powerful for illuminating the path forward. 
 
-> _[Screenshot of dashboard]_
+![Lucy VPMS dashboard with upcoming appointments and clinic alerts](/img/lucy-vpms-article-images/img-1.png)
 
-> _[Screenshot of clients list route]_
+![Lucy VPMS clients list route showing a searchable, paginated table of clients](/img/lucy-vpms-article-images/img-2.png)
 
-> _[Screenshot of individual client route]_
+![Lucy VPMS individual client route with pets, billing ledger, and payment methods](/img/lucy-vpms-article-images/img-3.png)
 
-> _[Screenshot of inventory route]_
+![Lucy VPMS inventory route listing stock, reorder levels, suppliers, and expiration dates](/img/lucy-vpms-article-images/img-4.png)
 
-> _[Screenshot of settings route]_
+![Lucy VPMS settings route with notification preferences](/img/lucy-vpms-article-images/img-5.png)
 
 NuxtUI and Tailwind were a combination that made this process particularly easy. While I pride myself on my frontend and CSS/layout skills, the temptation of using pre-made NuxtUI / Tailwind blocks proved to be too alluring, and that was the route I went with for a large portion of the frontend work. Some of it is still quite custom, but if you paruse through the pre-made NuxtUI blocks, you'll see a lot of familiar patterns between my app and the blocks. This feels a little cheap, but at the same time, it's kind of the purpose for the blocks. In any case, the app feels much more mature than it probably would have otherwise at this stage, so I'm happy with the decision. 
 

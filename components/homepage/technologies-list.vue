@@ -57,6 +57,13 @@ const technologies: Technology[] = [
         iconColor: '#0078D4',
     },
     {
+        name: 'Pinia',
+        icon: 'simple-icons:pinia',
+        startYear: 2020, // Vue 3 release year
+        highlighted: false,
+        iconColor: '#FFD859', // pineapple yellow from the Pinia logo
+    },
+    {
         name: 'React',
         icon: 'akar-icons:react-fill',
         startYear: 2021,
@@ -98,6 +105,20 @@ const technologies: Technology[] = [
         highlighted: false,
         iconColor: '#47A248',
     },
+    {
+        name: 'Tailwind',
+        icon: 'mdi:tailwind',
+        startYear: 2023,
+        highlighted: true,
+        iconColor: '#06B6D4',
+    },
+    {
+        name: 'Supabase',
+        icon: 'devicon-plain:supabase',
+        startYear: 2025,
+        highlighted: false,
+        iconColor: '#3ECF8E',
+    },
 ];
 </script>
 
@@ -107,11 +128,11 @@ const technologies: Technology[] = [
             <h2 class="text-3xl">
                 Toolbelt
             </h2>
-            <div class="mt-6 grid gap-3 grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
+            <div class="mt-6 flex flex-wrap justify-center gap-3 sm:gap-6">
                 <div
                     v-for="technology in technologies"
                     :key="technology.name"
-                    class="technology-card p-4 w-full h-32 flex items-center justify-center flex-col gap-2 border-2 rounded-md bg-muted transition-colors md:h-52 md:gap-4"
+                    class="technology-card p-4 grow-0 basis-[calc((100%_-_0.75rem)/2)] h-32 flex items-center justify-center flex-col gap-2 border-2 rounded-md bg-muted transition-colors sm:basis-[calc((100%_-_1.5rem)/2)] md:basis-[calc((100%_-_3rem)/3)] md:h-52 md:gap-4 lg:basis-[calc((100%_-_4.5rem)/4)]"
                     :style="{ '--glow-color': technology.iconColor }"
                 >
                     <Icon
