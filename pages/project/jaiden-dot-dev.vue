@@ -25,7 +25,7 @@ const technologies = [
     },
     {
         name: 'Tailwind CSS',
-        icon: 'devicon-plain:tailwindcss',
+        icon: 'mdi:tailwind',
         description: 'Utility-first CSS framework handling all layout, spacing, color, and responsive design.',
     },
     {
@@ -46,7 +46,7 @@ const technologies = [
     {
         name: 'Pinia',
         icon: 'mdi:database-outline',
-        description: "Vue's official state management, with persistent state via pinia-plugin-persistedstate.",
+        description: 'Vue\'s official state management, with persistent state via pinia-plugin-persistedstate.',
     },
 ];
 </script>

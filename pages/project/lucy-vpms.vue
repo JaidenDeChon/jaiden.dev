@@ -19,6 +19,39 @@ if (!article.value) {
         statusMessage: 'Project article not found',
     });
 }
+
+const technologies = [
+    {
+        name: 'Nuxt 4',
+        icon: 'devicon-plain:nuxtjs',
+        description: 'Latest-generation Nuxt providing the frontend, server routes, and API from a single codebase.',
+    },
+    {
+        name: 'Vue',
+        icon: 'devicon-plain:vuejs',
+        description: 'Reactive component model powering the scheduling, invoicing, and inventory interfaces.',
+    },
+    {
+        name: 'Nuxt UI',
+        icon: 'mdi:puzzle-outline',
+        description: 'Nuxt UI 4 component library for accessible tables, forms, modals, and dashboard building blocks.',
+    },
+    {
+        name: 'Tailwind CSS',
+        icon: 'mdi:tailwind',
+        description: 'Utility-first CSS (v4) underpinning Nuxt UI and all custom layout work.',
+    },
+    {
+        name: 'Supabase',
+        icon: 'devicon-plain:supabase',
+        description: 'Postgres database, authentication, and multi-tenant access control backing the platform.',
+    },
+    {
+        name: 'Zod',
+        icon: 'mdi:shield-check-outline',
+        description: 'Schema validation for forms and API payloads, keeping clinical data well-typed and safe.',
+    },
+];
 </script>
 
 <template>
@@ -29,6 +62,35 @@ if (!article.value) {
         <project-showcase-hero
             :project-header-info="projectInfo"
         />
+
+        <div class="bg-muted py-12">
+            <div class="article-column-width px-6 lg:px-0">
+                <h2 class="text-2xl font-semibold mb-2">
+                    Built With
+                </h2>
+                <p class="text-muted-foreground mb-8">
+                    The stack powering Lucy's practice-management platform.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div
+                        v-for="tech in technologies"
+                        :key="tech.name"
+                        class="flex flex-col gap-3 p-5 rounded-lg border bg-background"
+                    >
+                        <div class="flex items-center gap-3">
+                            <Icon
+                                :name="tech.icon"
+                                class="h-6 w-6 shrink-0"
+                            />
+                            <span class="font-medium text-sm">{{ tech.name }}</span>
+                        </div>
+                        <p class="text-sm text-muted-foreground leading-relaxed">
+                            {{ tech.description }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <ContentRenderer
             class="prose prose-slate dark:prose-invert mx-auto mb-6 p-6 lg:px-0"

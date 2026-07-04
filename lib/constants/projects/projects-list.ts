@@ -75,7 +75,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         description:
             'Open-source NPM package for enhancing functionality of CSS grids',
         image: '/img/self-aware-grid.png',
-        tags: ['VueJS', 'NestJS', 'MongoDB', 'Tailwind'],
+        tags: ['Open source', 'CSS', 'JavaScript', 'TypeScript'],
         relatedLinks: [
             {
                 name: 'Source Code',
