@@ -39,6 +39,12 @@
     .size-for-all-screens {
         @apply max-w-7xl mx-auto;
     }
+
+    /* Matches the reading-column width of `.prose` content so article
+       headers and sub-sections line up with the article body. */
+    .article-column-width {
+        @apply max-w-[65ch] mx-auto;
+    }
 }
 
 @layer base {

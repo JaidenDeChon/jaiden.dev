@@ -61,7 +61,7 @@ function toggleSpeech() {
 </script>
 
 <template>
-    <div class="size-for-all-screens flex flex-col gap-3 p-6 lg:px-0">
+    <div class="article-column-width flex flex-col gap-3 p-6 lg:px-0">
         <!-- Related links. -->
         <div class="flex gap-2 justify-end">
             <a

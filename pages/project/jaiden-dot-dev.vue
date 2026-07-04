@@ -61,14 +61,14 @@ const technologies = [
         />
 
         <div class="bg-muted py-12">
-            <div class="size-for-all-screens px-6 lg:px-0">
+            <div class="article-column-width px-6 lg:px-0">
                 <h2 class="text-2xl font-semibold mb-2">
                     Built With
                 </h2>
                 <p class="text-muted-foreground mb-8">
                     The tools and libraries that power jaiden.dev.
                 </p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div
                         v-for="tech in technologies"
                         :key="tech.name"
