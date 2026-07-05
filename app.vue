@@ -62,7 +62,7 @@ useSeoMeta({
 
     <div class="relative flex min-h-dvh flex-col">
         <app-header />
-        <div class="flex-1 pt-16">
+        <div class="flex-1">
             <nuxt-page />
         </div>
         <app-footer />
