@@ -3,7 +3,7 @@ const { open } = useContactDialog();
 </script>
 
 <template>
-    <header class="border-b-2 border-border px-6 h-16 content-center fixed w-screen bg-background/60 backdrop-blur-lg z-50">
+    <header class="border-b-2 border-border px-6 h-16 content-center fixed top-0 left-0 right-0 w-full bg-background/60 backdrop-blur-lg z-50">
         <div class="size-for-all-screens flex items-center gap-3">
             <nuxt-link
                 to="/"
