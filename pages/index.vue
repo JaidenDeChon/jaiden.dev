@@ -8,7 +8,7 @@ import MyBlogPosts from '~/components/homepage/my-blog-posts.vue';
 <template>
     <div>
         <main>
-            <div class="h-screen">
+            <div class="h-dvh">
                 <client-only>
                     <hero-pane class="-mt-16" />
                 </client-only>
