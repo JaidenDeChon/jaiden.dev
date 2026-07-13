@@ -82,6 +82,11 @@ export const PROJECTS_LIST: ProjectHeader[] = [
                 url: 'https://github.com/JaidenDeChon/UAP-Gerb-Knowledge-Base',
                 icon: 'mdi:github',
             },
+            {
+                name: 'Live site',
+                url: 'https://uapgdb.netlify.app',
+                icon: 'mdi:earth',
+            },
         ],
     },
     {
