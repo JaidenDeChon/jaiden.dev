@@ -67,6 +67,11 @@ export const PROJECTS_LIST: ProjectHeader[] = [
                 url: 'https://github.com/JaidenDeChon/psy_kick',
                 icon: 'mdi:github',
             },
+            {
+                name: 'Live site',
+                url: 'https://psy-kick.me',
+                icon: 'mdi:earth',
+            },
         ],
     },
     {
