@@ -70,6 +70,21 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         ],
     },
     {
+        title: ProjectArticleNames.UAP_GERB_KNOWLEDGE_BASE,
+        path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.UAP_GERB_KNOWLEDGE_BASE}`,
+        description:
+            'A wiki of the topics, people, places, and events covered on the UAP Gerb YouTube channel',
+        image: '/img/uap-gerb-knowledge-base.png',
+        tags: ['Nuxt 4', 'Vue', 'Obsidian', 'Python', 'Claude API'],
+        relatedLinks: [
+            {
+                name: 'Source Code',
+                url: 'https://github.com/JaidenDeChon/UAP-Gerb-Knowledge-Base',
+                icon: 'mdi:github',
+            },
+        ],
+    },
+    {
         title: ProjectArticleNames.SELF_AWARE_GRID,
         path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.SELF_AWARE_GRID}`,
         description:
