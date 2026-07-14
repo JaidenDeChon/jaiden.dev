@@ -32,6 +32,24 @@ useSeoMeta({
 <template>
     <!-- <head> stuff for index.html. -->
     <Head>
+        <!-- Favicons. The .ico carries 16/32/48px raster fallbacks; the SVG
+             is preferred by modern browsers (crisp at any size), and the
+             apple-touch-icon covers iOS home-screen bookmarks. -->
+        <Link
+            rel="icon"
+            href="/favicon.ico"
+            sizes="32x32"
+        />
+        <Link
+            rel="icon"
+            href="/favicon.svg"
+            type="image/svg+xml"
+        />
+        <Link
+            rel="apple-touch-icon"
+            href="/apple-touch-icon.png"
+        />
+
         <!-- Preload fonts. -->
         <Link
             rel="preconnect"
