@@ -18,8 +18,6 @@ import {
     RESUME_SUMMARY,
 } from '~/lib/data/resume';
 
-const RESUME_PDF_PATH = '/jaiden_dechon_resume.pdf';
-
 /**
  * Content is paginated by hand, the way the original was — nothing reflows
  * across sheets on its own. These slices are the only knobs: they decide which
@@ -54,19 +52,7 @@ useSeoMeta({
                     Résumé
                 </p>
 
-                <Button
-                    as-child
-                    class="bg-brand-blue transition-colors hover:bg-brand-blue-darker dark:bg-brand-blue dark:text-brand-blue-foreground dark:hover:bg-brand-blue-darker"
-                >
-                    <a
-                        class="text-brand-blue-foreground hover:text-brand-blue-foreground"
-                        :href="RESUME_PDF_PATH"
-                        download="jaiden_dechon_resume.pdf"
-                        type="application/pdf"
-                    >
-                        Download PDF
-                    </a>
-                </Button>
+                <resume-download-button />
             </div>
 
             <div class="resume-document">
@@ -192,6 +178,12 @@ useSeoMeta({
                         />
                     </resume-section>
                 </resume-page>
+            </div>
+
+            <!-- Centred rather than justified: unlike the toolbar above, this
+                 one has no label to sit opposite. -->
+            <div class="resume-actions mt-8 flex justify-center">
+                <resume-download-button />
             </div>
         </div>
     </main>

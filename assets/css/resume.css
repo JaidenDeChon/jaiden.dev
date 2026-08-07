@@ -413,7 +413,8 @@
        is a <header> too, hence the exclusion. */
     body.resume-route header:not(.resume-header),
     body.resume-route footer,
-    body.resume-route .resume-toolbar {
+    body.resume-route .resume-toolbar,
+    body.resume-route .resume-actions {
         display: none !important;
     }
 
