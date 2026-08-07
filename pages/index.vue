@@ -3,6 +3,11 @@ import HeroPane from '~/components/homepage/hero-pane.vue';
 import TechnologiesList from '~/components/homepage/technologies-list.vue';
 import MyProjects from '~/components/homepage/my-projects.vue';
 import MyBlogPosts from '~/components/homepage/my-blog-posts.vue';
+
+// The homepage keeps the default share image; its title is the site name.
+useSharePreview({
+    title: 'jaiden.dev',
+});
 </script>
 
 <template>
