@@ -162,7 +162,18 @@ async function main(): Promise<void> {
         try {
             const page = await browser.newPage();
 
-            await page.goto(url, { waitUntil: 'networkidle' });
+            const response = await page.goto(url, { waitUntil: 'networkidle' });
+
+            // page.goto() resolves for 4xx/5xx too, so a mistyped
+            // RESUME_PDF_URL would otherwise render an error page straight over
+            // the committed resume. Both guards below refuse to write instead.
+            if (!response) {
+                throw new Error(`No response from ${url}.`);
+            }
+
+            if (!response.ok()) {
+                throw new Error(`${url} responded with HTTP ${response.status()}.`);
+            }
 
             // Web fonts resolve asynchronously; printing before they land is
             // the usual cause of a subtly wrong PDF, so wait them out.
@@ -171,6 +182,12 @@ async function main(): Promise<void> {
             // Overflow has to be measured in print media — that is the layout
             // the PDF will actually use.
             await page.emulateMedia({ media: 'print' });
+
+            const pageCount = await page.evaluate(() => document.querySelectorAll('.resume-page').length);
+
+            if (pageCount === 0) {
+                throw new Error(`${url} rendered no .resume-page elements — this does not look like the resume.`);
+            }
 
             const hasOverflow = await reportOverflow(page);
 
@@ -183,8 +200,6 @@ async function main(): Promise<void> {
                 preferCSSPageSize: true,
                 margin: { top: 0, right: 0, bottom: 0, left: 0 },
             });
-
-            const pageCount = await page.evaluate(() => document.querySelectorAll('.resume-page').length);
 
             console.log(`Wrote ${OUTPUT_PATH}`);
             console.log(`Pages: ${pageCount}`);
@@ -203,4 +218,11 @@ async function main(): Promise<void> {
     }
 }
 
-await main();
+try {
+    await main();
+}
+catch (error) {
+    console.error(error instanceof Error ? error.message : error);
+    console.error(`Refusing to write ${OUTPUT_PATH}; it is unchanged.`);
+    process.exitCode = 1;
+}
