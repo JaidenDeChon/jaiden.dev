@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PLANS, UNIVERSAL_TERMS } from '~/lib/data/pricing';
 
-useSeoMeta({
+useSharePreview({
     title: 'Website Plans & Pricing — jaiden.dev',
     description: `$0 down, forever rate, no markups. Done-for-you websites for local businesses. Three simple plans starting at $${PLANS[0].monthlyPrice}/mo.`,
 });

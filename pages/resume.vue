@@ -18,6 +18,11 @@ import {
     RESUME_SUMMARY,
 } from '~/lib/data/resume';
 
+useSharePreview({
+    title: 'Résumé — jaiden.dev',
+    description: 'The résumé of Jaiden DeChon — a web developer focused on performance and accessibility.',
+});
+
 /**
  * Content is paginated by hand, the way the original was — nothing reflows
  * across sheets on its own. These slices are the only knobs: they decide which
@@ -36,11 +41,6 @@ const PAGE_THREE_PROJECTS = RESUME_PROJECTS.slice(2);
 useHead({
     // Scopes the print rules that suppress the site header/footer.
     bodyAttrs: { class: 'resume-route' },
-});
-
-useSeoMeta({
-    title: 'Résumé — Jaiden DeChon',
-    description: 'Full-Stack Software Engineer specializing in TypeScript and the Vue/Nuxt ecosystem.',
 });
 </script>
 
