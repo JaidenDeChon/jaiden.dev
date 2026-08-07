@@ -14,6 +14,10 @@
  *     RESUME_PDF_URL=http://localhost:3000/resume bun scripts/generate-resume-pdf.ts
  *
  * Requires a Chromium build: `bunx playwright install chromium`.
+ *
+ * Output is not reproducible byte-for-byte: Skia stamps a fresh trailer ID on
+ * every run, so the PDF always shows as modified afterwards even when nothing
+ * changed. Diff the extracted text before committing it — see CLAUDE.md.
  */
 import type { ChildProcess } from 'node:child_process';
 import { spawn } from 'node:child_process';
