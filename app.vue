@@ -5,10 +5,11 @@ const colorMode = useColorMode();
 colorMode.preference = 'system';
 
 // Site-wide social share (Open Graph / Twitter) defaults. Individual pages
-// can override the title/description; the share image applies everywhere.
-// Build an absolute image URL from the serving host so it resolves on
-// production and on Netlify deploy previews alike (crawlers require an
-// absolute URL and do not run client-side JS).
+// set their own title via `useSharePreview`, and article pages additionally
+// override the share image; anything a page doesn't set falls back to these
+// defaults. Image dimensions are intentionally left unset here — pages that
+// swap in a differently-sized image can't clear a stale width/height hint, so
+// omitting them keeps every share image from being mis-sized by the default.
 const requestUrl = useRequestURL();
 const shareImage = `${requestUrl.origin}/img/share-preview.png`;
 const shareDescription = 'I create beautiful web-apps with an intense focus on performance and accessibility.';
@@ -18,8 +19,6 @@ useSeoMeta({
     ogTitle: 'jaiden.dev',
     ogDescription: shareDescription,
     ogImage: shareImage,
-    ogImageWidth: 2400,
-    ogImageHeight: 1260,
     ogImageType: 'image/png',
     ogImageAlt: 'jaiden.dev',
     twitterCard: 'summary_large_image',

@@ -1,4 +1,9 @@
 <script setup lang="ts">
+useSharePreview({
+    title: 'Résumé — jaiden.dev',
+    description: 'The résumé of Jaiden DeChon — a web developer focused on performance and accessibility.',
+});
+
 type PdfJsModule = typeof import('pdfjs-dist');
 type PdfLoadingTask = ReturnType<PdfJsModule['getDocument']>;
 type PdfDocument = Awaited<PdfLoadingTask['promise']>;

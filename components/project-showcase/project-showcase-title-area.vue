@@ -9,6 +9,22 @@ const props = withDefaults(defineProps<{
     titlePrefix: 'Project Spotlight',
 });
 
+// Give this article a relevant social share preview: a title matching the
+// on-page heading plus the article's own image and description. This covers
+// every project spotlight and blog post, since they all render through here.
+const shareTitle = computed(() =>
+    props.titlePrefix
+        ? `${props.titlePrefix}: ${props.projectHeaderInfo.title}`
+        : props.projectHeaderInfo.title,
+);
+
+useSharePreview({
+    title: shareTitle,
+    description: () => props.projectHeaderInfo.description,
+    image: () => props.projectHeaderInfo.image,
+    imageAlt: () => `${props.projectHeaderInfo.title} image`,
+});
+
 const utterance = ref<null | SpeechSynthesisUtterance>(null);
 
 /**
