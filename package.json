@@ -8,9 +8,12 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint"
+    "lint": "eslint",
+    "resume:pdf": "bun scripts/generate-resume-pdf.ts"
   },
   "dependencies": {
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "@fontsource/playfair-display": "^5.3.0",
     "@internationalized/date": "^3.5.5",
     "@nuxt/content": "3.13.0",
     "@nuxt/eslint": "^0.5.7",
@@ -30,7 +33,6 @@
     "highlight.js": "^11.10.0",
     "lucide-vue-next": "^0.439.0",
     "nuxt": "^3.19.0",
-    "pdfjs-dist": "^5.7.284",
     "pinia-plugin-persistedstate": "^4.0.1",
     "radix-vue": "^1.9.5",
     "resend": "^6.12.3",

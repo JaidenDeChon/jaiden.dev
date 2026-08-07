@@ -1,0 +1,479 @@
+/*
+ * Resume document styles.
+ *
+ * Every measurement is expressed as a multiple of `--resume-unit`, so the whole
+ * document scales as one piece rather than reflowing. In print the unit is
+ * exactly 1pt, which reproduces the original PDF's geometry; on screen it is a
+ * fraction of the container width, so the sheet shrinks to fit its column with
+ * the layout, type, and images all holding their proportions.
+ *
+ * Loaded by pages/resume.vue, which also imports the self-hosted font faces.
+ */
+
+@page {
+    /* A4, stated in the same points the layout is built in. `size: A4` resolves
+       to 210mm x 297mm — 0.9pt taller than the 841pt sheet below it, which
+       leaves a hairline of white under the full-bleed accent band on every
+       page. Naming the exact size makes the page box and the sheet identical. */
+    size: 595pt 841pt;
+    margin: 0;
+}
+
+.resume-document {
+    /* The scale of the whole document. Overridden for screen further down. */
+    --resume-unit: 1pt;
+
+    /* Palette. Fixed values, not theme tokens — the page is a sheet of paper
+       in both light and dark mode, and must survive PDF export unchanged. */
+    --resume-accent: #FCD34D;
+    --resume-ink: #171717;
+    --resume-muted: #404040;
+    --resume-paper: #FFFFFF;
+
+    /* Page geometry (A4 at 595 x 841 units). */
+    --resume-page-width: calc(595 * var(--resume-unit));
+    --resume-page-height: calc(841 * var(--resume-unit));
+    --resume-padding-top: calc(45 * var(--resume-unit));
+
+    /* Sidebar band 0 -> 225; its content column sits at x:45, width 165. */
+    --resume-sidebar-width: calc(225 * var(--resume-unit));
+    --resume-sidebar-padding-left: calc(45 * var(--resume-unit));
+    --resume-sidebar-padding-right: calc(15 * var(--resume-unit));
+
+    /* Main content column sits at x:255, width 295 (right edge 550). */
+    --resume-main-padding-left: calc(30 * var(--resume-unit));
+    --resume-main-padding-right: calc(45 * var(--resume-unit));
+
+    /* Bullet text sits at x:269.6 — 14.6 inside the main column, with the
+       marker hanging in the gap. */
+    --resume-bullet-indent: calc(14.6 * var(--resume-unit));
+
+    --resume-font-heading: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
+    --resume-font-body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+
+    /* Type scale. */
+    --resume-size-name: calc(27 * var(--resume-unit));
+    --resume-leading-name: calc(31.6 * var(--resume-unit));
+    --resume-size-tagline: calc(9.75 * var(--resume-unit));
+    --resume-size-contact: calc(8.25 * var(--resume-unit));
+    --resume-leading-contact: calc(18.6 * var(--resume-unit));
+    --resume-size-heading: calc(15 * var(--resume-unit));
+    --resume-size-summary: calc(10.5 * var(--resume-unit));
+    --resume-leading-summary: calc(16.5 * var(--resume-unit));
+    --resume-size-entry-title: calc(10.5 * var(--resume-unit));
+    --resume-leading-entry-title: calc(17.8 * var(--resume-unit));
+    --resume-size-meta: calc(6.75 * var(--resume-unit));
+    --resume-leading-date: calc(13.7 * var(--resume-unit));
+    --resume-leading-meta: calc(13.5 * var(--resume-unit));
+    --resume-size-body: calc(8.25 * var(--resume-unit));
+    --resume-leading-body: calc(12.75 * var(--resume-unit));
+
+    /* Vertical rhythm. Values were reconciled against word-level bounding
+       boxes pulled out of the original PDF (`pdftotext -bbox`), so the
+       distance between any two baselines matches the original within ~2pt.
+       The sidebar sits a touch looser under its headings than the main
+       column, which is where the page-height budget is actually tight. */
+    --resume-heading-gap: calc(16 * var(--resume-unit));
+    --resume-heading-gap-sidebar: calc(17.5 * var(--resume-unit));
+    --resume-section-gap-sidebar: calc(33.5 * var(--resume-unit));
+    --resume-section-gap-main: calc(30.5 * var(--resume-unit));
+    --resume-header-gap: calc(38.5 * var(--resume-unit));
+    --resume-entry-gap: calc(18 * var(--resume-unit));
+    --resume-bullet-gap: calc(1.55 * var(--resume-unit));
+
+    /* Project thumbnails — about five to six lines of body copy tall, sized so
+       only the longest descriptions spill beneath them. */
+    --resume-project-image-width: calc(100 * var(--resume-unit));
+    --resume-project-image-height: calc(68 * var(--resume-unit));
+    --resume-project-image-gap: calc(8 * var(--resume-unit));
+
+    /* Matches the site's --radius (0.5rem) at document scale. */
+    --resume-radius: calc(6 * var(--resume-unit));
+
+    font-family: var(--resume-font-body);
+    color: var(--resume-ink);
+    font-variant-ligatures: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Links carry no decoration inside the document — they must read as plain
+   copy in the PDF while still being real, clickable anchors. */
+.resume-document a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ---------------------------------------------------------------- page ---- */
+
+.resume-page {
+    display: flex;
+    width: var(--resume-page-width);
+    height: var(--resume-page-height);
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: var(--resume-paper);
+    break-after: page;
+}
+
+.resume-page:last-child {
+    break-after: auto;
+}
+
+.resume-page__sidebar {
+    flex: 0 0 var(--resume-sidebar-width);
+    width: var(--resume-sidebar-width);
+    padding:
+        var(--resume-padding-top)
+        var(--resume-sidebar-padding-right)
+        0
+        var(--resume-sidebar-padding-left);
+    background-color: var(--resume-accent);
+    /* The band is the one piece of ink that must survive a background-less
+       print path, so force it. */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+.resume-page__main {
+    flex: 1 1 auto;
+    padding:
+        var(--resume-padding-top)
+        var(--resume-main-padding-right)
+        0
+        var(--resume-main-padding-left);
+}
+
+/* ------------------------------------------------------------- sections --- */
+
+.resume-section--sidebar + .resume-section--sidebar {
+    margin-top: var(--resume-section-gap-sidebar);
+}
+
+.resume-section--main + .resume-section--main {
+    margin-top: var(--resume-section-gap-main);
+}
+
+.resume-section__heading {
+    font-family: var(--resume-font-heading);
+    font-weight: 700;
+    font-size: var(--resume-size-heading);
+    line-height: 1;
+    color: var(--resume-ink);
+    margin-bottom: var(--resume-heading-gap);
+}
+
+.resume-section--sidebar .resume-section__heading {
+    margin-bottom: var(--resume-heading-gap-sidebar);
+}
+
+/* --------------------------------------------------------------- header --- */
+
+.resume-header {
+    margin-bottom: var(--resume-header-gap);
+}
+
+.resume-header__name {
+    font-family: var(--resume-font-heading);
+    font-weight: 700;
+    font-size: var(--resume-size-name);
+    line-height: var(--resume-leading-name);
+    color: var(--resume-ink);
+}
+
+.resume-header__name-line {
+    display: block;
+}
+
+.resume-header__tagline {
+    margin-top: calc(9 * var(--resume-unit));
+    font-size: var(--resume-size-tagline);
+    line-height: 1.3;
+    color: var(--resume-ink);
+}
+
+.resume-header__contact {
+    margin-top: calc(20 * var(--resume-unit));
+}
+
+.resume-header__contact-row {
+    font-size: var(--resume-size-contact);
+    line-height: var(--resume-leading-contact);
+    color: var(--resume-ink);
+}
+
+.resume-header__contact-row--bold {
+    font-weight: 700;
+}
+
+/* -------------------------------------------------------- shared entries --- */
+
+.resume-entry__date {
+    font-size: var(--resume-size-meta);
+    line-height: var(--resume-leading-date);
+    font-style: italic;
+    color: var(--resume-muted);
+}
+
+.resume-entry__title {
+    font-size: var(--resume-size-entry-title);
+    line-height: var(--resume-leading-entry-title);
+    font-weight: 700;
+    color: var(--resume-ink);
+}
+
+.resume-entry__meta {
+    font-size: var(--resume-size-meta);
+    line-height: var(--resume-leading-meta);
+    color: var(--resume-muted);
+}
+
+.resume-entry__body {
+    font-size: var(--resume-size-body);
+    line-height: var(--resume-leading-body);
+    color: var(--resume-ink);
+}
+
+.resume-entry__meta + .resume-entry__body,
+.resume-entry__meta + .resume-project__body {
+    margin-top: calc(4.2 * var(--resume-unit));
+}
+
+.resume-entry__body + .resume-entry__body {
+    margin-top: calc(4 * var(--resume-unit));
+}
+
+.resume-entry + .resume-entry {
+    margin-top: var(--resume-entry-gap);
+}
+
+/* -------------------------------------------------------------- summary --- */
+
+.resume-summary__paragraph {
+    font-size: var(--resume-size-summary);
+    line-height: var(--resume-leading-summary);
+    color: var(--resume-ink);
+}
+
+.resume-summary__paragraph + .resume-summary__paragraph {
+    margin-top: calc(10 * var(--resume-unit));
+}
+
+/* -------------------------------------------------------------- bullets --- */
+
+.resume-bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.resume-bullets__item {
+    position: relative;
+    padding-left: var(--resume-bullet-indent);
+    font-size: var(--resume-size-body);
+    line-height: var(--resume-leading-body);
+    color: var(--resume-ink);
+}
+
+.resume-bullets__item + .resume-bullets__item {
+    margin-top: var(--resume-bullet-gap);
+}
+
+.resume-bullets__item::before {
+    content: '\2022';
+    position: absolute;
+    left: calc(1.5 * var(--resume-unit));
+    font-size: calc(7 * var(--resume-unit));
+    line-height: var(--resume-leading-body);
+}
+
+.resume-bullets__label {
+    font-weight: 700;
+}
+
+/* Employment bullets sit slightly clear of the location line above them. */
+.resume-job .resume-bullets {
+    margin-top: calc(6 * var(--resume-unit));
+}
+
+/* ----------------------------------------------------------- references --- */
+
+.resume-section__caption {
+    margin-top: calc(-3 * var(--resume-unit));
+    margin-bottom: calc(9 * var(--resume-unit));
+    font-size: var(--resume-size-meta);
+    line-height: var(--resume-leading-meta);
+    font-style: italic;
+    color: var(--resume-muted);
+}
+
+.resume-reference__name {
+    font-size: var(--resume-size-entry-title);
+    line-height: calc(16.3 * var(--resume-unit));
+    font-weight: 700;
+    color: var(--resume-ink);
+}
+
+.resume-reference__role {
+    font-size: var(--resume-size-meta);
+    line-height: var(--resume-leading-meta);
+    font-style: italic;
+    color: var(--resume-muted);
+}
+
+.resume-reference + .resume-reference {
+    margin-top: calc(2 * var(--resume-unit));
+}
+
+/* ------------------------------------------------------------- projects --- */
+
+.resume-project__image {
+    float: left;
+    width: var(--resume-project-image-width);
+    height: var(--resume-project-image-height);
+    margin:
+        calc(0.5 * var(--resume-unit))
+        var(--resume-project-image-gap)
+        calc(2 * var(--resume-unit))
+        0;
+    object-fit: cover;
+    border-radius: var(--resume-radius);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* Contain the float so the next entry starts below the thumbnail. */
+.resume-project__body::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* --------------------------------------------------------------- skills --- */
+
+.resume-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(3 * var(--resume-unit));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.resume-skills__tag {
+    /* Each tag stays on one line; the list wraps between tags, never inside. */
+    white-space: nowrap;
+    padding: calc(1.5 * var(--resume-unit)) calc(4 * var(--resume-unit));
+    border-radius: calc(3 * var(--resume-unit));
+    background-color: var(--resume-ink);
+    color: var(--resume-paper);
+    font-size: var(--resume-size-body);
+    line-height: calc(11 * var(--resume-unit));
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* ---------------------------------------------------------------- links --- */
+
+.resume-links__item {
+    font-size: var(--resume-size-body);
+    line-height: var(--resume-leading-body);
+    color: var(--resume-ink);
+}
+
+.resume-links__item + .resume-links__item {
+    margin-top: calc(12.3 * var(--resume-unit));
+}
+
+.resume-links__anchor {
+    display: flex;
+    align-items: flex-start;
+    gap: calc(4.5 * var(--resume-unit));
+}
+
+.resume-links__icon {
+    flex: none;
+    width: calc(9 * var(--resume-unit));
+    height: calc(9 * var(--resume-unit));
+    margin-top: calc(1.4 * var(--resume-unit));
+    color: var(--resume-ink);
+}
+
+/* ---------------------------------------------------------------- print --- */
+
+@media print {
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        background: var(--resume-paper);
+    }
+
+    /* The resume is the only thing on the sheet — the site chrome rendered by
+       app.vue around <nuxt-page /> is suppressed. The document's own masthead
+       is a <header> too, hence the exclusion. */
+    body.resume-route header:not(.resume-header),
+    body.resume-route footer,
+    body.resume-route .resume-toolbar {
+        display: none !important;
+    }
+
+    body.resume-route .resume-shell,
+    body.resume-route .resume-column {
+        min-height: 0;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        background: none;
+    }
+
+    .resume-page {
+        box-shadow: none;
+        outline: none;
+    }
+}
+
+/* --------------------------------------------------------------- screen --- */
+
+@media screen {
+    .resume-shell {
+        padding: 2rem 0 4rem;
+    }
+
+    /* One column for the toolbar and the sheets alike, so the label and the
+       download button line up with the page edges. Mirrors Tailwind's
+       `max-w-3xl` + `px-6`, which is what the toolbar used to carry itself. */
+    .resume-column {
+        max-width: 48rem;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    @media (max-width: 640px) {
+        .resume-column {
+            padding: 0 1rem;
+        }
+    }
+
+    /* The sheet is sized as a fraction of that column: one unit is 1/595th of
+       it, so an A4 page spans the column exactly. Nothing rearranges at any
+       width — the whole document just gets smaller, which is why there is no
+       mobile-specific layout here. */
+    .resume-document {
+        container-type: inline-size;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+        --resume-unit: calc(100cqw / 595);
+    }
+
+    .resume-page {
+        border-radius: 0.25rem;
+        box-shadow: 0 10px 30px -12px rgb(0 0 0 / 35%);
+    }
+
+    .resume-document a:hover {
+        text-decoration: underline;
+        text-underline-offset: 0.15em;
+    }
+}
