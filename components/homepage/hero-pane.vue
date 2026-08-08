@@ -2,6 +2,7 @@
 import * as THREE from 'three';
 import Globe from 'globe.gl';
 import HeroText from './hero-text.vue';
+import AsciiCanvasBackground from './ascii-canvas-background.vue';
 import { COORDINATES } from '~/lib/constants/coordinates';
 import { BERMUDA_TRIANGLE_GEO_JSON } from '~/lib/constants/bermuda-triangle-geo-json';
 import { getOrbitPoints } from '~/lib/constants/orbit-points';
@@ -216,12 +217,13 @@ function emitRandomArc() {
 
 <template>
     <div class="size-for-all-screens relative flex justify-center 2xl:justify-end">
+        <ascii-canvas-background />
         <div
             ref="worldContainer"
-            class="hero-parent__world-container 2xl:transform 2xl:translate-x-1/3 2xl:-mr-40 3xl:-mr-64 4xl:-mr-72 5xl:-mr-80 6xl:-mr-96"
+            class="hero-parent__world-container relative z-10 2xl:transform 2xl:translate-x-1/3 2xl:-mr-40 3xl:-mr-64 4xl:-mr-72 5xl:-mr-80 6xl:-mr-96"
             :class="{ 'hero-parent__world-container--inverted': isLightMode }"
         />
-        <div class="absolute h-full w-full pt-16 pointer-events-none lg:left-1/2 lg:transform lg:-translate-x-1/2">
+        <div class="absolute z-20 h-full w-full pt-16 pointer-events-none lg:left-1/2 lg:transform lg:-translate-x-1/2">
             <hero-text class="h-full px-9 max-w-lg 22xl:p-0 mx-auto text-center 2xl:px-0 2xl:mx-0 2xl:text-left" />
         </div>
     </div>
