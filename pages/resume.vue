@@ -1,237 +1,190 @@
 <script setup lang="ts">
+// Self-hosted faces, loaded with this route rather than site-wide. Only the
+// weights the document actually uses are pulled in.
+import '@fontsource/playfair-display/latin-700.css';
+import '@fontsource/ibm-plex-sans/latin-400.css';
+import '@fontsource/ibm-plex-sans/latin-400-italic.css';
+import '@fontsource/ibm-plex-sans/latin-700.css';
+import '~/assets/css/resume.css';
+
+import {
+    RESUME_CERTIFICATIONS,
+    RESUME_COURSES,
+    RESUME_HOBBIES,
+    RESUME_JOBS,
+    RESUME_PROJECTS,
+    RESUME_REFERENCES,
+    RESUME_REFERENCES_CAPTION,
+    RESUME_SUMMARY,
+} from '~/lib/data/resume';
+
 useSharePreview({
     title: 'Résumé — jaiden.dev',
     description: 'The résumé of Jaiden DeChon — a web developer focused on performance and accessibility.',
 });
 
-type PdfJsModule = typeof import('pdfjs-dist');
-type PdfLoadingTask = ReturnType<PdfJsModule['getDocument']>;
-type PdfDocument = Awaited<PdfLoadingTask['promise']>;
+/**
+ * Content is paginated by hand, the way the original was — nothing reflows
+ * across sheets on its own. These slices are the only knobs: they decide which
+ * entries land on which page. If copy grows, adjust them (and re-run
+ * `bun run resume:pdf`, which fails loudly if a column overflows) rather than
+ * letting a section break unpredictably.
+ *
+ * Employment history is never split mid-entry; Projects is the one section
+ * that spans a page boundary, and it does so between whole project entries.
+ */
+const PAGE_ONE_JOBS = RESUME_JOBS.slice(0, 1);
+const PAGE_TWO_JOBS = RESUME_JOBS.slice(1);
+const PAGE_TWO_PROJECTS = RESUME_PROJECTS.slice(0, 2);
+const PAGE_THREE_PROJECTS = RESUME_PROJECTS.slice(2);
 
-const resumePagesElement = ref<HTMLElement | null>(null);
-const resumePageImages = ref<string[]>([]);
-const isLoadingResume = ref(true);
-const resumeLoadError = ref('');
-
-let pdfJsModulePromise: Promise<PdfJsModule> | null = null;
-let pdfDocument: PdfDocument | null = null;
-let lastRenderedWidth = 0;
-let renderRequestId = 0;
-let resizeObserver: ResizeObserver | null = null;
-let resizeAnimationFrame = 0;
-
-async function getPdfJsModule(): Promise<PdfJsModule> {
-    if (!pdfJsModulePromise) {
-        pdfJsModulePromise = import('pdfjs-dist');
-    }
-
-    const pdfJsModule = await pdfJsModulePromise;
-    pdfJsModule.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString();
-
-    return pdfJsModule;
-}
-
-async function getPdfDocument(): Promise<PdfDocument> {
-    if (pdfDocument) {
-        return pdfDocument;
-    }
-
-    const pdfJsModule = await getPdfJsModule();
-    const loadingTask = pdfJsModule.getDocument('/jaiden_dechon_resume.pdf');
-
-    pdfDocument = await loadingTask.promise;
-
-    return pdfDocument;
-}
-
-async function renderResumePages(): Promise<void> {
-    if (!import.meta.client || !resumePagesElement.value) {
-        return;
-    }
-
-    const containerWidth = Math.floor(resumePagesElement.value.clientWidth);
-
-    if (!containerWidth) {
-        return;
-    }
-
-    if (Math.abs(containerWidth - lastRenderedWidth) < 4 && resumePageImages.value.length > 0) {
-        return;
-    }
-
-    lastRenderedWidth = containerWidth;
-
-    const currentRenderRequestId = ++renderRequestId;
-
-    isLoadingResume.value = true;
-    resumeLoadError.value = '';
-
-    try {
-        const pdf = await getPdfDocument();
-        const nextPageImages: string[] = [];
-        const pixelRatio = window.devicePixelRatio || 1;
-
-        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
-            const page = await pdf.getPage(pageNumber);
-            const baseViewport = page.getViewport({ scale: 1 });
-            const renderViewport = page.getViewport({ scale: (containerWidth / baseViewport.width) * pixelRatio });
-            const canvas = document.createElement('canvas');
-            const canvasContext = canvas.getContext('2d');
-
-            if (!canvasContext) {
-                throw new Error('Canvas 2D context is unavailable.');
-            }
-
-            canvas.width = Math.ceil(renderViewport.width);
-            canvas.height = Math.ceil(renderViewport.height);
-
-            await page.render({
-                canvas: null,
-                canvasContext,
-                viewport: renderViewport,
-            }).promise;
-
-            if (currentRenderRequestId !== renderRequestId) {
-                return;
-            }
-
-            nextPageImages.push(canvas.toDataURL('image/png'));
-            page.cleanup();
-        }
-
-        if (currentRenderRequestId !== renderRequestId) {
-            return;
-        }
-
-        resumePageImages.value = nextPageImages;
-    }
-    catch {
-        if (currentRenderRequestId !== renderRequestId) {
-            return;
-        }
-
-        resumeLoadError.value = 'Unable to render the inline resume preview.';
-    }
-    finally {
-        if (currentRenderRequestId === renderRequestId) {
-            isLoadingResume.value = false;
-        }
-    }
-}
-
-function scheduleResumeRender(): void {
-    if (!import.meta.client) {
-        return;
-    }
-
-    if (resizeAnimationFrame) {
-        cancelAnimationFrame(resizeAnimationFrame);
-    }
-
-    resizeAnimationFrame = requestAnimationFrame(() => {
-        resizeAnimationFrame = 0;
-        void renderResumePages();
-    });
-}
-
-onMounted(() => {
-    void renderResumePages();
-
-    if (!resumePagesElement.value) {
-        return;
-    }
-
-    resizeObserver = new ResizeObserver(() => {
-        scheduleResumeRender();
-    });
-
-    resizeObserver.observe(resumePagesElement.value);
-});
-
-onBeforeUnmount(() => {
-    resizeObserver?.disconnect();
-
-    if (resizeAnimationFrame) {
-        cancelAnimationFrame(resizeAnimationFrame);
-    }
-
-    void pdfDocument?.destroy();
-    pdfDocument = null;
+useHead({
+    // Scopes the print rules that suppress the site header/footer.
+    bodyAttrs: { class: 'resume-route' },
 });
 </script>
 
 <template>
-    <main class="min-h-[calc(100vh-4rem)] pb-12">
-        <section class="prose prose-slate dark:prose-invert mx-auto p-6 lg:px-0">
-            <header class="not-prose mb-6 flex items-center justify-between gap-4">
+    <main class="resume-shell">
+        <div class="resume-column">
+            <div class="resume-toolbar mb-6 flex items-center justify-between gap-4">
                 <p class="afacad text-sm font-medium uppercase tracking-[0.3em] text-muted-foreground">
                     Résumé
                 </p>
 
-                <div class="flex items-center gap-2">
-                    <Button
-                        as-child
-                        variant="link"
-                    >
-                        <a href="/jaiden_dechon_resume.pdf">
-                            View PDF
-                        </a>
-                    </Button>
-
-                    <Button
-                        as-child
-                        class="bg-brand-blue transition-colors hover:bg-brand-blue-darker dark:bg-brand-blue dark:text-brand-blue-foreground dark:hover:bg-brand-blue-darker"
-                    >
-                        <a
-                            class="text-brand-blue-foreground hover:text-brand-blue-foreground"
-                            href="/jaiden_dechon_resume.pdf"
-                            download="jaiden_dechon_resume.pdf"
-                            type="application/pdf"
-                        >
-                            Download PDF
-                        </a>
-                    </Button>
-                </div>
-            </header>
-
-            <div
-                ref="resumePagesElement"
-                class="not-prose"
-            >
-                <div
-                    v-if="isLoadingResume"
-                    class="rounded-xl border border-border bg-background p-6 text-sm text-muted-foreground shadow"
-                >
-                    Loading resume preview...
-                </div>
-
-                <div
-                    v-else-if="resumeLoadError"
-                    class="rounded-xl border border-border bg-background p-6 text-sm text-muted-foreground shadow"
-                >
-                    {{ resumeLoadError }}
-                    <a
-                        href="/jaiden_dechon_resume.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Open the resume directly
-                    </a>.
-                </div>
-
-                <div
-                    v-else
-                    class="flex flex-col gap-4"
-                >
-                    <img
-                        v-for="(pageImage, index) in resumePageImages"
-                        :key="index"
-                        :src="pageImage"
-                        :alt="`Resume page ${index + 1}`"
-                        class="block w-full rounded-xl border border-border bg-background shadow"
-                    >
-                </div>
+                <resume-download-button />
             </div>
-        </section>
+
+            <div class="resume-document">
+                <!-- Page 1 — header, skills and references alongside the summary
+                     and the first employment entry. -->
+                <resume-page>
+                    <template #sidebar>
+                        <resume-header />
+
+                        <resume-section
+                            title="Skills"
+                            column="sidebar"
+                        >
+                            <resume-skills />
+                        </resume-section>
+
+                        <resume-section
+                            title="References"
+                            column="sidebar"
+                            :caption="RESUME_REFERENCES_CAPTION"
+                        >
+                            <resume-reference
+                                v-for="reference in RESUME_REFERENCES"
+                                :key="reference.name"
+                                :reference="reference"
+                            />
+                        </resume-section>
+                    </template>
+
+                    <resume-section column="main">
+                        <p
+                            v-for="(paragraph, index) in RESUME_SUMMARY"
+                            :key="index"
+                            class="resume-summary__paragraph"
+                        >
+                            <resume-rich-text :runs="paragraph" />
+                        </p>
+                    </resume-section>
+
+                    <resume-section
+                        title="Employment history"
+                        column="main"
+                    >
+                        <resume-job
+                            v-for="job in PAGE_ONE_JOBS"
+                            :key="job.title"
+                            :job="job"
+                        />
+                    </resume-section>
+                </resume-page>
+
+                <!-- Page 2 — remaining employment entries, then the start of
+                     Projects. -->
+                <resume-page>
+                    <template #sidebar>
+                        <resume-section
+                            title="Links"
+                            column="sidebar"
+                        >
+                            <resume-links />
+                        </resume-section>
+
+                        <resume-section
+                            title="Hobbies"
+                            column="sidebar"
+                        >
+                            <resume-bullets :items="RESUME_HOBBIES" />
+                        </resume-section>
+
+                        <resume-section
+                            title="Courses"
+                            column="sidebar"
+                        >
+                            <resume-course
+                                v-for="course in RESUME_COURSES"
+                                :key="course.title"
+                                :course="course"
+                            />
+                        </resume-section>
+                    </template>
+
+                    <resume-section column="main">
+                        <resume-job
+                            v-for="job in PAGE_TWO_JOBS"
+                            :key="job.title"
+                            :job="job"
+                        />
+                    </resume-section>
+
+                    <resume-section
+                        title="Projects"
+                        column="main"
+                    >
+                        <resume-project
+                            v-for="project in PAGE_TWO_PROJECTS"
+                            :key="project.name"
+                            :project="project"
+                        />
+                    </resume-section>
+                </resume-page>
+
+                <!-- Page 3 — the tail of Projects, with the credentials
+                     sections carried down the sidebar. -->
+                <resume-page>
+                    <template #sidebar>
+                        <resume-section
+                            title="Certifications"
+                            column="sidebar"
+                        >
+                            <resume-certification
+                                v-for="certification in RESUME_CERTIFICATIONS"
+                                :key="certification.certificateNumber"
+                                :certification="certification"
+                            />
+                        </resume-section>
+                    </template>
+
+                    <resume-section column="main">
+                        <resume-project
+                            v-for="project in PAGE_THREE_PROJECTS"
+                            :key="project.name"
+                            :project="project"
+                        />
+                    </resume-section>
+                </resume-page>
+            </div>
+
+            <!-- Centred rather than justified: unlike the toolbar above, this
+                 one has no label to sit opposite. -->
+            <div class="resume-actions mt-8 flex justify-center">
+                <resume-download-button />
+            </div>
+        </div>
     </main>
 </template>
