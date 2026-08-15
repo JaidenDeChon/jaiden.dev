@@ -364,8 +364,9 @@
     white-space: nowrap;
     padding: calc(1.5 * var(--resume-unit)) calc(4 * var(--resume-unit));
     border-radius: calc(3 * var(--resume-unit));
-    background-color: var(--resume-ink);
-    color: var(--resume-paper);
+    border: 1px solid var(--resume-ink);
+    background-color: var(--resume-paper);
+    color: var(--resume-ink);
     font-size: var(--resume-size-body);
     line-height: calc(11 * var(--resume-unit));
     -webkit-print-color-adjust: exact;

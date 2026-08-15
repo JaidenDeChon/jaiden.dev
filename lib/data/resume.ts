@@ -45,8 +45,6 @@ export interface ResumeProject {
 
 export interface ResumeReference {
     name: string;
-    // TODO: add job titles — these are company names for now and may be
-    // swapped for the reference's actual title later.
     role?: string;
 }
 
@@ -268,9 +266,10 @@ export const RESUME_SKILLS: string[] = [
 export const RESUME_REFERENCES_CAPTION = 'Phone numbers provided upon request, out of respect for the privacy of my references.';
 
 export const RESUME_REFERENCES: ResumeReference[] = [
-    { name: 'Jeremy Stephens', role: 'Beast Code' },
-    { name: 'J.D. Compton', role: 'Beast Code' },
-    { name: 'Jack Timmons', role: 'Prado' },
+    { name: 'Mike Sanders', role: 'CEO, Exploit Technology' },
+    { name: 'Jeremy Stephens', role: 'Senior Software Engineer, Beast Code' },
+    { name: 'J.D. Compton', role: 'Design Lead, Beast Code' },
+    { name: 'Jack Timmons', role: 'Senior Software Engineer, Prado' },
 ];
 
 export const RESUME_LINKS: ResumeLink[] = [
