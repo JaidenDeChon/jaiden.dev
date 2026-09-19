@@ -1,5 +1,8 @@
 [build]
-  command = "bun run build && node scripts/prepare-netlify-function-deps.mjs"
+  # The share-image check runs after the build so the Nuxt aliases it imports
+  # through are guaranteed to be in place. It only fails the deploy when a
+  # linked image is definitely gone — see scripts/check-linked-share-images.ts.
+  command = "bun run build && bun run check:share-images && node scripts/prepare-netlify-function-deps.mjs"
 
 [build.environment]
   BUN_VERSION = "1.3.11"
