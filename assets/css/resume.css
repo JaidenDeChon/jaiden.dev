@@ -81,10 +81,9 @@
     --resume-entry-gap: calc(18 * var(--resume-unit));
     --resume-bullet-gap: calc(1.55 * var(--resume-unit));
 
-    /* Project thumbnails — about five to six lines of body copy tall, sized so
-       only the longest descriptions spill beneath them. */
+    /* Project thumbnails — a fixed column width that the description wraps
+       beside; each image's own proportions decide how tall it ends up. */
     --resume-project-image-width: calc(100 * var(--resume-unit));
-    --resume-project-image-height: calc(68 * var(--resume-unit));
     --resume-project-image-gap: calc(8 * var(--resume-unit));
 
     /* Matches the site's --radius (0.5rem) at document scale. */
@@ -326,16 +325,18 @@
 
 /* ------------------------------------------------------------- projects --- */
 
+/* Only the width is fixed, so every thumbnail keeps its own proportions
+   rather than being cropped to one shape. The column stays flush; the height
+   is whatever the image is, which the paginator accounts for. */
 .resume-project__image {
     float: left;
     width: var(--resume-project-image-width);
-    height: var(--resume-project-image-height);
+    height: auto;
     margin:
         calc(0.5 * var(--resume-unit))
         var(--resume-project-image-gap)
         calc(2 * var(--resume-unit))
         0;
-    object-fit: cover;
     border-radius: var(--resume-radius);
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;

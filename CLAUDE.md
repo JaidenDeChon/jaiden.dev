@@ -4,6 +4,24 @@
 
 Use Bun for everything. No npm, yarn, or pnpm.
 
+## Project share images
+
+Projects that publish their own share image are linked, not copied: `image` in
+`lib/constants/projects/projects-list.ts` holds the live URL on that project's
+own site, so restyling a share card there updates the card and the `og:image`
+here with nothing to re-sync. jaiden.dev itself and SelfAwareGrid are the
+exceptions and stay local.
+
+- A *rename* on the far side still breaks the link. `bun run check:share-images`
+  catches it, and runs during the Netlify build so a rename fails the deploy.
+  It only fails on a definite answer — a 404, or a 200 that hands back HTML
+  instead of an image — and shrugs off hosts it cannot reach.
+- Remote hosts must be listed twice, in `image.domains` (`nuxt.config.ts`) and
+  `remote_images` (`netlify.toml`). On Netlify, @nuxt/image routes every image
+  through the Netlify Image CDN, which refuses hosts it wasn't told about.
+- The resume keeps its own copy under `public/img/resume/`, re-exported from the
+  same source art at 440px wide. A new share card means re-exporting that too.
+
 ## The resume
 
 `/resume` is a real page, not a PDF viewer. `public/jaiden_dechon_resume.pdf` is
