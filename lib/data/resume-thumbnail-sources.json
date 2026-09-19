@@ -15,6 +15,10 @@
         "source": "https://psy-kick.me/img/social-preview.png",
         "sha256": "5650a19e8c652c8e4a2f66077b377e54e5aaec31458ad04bcfbe53084f1acb62"
     },
+    "self-aware-grid.png": {
+        "source": "https://jaidendechon.github.io/SelfAwareGrid-Demo/social-preview.png",
+        "sha256": "ebea0b3984a2fb1a3137bf4c732239a734f84274db1e775a02d80afee450736c"
+    },
     "uap-gerb-knowledge-base.png": {
         "source": "https://uapgdb.netlify.app/img/share-preview.png",
         "sha256": "50cccf2c6e41d1f97fea5f8a8247027895373c90fd767ca389dbd5b14208cfd3"

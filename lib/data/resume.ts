@@ -227,6 +227,15 @@ export const RESUME_PROJECTS: ResumeProject[] = [
             { text: 'My most recent side project, UAP Gerb Knowledge Base is a wiki that I maintain of all of the major topics covered by the YouTube channel "UAP Gerb." This channel documents the people, organizations, and concepts surrounding the fascinating topic of UFOs.' },
         ],
     },
+    {
+        name: 'self-aware-grid',
+        url: 'https://jaidendechon.github.io/SelfAwareGrid-Demo',
+        href: 'https://jaidendechon.github.io/SelfAwareGrid-Demo/',
+        image: '/img/resume/self-aware-grid.png',
+        description: [
+            { text: 'self-aware-grid is a small, zero-dependency NPM package I wrote for enhancing the capabilities of CSS grid. Gives positional awareness to each cell, enabling new possibilities such as Excel-like grid navigation and responsive by-column or by-row styling.' },
+        ],
+    },
 ];
 
 /** Rendered as one flowing comma-separated list. Order is deliberate. */
