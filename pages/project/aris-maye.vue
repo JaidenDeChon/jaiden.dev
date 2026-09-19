@@ -68,7 +68,7 @@ const technologies = [
             :project-header-info="projectInfo"
         />
 
-        <div class="bg-muted py-12">
+        <div class="bg-brand-blue/10 py-12">
             <div class="article-column-width px-6 lg:px-0">
                 <h2 class="text-2xl font-semibold mb-2">
                     Built With
