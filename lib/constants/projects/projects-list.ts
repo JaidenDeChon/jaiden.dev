@@ -20,7 +20,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.LUCY_VPMS}`,
         description:
             'Veterinary practice management system for scheduling, invoicing, and inventory',
-        image: 'https://lucy.vet/social-thumbnail.png',
+        image: 'https://lucy.vet/social-thumbnail-v2.png',
         tags: ['Nuxt', 'Vue', 'Supabase'],
         relatedLinks: [
             {
