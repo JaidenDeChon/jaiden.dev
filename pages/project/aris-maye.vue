@@ -74,7 +74,7 @@ const technologies = [
                     Built With
                 </h2>
                 <p class="text-muted-foreground mb-8">
-                    The tools and libraries behind GE Skiller.
+                    The tools and libraries behind Aris Maye.
                 </p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div

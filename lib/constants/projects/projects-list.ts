@@ -53,12 +53,12 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         relatedLinks: [
             {
                 name: 'Source Code',
-                url: 'https://github.com/JaidenDeChon/ge-skiller',
+                url: 'https://github.com/JaidenDeChon/aris-maye',
                 icon: 'mdi:github',
             },
             {
                 name: 'Live site',
-                url: 'https://ge-skiller.netlify.app/',
+                url: 'https://aris-maye.netlify.app/',
                 icon: 'mdi:earth',
             },
         ],

@@ -190,14 +190,14 @@ export const RESUME_PROJECTS: ResumeProject[] = [
         ],
     },
     {
-        name: 'GE Skiller',
-        url: 'https://ge-skiller.netlify.app',
-        href: 'https://ge-skiller.netlify.app',
-        image: '/img/resume/ge-skiller.png',
+        name: 'Aris Maye',
+        url: 'https://aris-maye.netlify.app',
+        href: 'https://aris-maye.netlify.app',
+        image: '/img/resume/aris-maye.png',
         description: [
             { text: 'For players of the nostalgic MMORPG ' },
             { text: 'Old School RuneScape', italic: true },
-            { text: '. GE Skiller pulls live economy data from the game every hour, compares it to your own character\'s stats, and calculates the most profitable activity your character can do today.' },
+            { text: '. Aris Maye pulls live economy data from the game every hour, compares it to your own character\'s stats, and calculates the most profitable activity your character can do today.' },
         ],
     },
     {
