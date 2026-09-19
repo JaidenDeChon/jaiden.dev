@@ -10,7 +10,8 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint",
     "resume:pdf": "bun scripts/generate-resume-pdf.ts",
-    "check:share-images": "bun scripts/check-linked-share-images.ts"
+    "check:share-images": "bun scripts/check-linked-share-images.ts",
+    "resume:thumbnails": "bun scripts/sync-resume-thumbnails.ts"
   },
   "dependencies": {
     "@fontsource/ibm-plex-sans": "^5.3.0",

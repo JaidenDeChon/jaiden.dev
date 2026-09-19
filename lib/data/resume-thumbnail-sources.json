@@ -1,0 +1,22 @@
+{
+    "aris-maye.png": {
+        "source": "https://aris-maye.netlify.app/other-images/share-thumb.png",
+        "sha256": "995f30bbd1018a329637ca447654f9cef771bf1217d8a38cb95077719de279da"
+    },
+    "jaiden-dot-dev.png": {
+        "source": "public/img/share-preview.png",
+        "sha256": "9b89c42e9e2842a4674673eeac4563e7ab552f439f23aa0f7970ad047c0a6aa1"
+    },
+    "lucy-vpms.png": {
+        "source": "https://lucy.vet/social-thumbnail-v2.png",
+        "sha256": "cc9206105afdb3e9a281f682920603ddeebd9b28511c616ababac7499c0e841b"
+    },
+    "psy-kick.png": {
+        "source": "https://psy-kick.me/img/social-preview.png",
+        "sha256": "5650a19e8c652c8e4a2f66077b377e54e5aaec31458ad04bcfbe53084f1acb62"
+    },
+    "uap-gerb-knowledge-base.png": {
+        "source": "https://uapgdb.netlify.app/img/share-preview.png",
+        "sha256": "50cccf2c6e41d1f97fea5f8a8247027895373c90fd767ca389dbd5b14208cfd3"
+    }
+}

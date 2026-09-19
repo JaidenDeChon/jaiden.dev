@@ -1,43 +1,35 @@
 /**
- * Verifies that every share image this site links to another of my sites is
- * still being served from the URL we point at.
- *
- * Projects that publish their own share image are linked rather than copied
- * (see `lib/constants/projects/projects-list.ts`), so restyling one updates
- * this site with nothing to re-sync. The cost is that a *rename* on the far
- * side breaks the link silently: lucy.vet did exactly that, replacing
- * social-thumbnail.png with social-thumbnail-v2.png, and nothing here would
- * have noticed until someone saw a broken card.
+ * Checks that the share images this site leans on are still what it thinks
+ * they are.
  *
  *     bun run check:share-images
  *
- * It runs as part of the Netlify build, so a rename fails the deploy instead
- * of shipping a hole in the projects grid and a dead og:image.
+ * Two different things can go wrong, because the site uses those images two
+ * different ways.
  *
- * A 200 is not enough on its own. Netlify and friends answer an unknown path
- * with the SPA fallback — 200, and a page of HTML — so a renamed image would
- * sail through a plain status check. The response has to actually be an image.
+ * Project cards link a project's share image live, so restyling one updates
+ * the card and the og:image with nothing to re-sync. What that can't survive
+ * is a *rename*: lucy.vet replaced social-thumbnail.png with
+ * social-thumbnail-v2.png and nothing here would have noticed until someone
+ * saw a broken card. So every linked URL is asked whether it still serves an
+ * image.
  *
- * Only a definite answer fails the build. A host that is down, refusing us, or
- * unreachable is reported and shrugged off: that is someone else's outage, and
- * failing this deploy would not fix it. The distinction is the whole point —
- * "renamed" is permanent and actionable, "unreachable" is neither.
+ * The resume can't link anything — it prints to a PDF — so it keeps its own
+ * copy of each project's art under public/img/resume/. Those copies go stale
+ * silently the other way round: the far side restyles its card, the card here
+ * follows, and the resume quietly keeps showing last year's picture. So each
+ * source is hashed and compared against what it was when the thumbnail was
+ * cut. `bun run resume:thumbnails` re-cuts them and re-records the hashes.
+ *
+ * Both run during the Netlify build, and both fail it, because both are
+ * definite and both have a one-command fix. A host that is down or unreachable
+ * is neither, so it is reported and shrugged off: that is someone else's
+ * outage, and failing this deploy would not fix it.
  */
 import process from 'node:process';
+import { type Fetched, loadSource, readManifest, sha256 } from './share-image-sources';
 import { PROJECTS_LIST } from '~/lib/constants/projects/projects-list';
 import { BLOG_POST_LIST } from '~/lib/constants/blog-posts/blog-post-list';
-
-const REQUEST_TIMEOUT_MS = 15_000;
-
-type Outcome =
-    | { status: 'ok'; contentType: string }
-    | { status: 'broken'; detail: string }
-    | { status: 'unknown'; detail: string };
-
-interface Result {
-    url: string;
-    outcome: Outcome;
-}
 
 /** Every absolute image URL the site links, deduped, in the order declared. */
 export function linkedImageUrls(): string[] {
@@ -49,104 +41,107 @@ export function linkedImageUrls(): string[] {
     return [...new Set(images)];
 }
 
-async function request(url: string, method: 'HEAD' | 'GET'): Promise<Response> {
-    return fetch(url, {
-        method,
-        redirect: 'follow',
-        headers: method === 'GET' ? { range: 'bytes=0-0' } : undefined,
-        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-    });
+interface Checked {
+    label: string;
+    source: string;
+    fetched: Fetched;
+    /** Set only for resume thumbnails, whose source art is pinned by hash. */
+    drifted?: boolean;
 }
 
-/**
- * Asks whether `url` still serves an image.
- *
- * Exported so the behaviour can be exercised against a local server; the
- * classification, not the network, is the part worth testing.
- */
-export async function checkUrl(url: string): Promise<Outcome> {
-    let response: Response;
+function report(checked: Checked): void {
+    const { fetched, label, source, drifted } = checked;
 
-    try {
-        response = await request(url, 'HEAD');
+    const mark = fetched.status === 'broken'
+        ? 'GONE'
+        : fetched.status === 'unknown'
+            ? '??  '
+            : drifted
+                ? 'OLD '
+                : 'ok  ';
 
-        // Not every host implements HEAD. Ask for a single byte instead.
-        if (response.status === 405 || response.status === 501) {
-            response = await request(url, 'GET');
-        }
-    }
-    catch (error) {
-        // DNS failure, refused connection, TLS problem, timeout: all of them
-        // mean we never got an answer, not that the image is gone.
-        return { status: 'unknown', detail: error instanceof Error ? error.message : String(error) };
-    }
+    const note = fetched.status === 'ok'
+        ? drifted ? 'source art has changed since this was cut' : fetched.contentType
+        : fetched.detail;
 
-    if (response.status === 404 || response.status === 410) {
-        return { status: 'broken', detail: `HTTP ${response.status} — nothing is served here any more` };
-    }
-
-    if (!response.ok) {
-        return { status: 'unknown', detail: `HTTP ${response.status}` };
-    }
-
-    const contentType = response.headers.get('content-type') ?? '';
-
-    if (!contentType.startsWith('image/')) {
-        return {
-            status: 'broken',
-            detail: `HTTP ${response.status} but served ${contentType || 'no content-type'} — `
-                + 'likely a not-found page answering in the image\'s place',
-        };
-    }
-
-    return { status: 'ok', contentType };
+    console.log(`  ${mark}  ${label}\n        ${source}\n        ${note}`);
 }
 
 async function main(): Promise<void> {
     const urls = linkedImageUrls();
+    const manifest = await readManifest();
 
-    if (urls.length === 0) {
-        console.log('No linked share images to check.');
-        return;
-    }
+    // One fetch per distinct source: most linked URLs are also the art a
+    // resume thumbnail was cut from, and there is no reason to ask twice.
+    const sources = [...new Set([...urls, ...Object.values(manifest).map(entry => entry.source)])];
 
-    console.log(`Checking ${urls.length} linked share image${urls.length === 1 ? '' : 's'}...\n`);
+    console.log(`Reading ${sources.length} share image source${sources.length === 1 ? '' : 's'}...\n`);
 
-    const results: Result[] = await Promise.all(
-        urls.map(async url => ({ url, outcome: await checkUrl(url) })),
+    const fetched = new Map<string, Fetched>(
+        await Promise.all(
+            sources.map(async source => [source, await loadSource(source)] as const),
+        ),
     );
 
-    for (const { url, outcome } of results) {
-        const mark = outcome.status === 'ok' ? 'ok  ' : outcome.status === 'broken' ? 'GONE' : '??  ';
-        const note = outcome.status === 'ok' ? outcome.contentType : outcome.detail;
-        console.log(`  ${mark}  ${url}\n        ${note}`);
-    }
+    const linked: Checked[] = urls.map(url => ({
+        label: 'linked by a project card',
+        source: url,
+        fetched: fetched.get(url)!,
+    }));
 
-    const broken = results.filter(result => result.outcome.status === 'broken');
-    const unknown = results.filter(result => result.outcome.status === 'unknown');
+    const thumbnails: Checked[] = Object.entries(manifest).map(([name, entry]) => {
+        const result = fetched.get(entry.source)!;
+
+        return {
+            label: `resume thumbnail ${name}`,
+            source: entry.source,
+            fetched: result,
+            drifted: result.status === 'ok' && sha256(result.bytes) !== entry.sha256,
+        };
+    });
+
+    console.log('Linked project card images\n');
+    linked.forEach(report);
+    console.log('\nResume thumbnail source art\n');
+    thumbnails.forEach(report);
+
+    const all = [...linked, ...thumbnails];
+    const broken = all.filter(entry => entry.fetched.status === 'broken');
+    const unknown = all.filter(entry => entry.fetched.status === 'unknown');
+    const drifted = thumbnails.filter(entry => entry.drifted);
 
     if (unknown.length > 0) {
-        console.log(`\n${unknown.length} could not be reached. Not failing on that — an unreachable `
-            + 'host says nothing about whether the image moved, only that nobody could ask.');
+        console.log(`\n${unknown.length} could not be read. Not failing on that — an unreachable `
+            + 'host says nothing about the art, only that nobody could ask.');
     }
 
     if (broken.length > 0) {
-        console.error(`\n${broken.length} linked share image${broken.length === 1 ? ' is' : 's are'} `
-            + 'no longer served at the URL we point at.');
-        console.error('Find where it moved to in that project\'s repo and update `image` in '
-            + 'lib/constants/projects/projects-list.ts (and re-export the resume thumbnail from '
-            + 'the new art, if the project has one).');
+        console.error(`\n${broken.length} share image${broken.length === 1 ? ' is' : 's are'} `
+            + 'no longer served where we look for it.');
+        console.error('Find where it moved to in that project\'s repo, then update `image` in '
+            + 'lib/constants/projects/projects-list.ts and `source` in '
+            + 'lib/data/resume-thumbnail-sources.json.');
+    }
+
+    if (drifted.length > 0) {
+        console.error(`\n${drifted.length} resume thumbnail${drifted.length === 1 ? ' was' : 's were'} `
+            + 'cut from art that has since changed.');
+        console.error('Run `bun run resume:thumbnails` to re-cut them, then `bun run resume:pdf`, '
+            + 'and commit both.');
+    }
+
+    if (broken.length > 0 || drifted.length > 0) {
         process.exitCode = 1;
         return;
     }
 
-    const verified = results.length - unknown.length;
+    const verified = all.length - unknown.length;
 
-    // Don't claim more than was actually established: every check coming back
+    // Don't claim more than was actually established: every read coming back
     // inconclusive is not the same as every image being fine.
-    console.log(verified === results.length
-        ? '\nEvery linked share image is still there.'
-        : `\n${verified} of ${results.length} confirmed present; the rest went unanswered.`);
+    console.log(verified === all.length
+        ? '\nEvery share image is present and matches what the resume was cut from.'
+        : `\n${verified} of ${all.length} confirmed; the rest went unanswered.`);
 }
 
 if (import.meta.main) {
