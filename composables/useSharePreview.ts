@@ -1,4 +1,5 @@
 import { toValue, type MaybeRefOrGetter } from 'vue';
+import { SHARE_IMAGE_HEIGHT, SHARE_IMAGE_WIDTH } from '~/lib/constants/share-preview';
 
 export interface SharePreviewOptions {
     /**
@@ -79,6 +80,10 @@ export function useSharePreview(options: SharePreviewOptions): void {
 
         meta.ogImage = absoluteImage;
         meta.ogImageType = inferImageType(image);
+        // Restated rather than inherited from the site-wide default, so the
+        // hint always describes the image this page actually points at.
+        meta.ogImageWidth = SHARE_IMAGE_WIDTH;
+        meta.ogImageHeight = SHARE_IMAGE_HEIGHT;
         meta.ogImageAlt = imageAlt;
         meta.twitterImage = absoluteImage;
         meta.twitterImageAlt = imageAlt;

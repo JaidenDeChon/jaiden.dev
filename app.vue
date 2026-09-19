@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { SHARE_IMAGE_HEIGHT, SHARE_IMAGE_WIDTH } from '~/lib/constants/share-preview';
+
 useAppConfig();
 
 const colorMode = useColorMode();
@@ -7,9 +9,9 @@ colorMode.preference = 'system';
 // Site-wide social share (Open Graph / Twitter) defaults. Individual pages
 // set their own title via `useSharePreview`, and article pages additionally
 // override the share image; anything a page doesn't set falls back to these
-// defaults. Image dimensions are intentionally left unset here — pages that
-// swap in a differently-sized image can't clear a stale width/height hint, so
-// omitting them keeps every share image from being mis-sized by the default.
+// defaults. Declaring the image dimensions is safe because every share image
+// is exported at the same standard size — a page that overrides the image
+// restates them through `useSharePreview` rather than inheriting a stale hint.
 const requestUrl = useRequestURL();
 const shareImage = `${requestUrl.origin}/img/share-preview.png`;
 const shareDescription = 'I create beautiful web-apps with an intense focus on performance and accessibility.';
@@ -20,6 +22,8 @@ useSeoMeta({
     ogDescription: shareDescription,
     ogImage: shareImage,
     ogImageType: 'image/png',
+    ogImageWidth: SHARE_IMAGE_WIDTH,
+    ogImageHeight: SHARE_IMAGE_HEIGHT,
     ogImageAlt: 'jaiden.dev',
     twitterCard: 'summary_large_image',
     twitterTitle: 'jaiden.dev',
