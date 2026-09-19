@@ -35,6 +35,20 @@ export default defineNuxtConfig({
         '@nuxt/content',
         '@nuxtjs/turnstile',
     ],
+    // Projects that publish their own share image are linked rather than copied
+    // (see `lib/constants/projects/projects-list.ts`). On Netlify, @nuxt/image
+    // switches to the Netlify Image CDN provider, which routes every image —
+    // remote ones included — through `/.netlify/images`, and that CDN refuses
+    // any remote host it hasn't been told about. Listing the hosts here allows
+    // them; keep this in sync with `remote_images` in `netlify.toml`.
+    image: {
+        domains: [
+            'lucy.vet',
+            'aris-maye.netlify.app',
+            'psy-kick.me',
+            'uapgdb.netlify.app',
+        ],
+    },
     runtimeConfig: {
         resendApiKey: process.env.RESEND_API_KEY,
         contactEmail,

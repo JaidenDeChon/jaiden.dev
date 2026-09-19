@@ -1,4 +1,5 @@
 import { toValue, type MaybeRefOrGetter } from 'vue';
+import { SHARE_IMAGE_HEIGHT, SHARE_IMAGE_WIDTH } from '~/lib/constants/share-preview';
 
 export interface SharePreviewOptions {
     /**
@@ -13,10 +14,11 @@ export interface SharePreviewOptions {
      */
     description?: MaybeRefOrGetter<string | undefined>;
     /**
-     * Page-specific share image as a site-relative path (e.g.
-     * `/img/self-aware-grid.png`). When provided it overrides the site-wide
-     * default share image for this page; when omitted the default image from
-     * `app.vue` is kept untouched.
+     * Page-specific share image, either as a site-relative path (e.g.
+     * `/img/self-aware-grid.png`) or as an absolute URL when the project
+     * publishes its own share image (e.g. `https://lucy.vet/social-thumbnail.png`).
+     * When provided it overrides the site-wide default share image for this
+     * page; when omitted the default image from `app.vue` is kept untouched.
      */
     image?: MaybeRefOrGetter<string | undefined>;
     /**
@@ -35,7 +37,10 @@ const IMAGE_MIME_TYPES: Record<string, string> = {
 };
 
 function inferImageType(imagePath: string): string | undefined {
-    const extension = imagePath.split('.').pop()?.toLowerCase();
+    // The path may be site-relative or an absolute URL pointing at another of
+    // my sites, so drop any query string or fragment before reading the
+    // extension off the end.
+    const extension = imagePath.split(/[?#]/)[0].split('.').pop()?.toLowerCase();
     return extension ? IMAGE_MIME_TYPES[extension] : undefined;
 }
 
@@ -75,6 +80,10 @@ export function useSharePreview(options: SharePreviewOptions): void {
 
         meta.ogImage = absoluteImage;
         meta.ogImageType = inferImageType(image);
+        // Restated rather than inherited from the site-wide default, so the
+        // hint always describes the image this page actually points at.
+        meta.ogImageWidth = SHARE_IMAGE_WIDTH;
+        meta.ogImageHeight = SHARE_IMAGE_HEIGHT;
         meta.ogImageAlt = imageAlt;
         meta.twitterImage = absoluteImage;
         meta.twitterImageAlt = imageAlt;

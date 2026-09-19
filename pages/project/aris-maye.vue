@@ -4,12 +4,12 @@ import { PROJECTS_LIST } from '~/lib/constants/projects/projects-list';
 import { ProjectArticleNames } from '~/lib/constants/projects/project-article-enums';
 
 const projectInfo = computed(() =>
-    PROJECTS_LIST.find(project => project.title === ProjectArticleNames.GE_SKILLER),
+    PROJECTS_LIST.find(project => project.title === ProjectArticleNames.ARIS_MAYE),
 );
 
-const { data: article } = await useAsyncData('project-spotlight-ge-skiller', () =>
+const { data: article } = await useAsyncData('project-spotlight-aris-maye', () =>
     queryCollection('projectSpotlights')
-        .path('/project-spotlights/ge-skiller')
+        .path('/project-spotlights/aris-maye')
         .first(),
 );
 

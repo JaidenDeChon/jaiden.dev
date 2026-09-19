@@ -5,13 +5,22 @@ import {
     ProjectArticlePaths,
 } from '~/lib/constants/projects/project-article-enums';
 
+/**
+ * Every project that publishes its own social share image points `image` at
+ * that live URL rather than keeping a copy here. The project's site stays the
+ * single source of truth, so restyling its share card updates this site's
+ * cards and share previews too, with nothing to re-copy.
+ *
+ * The exceptions are projects with nowhere to point: jaiden.dev is this site,
+ * and SelfAwareGrid's demo page publishes no share image. Those stay local.
+ */
 export const PROJECTS_LIST: ProjectHeader[] = [
     {
         title: ProjectArticleNames.LUCY_VPMS,
         path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.LUCY_VPMS}`,
         description:
             'Veterinary practice management system for scheduling, invoicing, and inventory',
-        image: '/img/lucy-vpms.png',
+        image: 'https://lucy.vet/social-thumbnail.png',
         tags: ['Nuxt', 'Vue', 'Supabase'],
         relatedLinks: [
             {
@@ -36,10 +45,10 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         ],
     },
     {
-        title: ProjectArticleNames.GE_SKILLER,
-        path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.GE_SKILLER}`,
+        title: ProjectArticleNames.ARIS_MAYE,
+        path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.ARIS_MAYE}`,
         description: 'A useful tool for poor Old School RuneScape characters',
-        image: '/img/ge-skiller.png',
+        image: 'https://aris-maye.netlify.app/other-images/share-thumb.png',
         tags: ['SvelteKit', 'MongoDB', 'Tailwind', 'Personal'],
         relatedLinks: [
             {
@@ -59,7 +68,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.PSY_KICK}`,
         description:
             'An app for strengthening and tracking one\'s skills in Remote Viewing, modeled after real CIA protocols',
-        image: '/img/psy-kick.png',
+        image: 'https://psy-kick.me/img/social-preview.png',
         tags: ['Nuxt', 'Vue', 'Supabase'],
         relatedLinks: [
             {
@@ -79,7 +88,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.UAP_GERB_KNOWLEDGE_BASE}`,
         description:
             'A wiki of the topics, people, places, and events covered on the UAP Gerb YouTube channel',
-        image: '/img/uap-gerb-knowledge-base.png',
+        image: 'https://uapgdb.netlify.app/img/share-preview.png',
         tags: ['Nuxt 4', 'Vue', 'Obsidian', 'Python', 'Claude API'],
         relatedLinks: [
             {

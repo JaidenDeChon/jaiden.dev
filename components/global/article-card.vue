@@ -23,22 +23,22 @@ const nuxtRouterDestination = computed(() =>
             v-if="hasDestination"
             :to="nuxtRouterDestination"
         >
-            <div class="w-full bg-accent h-56 flex items-center justify-center rounded-md overflow-hidden">
+            <div class="w-full bg-accent rounded-md overflow-hidden">
                 <nuxt-img
                     :src="$props.articleHeaderData.image"
                     :alt="`Image for ${$props.articleHeaderData.title}`"
-                    class="w-full h-full max-w-full max-h-full object-cover transition-all group-hover:scale-105"
+                    class="block w-full h-auto transition-all group-hover:scale-105"
                 />
             </div>
         </nuxt-link>
         <div
             v-else
-            class="w-full bg-accent h-56 flex items-center justify-center rounded-md overflow-hidden"
+            class="w-full bg-accent rounded-md overflow-hidden"
         >
             <nuxt-img
                 :src="$props.articleHeaderData.image"
                 :alt="`Image for ${$props.articleHeaderData.title}`"
-                class="w-full h-full max-w-full max-h-full object-cover"
+                class="block w-full h-auto"
             />
         </div>
 
