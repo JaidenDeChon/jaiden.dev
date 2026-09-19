@@ -12,15 +12,28 @@ own site, so restyling a share card there updates the card and the `og:image`
 here with nothing to re-sync. jaiden.dev itself and SelfAwareGrid are the
 exceptions and stay local.
 
-- A *rename* on the far side still breaks the link. `bun run check:share-images`
-  catches it, and runs during the Netlify build so a rename fails the deploy.
-  It only fails on a definite answer — a 404, or a 200 that hands back HTML
-  instead of an image — and shrugs off hosts it cannot reach.
+- A *rename* on the far side still breaks the link, and a *restyle* leaves the
+  resume's copies showing old art. `bun run check:share-images` catches both and
+  runs during the Netlify build, so either fails the deploy. It only fails on a
+  definite answer — a 404, a 200 that hands back HTML, or a source whose hash has
+  moved — and shrugs off hosts it cannot reach.
 - Remote hosts must be listed twice, in `image.domains` (`nuxt.config.ts`) and
   `remote_images` (`netlify.toml`). On Netlify, @nuxt/image routes every image
   through the Netlify Image CDN, which refuses hosts it wasn't told about.
-- The resume keeps its own copy under `public/img/resume/`, re-exported from the
-  same source art at 440px wide. A new share card means re-exporting that too.
+- The resume can't link anything, since it prints to a PDF, so it keeps its own
+  copies under `public/img/resume/`. `lib/data/resume-thumbnail-sources.json`
+  records the art each was cut from and that art's hash; drift against those
+  hashes is what the check notices.
+
+### After a project restyles its share card
+
+    bun run resume:thumbnails   # re-cut every thumbnail, re-record the hashes
+    bun run resume:pdf          # the PDF carries the thumbnails, so reprint it
+
+Commit the thumbnails, the manifest and the PDF together. Cut the thumbnails
+with the project's own sharp — `bun run resume:thumbnails`, never an ad-hoc
+script run from outside the repo, which picks up a different libvips and
+rewrites all five with no visible change.
 
 ## The resume
 
