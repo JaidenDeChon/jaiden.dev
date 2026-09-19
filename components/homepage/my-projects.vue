@@ -6,7 +6,7 @@ import { PROJECTS_LIST } from '~/lib/constants/projects/projects-list';
 <template>
     <div
         id="my-projects-parent"
-        class="bg-muted p-9"
+        class="bg-brand-blue/10 p-9"
     >
         <div class="size-for-all-screens">
             <h2 class="text-3xl">

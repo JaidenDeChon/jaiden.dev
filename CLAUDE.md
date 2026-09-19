@@ -9,8 +9,8 @@ Use Bun for everything. No npm, yarn, or pnpm.
 Projects that publish their own share image are linked, not copied: `image` in
 `lib/constants/projects/projects-list.ts` holds the live URL on that project's
 own site, so restyling a share card there updates the card and the `og:image`
-here with nothing to re-sync. jaiden.dev itself and SelfAwareGrid are the
-exceptions and stay local.
+here with nothing to re-sync. jaiden.dev itself is the exception and stays
+local.
 
 - A *rename* on the far side still breaks the link, and a *restyle* leaves the
   resume's copies showing old art. `bun run check:share-images` catches both and

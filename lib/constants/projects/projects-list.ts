@@ -11,8 +11,8 @@ import {
  * single source of truth, so restyling its share card updates this site's
  * cards and share previews too, with nothing to re-copy.
  *
- * The exceptions are projects with nowhere to point: jaiden.dev is this site,
- * and SelfAwareGrid's demo page publishes no share image. Those stay local.
+ * The one exception is a project with nowhere to point: jaiden.dev is this
+ * site, so its image stays local.
  */
 export const PROJECTS_LIST: ProjectHeader[] = [
     {
@@ -108,7 +108,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.SELF_AWARE_GRID}`,
         description:
             'Open-source NPM package for enhancing functionality of CSS grids',
-        image: '/img/self-aware-grid.png',
+        image: 'https://jaidendechon.github.io/SelfAwareGrid-Demo/social-preview.png',
         tags: ['Open source', 'CSS', 'JavaScript', 'TypeScript'],
         relatedLinks: [
             {

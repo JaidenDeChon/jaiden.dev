@@ -15,7 +15,7 @@ export interface SharePreviewOptions {
     description?: MaybeRefOrGetter<string | undefined>;
     /**
      * Page-specific share image, either as a site-relative path (e.g.
-     * `/img/self-aware-grid.png`) or as an absolute URL when the project
+     * `/img/share-preview.png`) or as an absolute URL when the project
      * publishes its own share image (e.g. `https://lucy.vet/social-thumbnail.png`).
      * When provided it overrides the site-wide default share image for this
      * page; when omitted the default image from `app.vue` is kept untouched.
