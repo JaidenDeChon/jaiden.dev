@@ -36,10 +36,10 @@ export const PROJECTS_LIST: ProjectHeader[] = [
         ],
     },
     {
-        title: ProjectArticleNames.GE_SKILLER,
-        path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.GE_SKILLER}`,
+        title: ProjectArticleNames.ARIS_MAYE,
+        path: `${PROJECT_PATH_PREFIX}/${ProjectArticlePaths.ARIS_MAYE}`,
         description: 'A useful tool for poor Old School RuneScape characters',
-        image: '/img/ge-skiller.png',
+        image: '/img/aris-maye.png',
         tags: ['SvelteKit', 'MongoDB', 'Tailwind', 'Personal'],
         relatedLinks: [
             {
