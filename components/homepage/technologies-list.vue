@@ -132,7 +132,7 @@ const technologies: Technology[] = [
                 <div
                     v-for="technology in technologies"
                     :key="technology.name"
-                    class="technology-card p-4 grow-0 basis-[calc((100%_-_0.75rem)/2)] h-32 flex items-center justify-center flex-col gap-2 border-2 rounded-md bg-brand-blue/55 transition-colors sm:basis-[calc((100%_-_1.5rem)/2)] md:basis-[calc((100%_-_3rem)/3)] md:h-52 md:gap-4 lg:basis-[calc((100%_-_4.5rem)/4)]"
+                    class="technology-card p-4 grow-0 basis-[calc((100%_-_0.75rem)/2)] h-32 flex items-center justify-center flex-col gap-2 border-2 rounded-md bg-brand-blue/20 transition-colors sm:basis-[calc((100%_-_1.5rem)/2)] md:basis-[calc((100%_-_3rem)/3)] md:h-52 md:gap-4 lg:basis-[calc((100%_-_4.5rem)/4)]"
                     :style="{ '--glow-color': technology.iconColor }"
                 >
                     <Icon
