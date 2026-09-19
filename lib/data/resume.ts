@@ -233,7 +233,7 @@ export const RESUME_PROJECTS: ResumeProject[] = [
         href: 'https://jaidendechon.github.io/SelfAwareGrid-Demo/',
         image: '/img/resume/self-aware-grid.png',
         description: [
-            { text: 'self-aware-grid is a small, zero-dependency NPM package I wrote for enhancing the capabilities of CSS grid. Gives positional awareness to each cell, enabling new possibilities such as Excel-like grid navigation and responsive by-column or by-row styling.' },
+            { text: 'SelfAwareGrid is a small, zero-dependency NPM package I wrote for enhancing the capabilities of CSS grid. Gives positional awareness to each cell, enabling new possibilities such as Excel-like grid navigation and responsive by-column or by-row styling.' },
         ],
     },
 ];
