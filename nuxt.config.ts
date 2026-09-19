@@ -47,6 +47,7 @@ export default defineNuxtConfig({
             'aris-maye.netlify.app',
             'psy-kick.me',
             'uapgdb.netlify.app',
+            'jaidendechon.github.io',
         ],
     },
     runtimeConfig: {
