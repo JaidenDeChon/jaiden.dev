@@ -8,3 +8,15 @@
   node_bundler = "esbuild"
   external_node_modules = ["better-sqlite3"]
   included_files = ["node_modules/better-sqlite3/build/Release/better_sqlite3.node"]
+
+# Remote hosts the Netlify Image CDN is allowed to fetch from. Project cards
+# link each project's own share image instead of keeping a copy, and without
+# this allowlist every one of those images 404s. Keep in sync with
+# `image.domains` in `nuxt.config.ts`.
+[images]
+  remote_images = [
+    'https://lucy\.vet/.*',
+    'https://aris-maye\.netlify\.app/.*',
+    'https://psy-kick\.me/.*',
+    'https://uapgdb\.netlify\.app/.*',
+  ]
