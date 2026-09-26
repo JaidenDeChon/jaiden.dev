@@ -73,3 +73,12 @@ diff /tmp/committed.txt /tmp/current.txt
 
 If that reports no difference, restore the committed copy with
 `git checkout public/jaiden_dechon_resume.pdf` and leave it out of the commit.
+
+## Humanizing the site's copy
+
+`.claude/agents/copy-humanizer.md` rewrites the words in one file at a time
+with the vendored humanizer skill (`.claude/skills/humanizer/`), keeping every
+fact, and the `humanize-copy` skill runs it on a loop. The queue, the ledger
+(`.claude/humanized-copy.json`) and the check that proves only copy changed
+live in `scripts/humanize_copy.py`. A resume change still goes through
+`bun run resume:pdf` and the PDF text comparison above.
