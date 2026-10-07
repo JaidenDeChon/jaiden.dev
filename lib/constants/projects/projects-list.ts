@@ -58,7 +58,7 @@ export const PROJECTS_LIST: ProjectHeader[] = [
             },
             {
                 name: 'Live site',
-                url: 'https://aris-maye.netlify.app/',
+                url: 'https://aris-maye.com',
                 icon: 'mdi:earth',
             },
         ],
