@@ -191,8 +191,8 @@ export const RESUME_PROJECTS: ResumeProject[] = [
     },
     {
         name: 'Aris Maye',
-        url: 'https://aris-maye.netlify.app',
-        href: 'https://aris-maye.netlify.app',
+        url: 'https://aris-maye.com',
+        href: 'https://aris-maye.com',
         image: '/img/resume/aris-maye.png',
         description: [
             { text: 'For players of the nostalgic MMORPG ' },
